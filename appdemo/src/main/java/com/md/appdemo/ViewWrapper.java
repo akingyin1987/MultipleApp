@@ -9,9 +9,13 @@ import android.view.View;
 public class ViewWrapper<V extends View > extends RecyclerView.ViewHolder {
 
     public  V    view;
+
+
+
     public ViewWrapper(V itemView) {
         super(itemView);
         view = itemView;
+
     }
 
     public  V   getView(){

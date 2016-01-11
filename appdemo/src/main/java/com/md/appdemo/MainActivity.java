@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.afollestad.materialdialogs.Theme;
 import com.md.appdemo.model.UserEntity;
 
 import com.md.appdemo.presenter.impl.DemoPresenterImpl;
@@ -31,7 +34,7 @@ import java.util.List;
  */
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends AppCompatActivity implements IdemoView{
+public class MainActivity extends AppCompatActivity implements IdemoView,RecyclerViewAdapterBase.RecyclerItemClickListener{
 
     public   String    action;
 
@@ -78,9 +81,9 @@ public class MainActivity extends AppCompatActivity implements IdemoView{
         findViewById(R.id.app_btn2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserEntity  userEntity = new UserEntity();
-                userEntity.userName="aaaa";
-                userEntity.age=222;
+                UserEntity userEntity = new UserEntity();
+                userEntity.userName = "aaaa";
+                userEntity.age = 222;
                 demoPresenter.addUser(userEntity);
             }
         });
@@ -97,10 +100,14 @@ public class MainActivity extends AppCompatActivity implements IdemoView{
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         app_list.setLayoutManager(linearLayoutManager);
         app_list.setItemAnimator(new DefaultItemAnimator());
+        adapter.setItemClickListener(this);
 
         app_list.setAdapter(adapter);
         demoPresenter.findAllUser();
+
     }
+
+
 
     @Override
     public void showMessage(String message) {
@@ -120,12 +127,13 @@ public class MainActivity extends AppCompatActivity implements IdemoView{
 
     @Override
     public void modifyUser(UserEntity userEntity) {
-
+        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void delectUser(UserEntity userEntity) {
-
+        adapter.removeItem(userEntity);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -133,5 +141,31 @@ public class MainActivity extends AppCompatActivity implements IdemoView{
         adapter.cleanItems();
         adapter.addAll(userEntities);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onItemClick(int postion, View view) {
+        final UserEntity  userEntity = adapter.getItem(postion);
+        new MaterialDialog.Builder(this).input("名称",userEntity.userName, true, new MaterialDialog.InputCallback() {
+            @Override
+            public void onInput(MaterialDialog dialog, CharSequence input) {
+                     userEntity.userName = input.toString();
+                     demoPresenter.modifyUser(userEntity);
+            }
+        }).theme(Theme.LIGHT).title("修改").show();
+    }
+
+    @Override
+    public void onItemLongClick(int postion, View view) {
+           final UserEntity  userEntity = adapter.getItem(postion);
+        new MaterialDialog.Builder(this).theme(Theme.LIGHT).title("删除").content("确定要删除数据吗？")
+                .positiveText("确定").negativeText("取消")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(MaterialDialog dialog, DialogAction which) {
+                        dialog.dismiss();
+                        demoPresenter.delectUser(userEntity);
+                    }
+                }).show();
     }
 }

@@ -52,12 +52,22 @@ public class DemoPresenterImpl  implements DemoPresenter {
 
     @Override
     public void delectUser(UserEntity userEntity) {
-
+         boolean delect =  finduser.delectUser(userEntity);
+         if(delect){
+             iview.delectUser(userEntity);
+         }else{
+             iview.showMessage("删除失败");
+         }
     }
 
     @Override
     public void modifyUser(UserEntity userEntity) {
-
+        boolean delect =  finduser.uploadUser(userEntity);
+        if(delect){
+            iview.modifyUser(userEntity);
+        }else{
+            iview.showMessage("修改失败");
+        }
     }
 
     @Override

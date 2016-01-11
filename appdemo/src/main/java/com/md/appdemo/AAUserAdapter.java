@@ -1,6 +1,7 @@
 package com.md.appdemo;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.md.appdemo.model.UserEntity;
@@ -24,7 +25,8 @@ public class AAUserAdapter extends  RecyclerViewAdapterBase<UserEntity,ItemView>
     }
 
     @Override
-    protected void onBindView(UserEntity userEntity, ItemView itemView, int postion) {
-        itemView.onBind(userEntity);
+    protected void onBindView(UserEntity userEntity,  ItemView itemView,  int postion,  RecyclerItemClickListener  itemClickListener) {
+        itemView.setItemClickListener(itemClickListener);
+        itemView.onBind(userEntity,postion);
     }
 }
