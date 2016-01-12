@@ -20,6 +20,7 @@ import com.md.appdemo.presenter.impl.DemoPresenterImpl;
 import com.md.appdemo.ui.IdemoView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
@@ -100,6 +101,12 @@ public class MainActivity extends AppCompatActivity implements IdemoView{
 
         app_list.setAdapter(adapter);
         demoPresenter.findAllUser();
+    }
+
+
+    @Click
+    public   void  twoway_view(){
+
     }
 
     @Override
