@@ -20,6 +20,7 @@ import com.afollestad.materialdialogs.Theme;
 import com.md.appdemo.model.UserEntity;
 
 import com.md.appdemo.presenter.impl.DemoPresenterImpl;
+import com.md.appdemo.tuwen.TuwenInfoActivity;
 import com.md.appdemo.ui.IdemoView;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
@@ -93,7 +94,8 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
             public void onClick(View v) {
                 tv_message.setText("开始查询主APP数据===>>");
 
-
+                Intent  intent  =  new Intent(MainActivity.this, TuwenInfoActivity.class);
+                startActivity(intent);
             }
         });
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
