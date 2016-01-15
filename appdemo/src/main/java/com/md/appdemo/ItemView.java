@@ -10,6 +10,8 @@ import com.md.appdemo.model.UserEntity;
 import org.androidannotations.annotations.EViewGroup;
 import org.androidannotations.annotations.ViewById;
 
+import me.gujun.android.taggroup.TagGroup;
+
 /**
  * Created by zlcd on 2016/1/11.
  */
@@ -19,6 +21,9 @@ public class ItemView  extends CardView  implements View.OnClickListener,View.On
 
     @ViewById
     public TextView  item_data;
+
+    @ViewById
+    public TagGroup    tag_group;
 
     public ItemView(Context context) {
         super(context);
@@ -41,6 +46,8 @@ public class ItemView  extends CardView  implements View.OnClickListener,View.On
     public   void   onBind(UserEntity userEntity,int postion){
         this.postion = postion;
         item_data.setText(userEntity.toString());
+        tag_group.setTags(String.valueOf(userEntity.Id));
+
     }
 
     @Override

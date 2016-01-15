@@ -24,6 +24,11 @@
         android:id="@+id/app_btn3"
         android:text="获取主APP数据"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/twoway_view"
+        android:text="twoway_view"/>
 
     <TextView
         android:layout_width="match_parent"
