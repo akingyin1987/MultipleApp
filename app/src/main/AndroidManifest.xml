@@ -1,23 +1,47 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.md.multipleapp">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- 包括三个部分：（1）android:name，为了避免出现冲突，使用应用的Java的命名空间作为前缀 -->
+
+    <permission android:name="com.zlcdgroup.provider.READ"
+        android:label="读取权限"
+        />
+    <permission android:name="com.zlcdgroup.provider.WIRTE"
+        android:label="写取权限"
+        />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:name=".MyApp"
         android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="test.db" />
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="1" />
+
+
+        <provider
+            android:authorities="org.jraf.androidcontentprovidergenerator.sample.provider"
+            android:name="com.provider.SampleProvider"
+            android:multiprocess="true"
+            android:exported="true"
+            android:readPermission="com.zlcdgroup.provider.READ"
+            android:writePermission="com.zlcdgroup.provider.WIRTE"/>
 
         <activity android:name=".MainApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- 要想在桌面不显示图标，只需注释掉APP入口Activity中的下面这句即可，或者把下面的LAUNCHER改成DEFAULT也行 -->
-                 <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
     </application>
-
 </manifest>

@@ -17,12 +17,12 @@ public class UserEntity {
 
     public   int    age;
 
-
     @Override
     public String toString() {
         return "UserEntity{" +
-            "userName='" + userName + '\'' +
-            ", age=" + age +
-            '}';
+                "userName='" + userName + '\'' +
+                ", Id=" + Id +
+                ", age=" + age +
+                '}';
     }
 }

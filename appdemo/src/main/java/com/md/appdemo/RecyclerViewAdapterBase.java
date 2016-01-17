@@ -14,6 +14,21 @@ public abstract  class RecyclerViewAdapterBase  <T,V extends View> extends Recyc
 
     private List<T>   items = new LinkedList<>();
 
+    private    RecyclerItemClickListener   itemClickListener;
+
+    public RecyclerItemClickListener getItemClickListener() {
+        return itemClickListener;
+    }
+
+    public void setItemClickListener(RecyclerItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
+    }
+
+    public    T   getItem(int postion){
+        return  items.get(postion);
+    }
+
+
     public List<T> getItems() {
         return items;
     }
@@ -44,7 +59,7 @@ public abstract  class RecyclerViewAdapterBase  <T,V extends View> extends Recyc
 
     @Override
     public void onBindViewHolder(ViewWrapper<V> holder, int position) {
-        onBindView(items.get(position),holder.getView(),position);
+        onBindView(items.get(position),holder.getView(),position,itemClickListener);
     }
 
     @Override
@@ -63,5 +78,13 @@ public abstract  class RecyclerViewAdapterBase  <T,V extends View> extends Recyc
 
     protected abstract V onCreateItemView(ViewGroup parent, int viewType);
 
-    protected abstract void  onBindView(T t,V v,int  postion);
+    protected abstract void  onBindView(T t,V v,int  postion,RecyclerItemClickListener  itemClickListener);
+
+
+
+    public   interface  RecyclerItemClickListener{
+        void  onItemClick(int  postion,View  view);
+
+        void  onItemLongClick(int postion,View view);
+    }
 }
