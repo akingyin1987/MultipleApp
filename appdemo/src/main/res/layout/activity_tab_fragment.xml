@@ -39,7 +39,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
+                app:navigationIcon="?attr/homeAsUpIndicator"
 
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 
@@ -80,6 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
+        android:id="@+id/tab_fab"
         android:src="@mipmap/ic_launcher"
         app:layout_anchor="@id/tab_viewpager"
         app:layout_anchorGravity="bottom|right|end"/>
