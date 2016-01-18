@@ -69,4 +69,5 @@ dependencies {
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'de.greenrobot:greendao:2.0.0'
     compile 'com.facebook.stetho:stetho:1.2.0'
+    compile 'com.squareup.picasso:picasso:2.3.2'
 }
