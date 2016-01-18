@@ -25,11 +25,11 @@ public class TuwenInfoActivity  extends AppCompatActivity{
         setContentView(R.layout.activity_tuweninfo);
         if(null == savedInstanceState){
             ViewPagerDatas  viewPagerDatas = new ViewPagerDatas();
-            List<ViewPagerItemData>  dataList = new ArrayList<>();
+            List<ViewPagerItemData>  dataList = new ArrayList<ViewPagerItemData>();
              for(int i=0;i<3;i++){
                  ViewPagerItemData   itemData = new ViewPagerItemData();
                  itemData.itemName="texttttt"+i;
-                 List<TuwenDataVo>  tuwenDataVos = new ArrayList<>();
+                 List<TuwenDataVo>  tuwenDataVos = new ArrayList<TuwenDataVo>();
                  for(int k=0;k<7;k++){
                      TuwenDataVo  tuwenDataVo = new TuwenDataVo();
                      tuwenDataVo.style=2;

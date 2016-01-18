@@ -24,7 +24,7 @@
         android:supportsRtl="true"
         android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name=".MainActivity_"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,6 +37,9 @@
         </activity>
 
         <activity android:name=".tuwen.TuwenInfoActivity"/>
+        <activity android:name=".MdViewPagerActivity_"/>
+        <activity android:name=".TabDemoActivity"
+            android:theme="@style/App_NoActionbar"/>
     </application>
 
 </manifest>

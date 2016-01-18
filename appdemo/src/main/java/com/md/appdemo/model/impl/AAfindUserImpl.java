@@ -106,7 +106,7 @@ public class AAfindUserImpl  implements AAfindUser {
         }
 
         Cursor cursor = contentResolver.query(contentUri, null, null, null, null);
-        List<UserEntity>   data = new ArrayList<>();
+        List<UserEntity>   data = new ArrayList<UserEntity>();
         if(null == cursor){
             return  data;
         }

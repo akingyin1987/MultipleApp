@@ -22,6 +22,9 @@ import com.md.appdemo.model.UserEntity;
 import com.md.appdemo.presenter.impl.DemoPresenterImpl;
 import com.md.appdemo.tuwen.TuwenInfoActivity;
 import com.md.appdemo.ui.IdemoView;
+import com.md.db.Note;
+import com.md.db.NoteDao;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EActivity;
@@ -59,8 +62,17 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
    @Bean
     DemoPresenterImpl   demoPresenter;
 
+    public NoteDao   dao ;
+
     @AfterViews
     public  void  initView(){
+        dao = MyApp.getInstance().getDaoSession().getNoteDao();
+
+        Note   note  = new Note();
+        note.setComment("222222");
+        note.setText("test");
+        dao.insert(note);
+        System.out.println("Id="+note.getId());
         demoPresenter.setIview(this);
         send_message = (EditText)findViewById(R.id.send_message);
         tv_message = (TextView)findViewById(R.id.tv_message);
@@ -94,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
             public void onClick(View v) {
                 tv_message.setText("开始查询主APP数据===>>");
 
-                Intent  intent  =  new Intent(MainActivity.this, TuwenInfoActivity.class);
+                Intent  intent  =  new Intent(MainActivity.this, TabDemoActivity.class);
                 startActivity(intent);
             }
         });

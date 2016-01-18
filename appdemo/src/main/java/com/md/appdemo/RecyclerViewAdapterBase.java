@@ -12,7 +12,7 @@ import java.util.List;
  */
 public abstract  class RecyclerViewAdapterBase  <T,V extends View> extends RecyclerView.Adapter<ViewWrapper<V>>{
 
-    private List<T>   items = new LinkedList<>();
+    private List<T>   items = new LinkedList<T>();
 
     private    RecyclerItemClickListener   itemClickListener;
 
