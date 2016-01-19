@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
+import com.md.appdemo.jobmanager.AsyncJobManager;
 import com.md.appdemo.model.UserEntity;
 
 import com.md.appdemo.presenter.impl.DemoPresenterImpl;
@@ -30,13 +31,14 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Administrator on 2016/1/10.
  */
 
 @EActivity(R.layout.activity_main)
-public class MainActivity extends AppCompatActivity implements IdemoView,RecyclerViewAdapterBase.RecyclerItemClickListener{
+public class MainActivity extends AppCompatActivity implements IdemoView,RecyclerViewAdapterBase.RecyclerItemClickListener,AsyncJobManager.OnJobManagerListion{
 
     public   String    action;
 
@@ -60,9 +62,18 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
    @Bean
     DemoPresenterImpl   demoPresenter;
 
+    AsyncJobManager    jobManager;
+
     @AfterViews
     public  void  initView(){
+        jobManager = new AsyncJobManager(3,this);
+        int  age = 2000;
+        Random  random = new Random();
+        for(int i=0;i<500;i++){
 
+            com.md.appdemo.entity.UserEntity  userEntity = new com.md.appdemo.entity.UserEntity("test"+i,random.nextInt(age));
+            jobManager.onAddTask(new TestJob(userEntity));
+        }
         demoPresenter.setIview(this);
         send_message = (EditText)findViewById(R.id.send_message);
         tv_message = (TextView)findViewById(R.id.tv_message);
@@ -171,5 +182,15 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
                         demoPresenter.delectUser(userEntity);
                     }
                 }).show();
+    }
+
+    @Override
+    public void onProgress(int total, int press, int error) {
+        tv_message.setText("tatal="+total+":"+press+":"+error);
+    }
+
+    @Override
+    public void onError(String message) {
+
     }
 }
