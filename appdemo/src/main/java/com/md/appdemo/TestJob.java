@@ -20,14 +20,21 @@ public class TestJob  extends AsyncJob<UserEntity> {
 
     @Override
     public void onCancel() {
-
+          setJobstatusEnum(JobstatusEnum.Error);
     }
 
     @Override
     public void doOnBackground() {
         try{
             System.out.println(getT().toString());
+            if(getJobstatusEnum() != JobstatusEnum.Null){
+                return;
+            }
+            setJobstatusEnum(JobstatusEnum.Runing);
             Thread.sleep(getT().getAge());
+            if(getJobstatusEnum() != JobstatusEnum.Runing){
+                return;
+            }
             if(getT().getAge()%2==0){
                 setJobstatusEnum(JobstatusEnum.Success);
             }else{

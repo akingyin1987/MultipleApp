@@ -5,5 +5,5 @@ package com.md.appdemo.jobmanager;
  */
 public enum JobstatusEnum {
 
-    Null,Runing,Error,Success,NetWorkError
+    Null,Runing,Error,Success,NetWorkError;
 }

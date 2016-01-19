@@ -47,6 +47,15 @@ public class AsyncJobManager<T>  implements AsyncJob.OnJobListion ,Runnable{
         return  eror;
     }
 
+    public  int  getProress(){
+        int  proress = 0;
+        for(AsyncJob  job : jobLinkedList){
+            if(job.getJobstatusEnum() != JobstatusEnum.Null){
+                proress++;
+            }
+        }
+        return  proress;
+    }
 
     public AsyncJobManager(  ) {
         if(null == executorService){
@@ -78,8 +87,8 @@ public class AsyncJobManager<T>  implements AsyncJob.OnJobListion ,Runnable{
     //执行任务
     public  synchronized   void    execute(){
         if(!jobmanagerstatus.get()){
-            progress.set(0);
-            error.set(0);
+            progress.set(getProress());
+            error.set(getErrorTotal());
             jobmanagerstatus.set(true);
             for(AsyncJob  job : jobLinkedList){
                 if(job.getJobstatusEnum() == JobstatusEnum.Null){

@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
         findViewById(R.id.app_btn1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                jobManager.onDestory();
                 Intent intent1 = new Intent();
                 String message = send_message.getText().toString().trim();
                 intent1.putExtra("data", message);
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
         findViewById(R.id.app_btn2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                jobManager.execute();
                 UserEntity userEntity = new UserEntity();
                 userEntity.userName = "aaaa";
                 userEntity.age = 222;
