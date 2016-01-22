@@ -43,5 +43,6 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.advancedrecyclerview.RecyclerviewDemoActivity"/>
     </application>
 </manifest>

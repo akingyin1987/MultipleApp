@@ -2,10 +2,10 @@ package com.md.appdemo;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
+
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
+
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +24,9 @@ import com.md.appdemo.ui.ITabViewPager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 /**
@@ -52,6 +55,7 @@ public class TabDemoActivity  extends AppCompatActivity  implements ITabViewPage
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_tab_fragment);
         Toolbar   toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

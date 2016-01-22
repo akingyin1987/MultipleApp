@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.advancedrecyclerview.RecyclerviewDemoActivity;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 
@@ -85,6 +87,13 @@ public class MainApp  extends AppCompatActivity {
                 userEntity.age = RandomUtils.nextInt();
                 userEntity.save();
                 tv_data.setText(userEntity.toString());
+            }
+        });
+        findViewById(R.id.app_recyclerview).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent  intent  =  new Intent(MainApp.this, RecyclerviewDemoActivity.class);
+                startActivity(intent);
             }
         });
     }
