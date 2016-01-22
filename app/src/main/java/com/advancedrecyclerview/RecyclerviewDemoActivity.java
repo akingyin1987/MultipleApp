@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 
 import com.h6ah4i.android.widget.advrecyclerview.animator.GeneralItemAnimator;
 import com.h6ah4i.android.widget.advrecyclerview.animator.RefactoredDefaultItemAnimator;
@@ -18,6 +19,7 @@ import com.md.multipleapp.R;
 import org.apache.commons.lang.RandomStringUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,6 +31,7 @@ public class RecyclerviewDemoActivity  extends AppCompatActivity {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerViewDragDropManager mRecyclerViewDragDropManager;
     private RecyclerView.Adapter mWrappedAdapter;
+    private MyDraggableItemAdapter  myItemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +46,13 @@ public class RecyclerviewDemoActivity  extends AppCompatActivity {
             (NinePatchDrawable) ContextCompat.getDrawable(this, R.drawable.material_shadow_z3));
         // Start dragging after long press
         mRecyclerViewDragDropManager.setInitiateOnLongPress(true);
-        mRecyclerViewDragDropManager.setInitiateOnMove(false);
+        mRecyclerViewDragDropManager.setInitiateOnMove(true);
         mRecyclerViewDragDropManager.setLongPressTimeout(750);
         List<String>  items = new ArrayList<>();
         for(int i=1;i<100;i++){
             items.add(RandomStringUtils.random(5) +i);
         }
-        MyDraggableItemAdapter  myItemAdapter = new MyDraggableItemAdapter(items);
+        myItemAdapter = new MyDraggableItemAdapter(items);
         mWrappedAdapter = mRecyclerViewDragDropManager.createWrappedAdapter(myItemAdapter);      // wrap for dragging
 
         final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
@@ -73,8 +76,15 @@ public class RecyclerviewDemoActivity  extends AppCompatActivity {
         return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP);
     }
 
-
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        System.out.println("onKeyDown"+keyCode);
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
+            System.out.println("onKeyDown");
+            System.out.println(Arrays.toString(myItemAdapter.items.toArray()));
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     @Override
     protected void onDestroy() {

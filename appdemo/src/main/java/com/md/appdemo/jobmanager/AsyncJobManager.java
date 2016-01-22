@@ -123,18 +123,20 @@ public class AsyncJobManager<T>  implements AsyncJob.OnJobListion ,Runnable{
         if(jobstatusEnum == JobstatusEnum.NetWorkError){
             jobmanagerstatus.set(false);
             onDestory();
+            return;
         }
         if(jobstatusEnum == JobstatusEnum.Error){
-            error.set(error.get()+1);
-        }
-        if(progress.get() == getJobTotal()){
-            jobmanagerstatus.set(false);
-            onDestory();
+            error.set(error.get() + 1);
         }
         if(null != listion){
 
             uiHandler.post(this);
         }
+        if(progress.get() == getJobTotal()){
+            jobmanagerstatus.set(false);
+            onDestory();
+        }
+
     }
 
     @Override

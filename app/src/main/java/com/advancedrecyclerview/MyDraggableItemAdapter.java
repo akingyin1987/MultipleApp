@@ -132,11 +132,9 @@ class MyDraggableItemAdapter
         }
 
         String  from  = items.get(fromPosition);
-        String  to = items.get(toPosition);
-        items.set(fromPosition,to);
-        items.set(toPosition,from);
-
-        notifyItemMoved(fromPosition, toPosition);
+            items.remove(fromPosition);
+            items.add(toPosition,from);
+      //  notifyItemMoved(fromPosition, toPosition);
     }
 
     @Override
