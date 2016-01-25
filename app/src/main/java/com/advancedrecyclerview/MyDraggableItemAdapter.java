@@ -18,6 +18,7 @@ package com.advancedrecyclerview;
 
 
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 
 
 import com.advancedrecyclerview.utils.DrawableUtils;
+import com.advancedrecyclerview.utils.ViewUtils;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemAdapter;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.DraggableItemConstants;
 import com.h6ah4i.android.widget.advrecyclerview.draggable.ItemDraggableRange;
@@ -139,7 +141,13 @@ class MyDraggableItemAdapter
 
     @Override
     public boolean onCheckCanStartDrag(MyViewHolder holder, int position, int x, int y) {
-        return true;
+        final View containerView = holder.mContainer;
+        final View dragHandleView = holder.mDragHandle;
+
+        final int offsetX = containerView.getLeft() + (int) (ViewCompat.getTranslationX(containerView) + 0.5f);
+        final int offsetY = containerView.getTop() + (int) (ViewCompat.getTranslationY(containerView) + 0.5f);
+
+        return ViewUtils.hitTest(dragHandleView, x - offsetX, y - offsetY);
     }
 
     @Override
