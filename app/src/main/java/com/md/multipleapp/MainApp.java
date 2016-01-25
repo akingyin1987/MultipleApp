@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.advancedrecyclerview.RecyclerviewDemoActivity;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
@@ -30,6 +31,7 @@ public class MainApp  extends AppCompatActivity {
 
     public TextView    tv_data;
 
+    public FloatingActionsMenu  menuMultipleActions;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +45,13 @@ public class MainApp  extends AppCompatActivity {
         editText = (EditText)findViewById(R.id.send_message);
         tv_data = (TextView)findViewById(R.id.tv_dbdata);
         registerReceiver(appInstallReceiver,intentFilter);
+        menuMultipleActions = (FloatingActionsMenu)findViewById(R.id.multiple_actions_left);
+        menuMultipleActions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               menuMultipleActions.toggle();
+            }
+        });
 
         findViewById(R.id.app_btn1).setOnClickListener(new View.OnClickListener() {
             @Override
