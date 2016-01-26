@@ -46,8 +46,9 @@ public class RecyclerviewDemoActivity  extends AppCompatActivity {
             (NinePatchDrawable) ContextCompat.getDrawable(this, R.drawable.material_shadow_z3));
         // Start dragging after long press
         mRecyclerViewDragDropManager.setInitiateOnLongPress(true);
-        mRecyclerViewDragDropManager.setInitiateOnMove(true);
+        mRecyclerViewDragDropManager.setInitiateOnMove(false);
         mRecyclerViewDragDropManager.setLongPressTimeout(750);
+
         List<String>  items = new ArrayList<>();
         for(int i=1;i<100;i++){
             items.add(RandomStringUtils.random(5) +i);
