@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
+import com.github.clans.fab.FloatingActionMenu;
 import com.md.appdemo.jobmanager.AsyncJobManager;
 import com.md.appdemo.model.UserEntity;
 
@@ -44,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
 
     public   EditText   send_message;
 
-
+    @ViewById
+    FloatingActionMenu menu_labels_right;
     public TextView   tv_message;
 
 
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
     DemoPresenterImpl   demoPresenter;
 
     AsyncJobManager    jobManager;
-
+    private int mScrollOffset = 4;
     @AfterViews
     public  void  initView(){
         jobManager = new AsyncJobManager(3,this);
@@ -109,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
             public void onClick(View v) {
                 tv_message.setText("开始查询主APP数据===>>");
 
-                Intent  intent  =  new Intent(MainActivity.this, TabDemoActivity.class);
+                Intent intent = new Intent(MainActivity.this, TabDemoActivity.class);
                 startActivity(intent);
             }
         });
@@ -120,6 +122,25 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
         adapter.setItemClickListener(this);
 
         app_list.setAdapter(adapter);
+
+        app_list.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (Math.abs(dy) > mScrollOffset) {
+                    if (dy > 0) {
+                        menu_labels_right.hideMenu(true);
+                    } else {
+                        menu_labels_right.showMenu(true);
+                    }
+                }
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
         demoPresenter.findAllUser();
 
     }
