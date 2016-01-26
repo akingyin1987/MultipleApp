@@ -7,7 +7,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
+    <style name="App_NoActionbar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/window_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
     <style name="myRecyclerViewStyle">
         <!-- NOTE: clipChildren should be true on API level 10 -->
         <item name="android:clipChildren">true</item>
@@ -26,5 +33,25 @@
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
+    <style name="NavigationViewStyle" parent="SnvSublimeNavigationView">
+        <item name="android:background">#f0f0f0</item>
+    </style>
+
+    <style name="NavItemTextAppearance" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">25sp</item>
+    </style>
+
+    <style name="NavHintTextAppearance" parent="SnvDefaultHintTextAppearance">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <!--<item name="colorControlNormal">#FFDDD3</item>-->
+        <item name="android:textColorPrimary">#FFFFFF</item>
+    </style>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 
 </resources>

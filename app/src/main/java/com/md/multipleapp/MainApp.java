@@ -46,6 +46,7 @@ public class MainApp  extends AppCompatActivity {
         tv_data = (TextView)findViewById(R.id.tv_dbdata);
         registerReceiver(appInstallReceiver,intentFilter);
         menuMultipleActions = (FloatingActionsMenu)findViewById(R.id.multiple_actions_left);
+
         menuMultipleActions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

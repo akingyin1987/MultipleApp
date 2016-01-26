@@ -35,7 +35,8 @@
             android:readPermission="com.zlcdgroup.provider.READ"
             android:writePermission="com.zlcdgroup.provider.WIRTE"/>
 
-        <activity android:name=".MainApp">
+        <activity android:name="com.akingyin.ui.HomeActivity"
+                 android:theme="@style/App_NoActionbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <!-- 要想在桌面不显示图标，只需注释掉APP入口Activity中的下面这句即可，或者把下面的LAUNCHER改成DEFAULT也行 -->
