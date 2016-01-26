@@ -69,4 +69,7 @@ dependencies {
     compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.github.vipulasri:timelineview:1.0.0'
     compile 'com.github.bmelnychuk:atv:1.2.7'
+    compile 'com.github.iwgang:countdownview:1.2'
+    compile 'com.github.tittojose:timerangepicker-library:0.2'
+
 }
