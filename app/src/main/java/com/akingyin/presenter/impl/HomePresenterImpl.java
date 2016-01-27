@@ -1,5 +1,7 @@
 package com.akingyin.presenter.impl;
 
+import android.os.Bundle;
+
 import com.akingyin.presenter.IHomePresenter;
 import com.akingyin.view.IHomeView;
 import com.appeaser.sublimenavigationviewlibrary.OnNavigationMenuEventListener;
@@ -17,8 +19,8 @@ public class HomePresenterImpl  implements IHomePresenter{
     }
 
     @Override
-    public void initialize() {
-        homeView.initialize();
+    public void initialize(Bundle savedInstanceState) {
+        homeView.initialize(savedInstanceState);
     }
 
     @Override

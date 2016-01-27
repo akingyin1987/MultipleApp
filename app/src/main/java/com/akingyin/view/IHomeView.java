@@ -1,5 +1,6 @@
 package com.akingyin.view;
 
+import android.os.Bundle;
 import android.view.View;
 
 /**
@@ -7,7 +8,7 @@ import android.view.View;
  */
 public interface IHomeView {
 
-    public   void   initialize();//
+    public   void   initialize(Bundle savedInstanceState);//
 
     public   void   showMessage(String  message);
 

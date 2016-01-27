@@ -1,5 +1,7 @@
 package com.akingyin.presenter;
 
+import android.os.Bundle;
+
 import com.appeaser.sublimenavigationviewlibrary.OnNavigationMenuEventListener;
 import com.appeaser.sublimenavigationviewlibrary.SublimeBaseMenuItem;
 
@@ -8,7 +10,7 @@ import com.appeaser.sublimenavigationviewlibrary.SublimeBaseMenuItem;
  */
 public interface IHomePresenter {
 
-    public   void   initialize();//
+    public   void   initialize(Bundle savedInstanceState);//
 
     public   void   onNavMenuEvent(OnNavigationMenuEventListener.Event event, SublimeBaseMenuItem menuItem);
 
