@@ -2,9 +2,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fillViewport="true"
+
+    >
 
 
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
     <android.support.v7.widget.RecyclerView
@@ -12,8 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-      >
-    </android.support.v7.widget.RecyclerView>
+      />
+
 
     <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
@@ -24,6 +31,7 @@
         app:layout_anchor="@id/rvToDoList"
         android:id="@+id/add_user"
         app:layout_anchorGravity="bottom|right|end"/>
+    </android.support.design.widget.CoordinatorLayout>
 </android.support.v4.widget.NestedScrollView>
 
 

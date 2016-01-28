@@ -57,8 +57,9 @@ public class UserListFragment  extends Fragment  implements IUserListView {
         add_user = (FloatingActionButton)view.findViewById(R.id.add_user);
         rvToDoList =(RecyclerView)view.findViewById(R.id.rvToDoList);
         rvToDoList.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvToDoList.setItemAnimator(new DefaultItemAnimator());
+       // rvToDoList.setItemAnimator(new DefaultItemAnimator());
         adapter = new UserAdapter(getContext(),presenter.findUsers(),R.layout.item_user);
+        System.out.println("size="+adapter.getList().size());
         rvToDoList.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override

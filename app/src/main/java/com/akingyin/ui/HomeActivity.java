@@ -64,6 +64,9 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
                     case R.id.navigation_implicitapp:
                         OpenMultipleApp();
                         break;
+                    case R.id.navigation_userlist:
+                        switchUserManager();
+                        break;
                 }
                 item.setChecked(true);
                 snv.closeDrawers();
