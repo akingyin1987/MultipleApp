@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.akingyin.presenter.IHomePresenter;
 import com.akingyin.presenter.impl.HomePresenterImpl;
 import com.akingyin.ui.fragment.ImplicitFragment;
+import com.akingyin.ui.fragment.UserListFragment;
 import com.akingyin.view.IHomeView;
 
 import com.md.multipleapp.AppInstallReceiver;
@@ -101,7 +102,16 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
         if(null == fragment){
             fragment = ImplicitFragment.newInstance();
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment, "implicit").commit();
+    }
+
+    @Override
+    public void switchUserManager() {
+        UserListFragment  fragment = (UserListFragment)getSupportFragmentManager().findFragmentByTag("usermagager");
+        if(null == fragment){
+            fragment = UserListFragment.newInstance();
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment,"usermagager").commit();
     }
 
     @Override
@@ -130,6 +140,12 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
         } else {
             doExitApp();
         }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return  homePresenter.onNavMenuEvent(item);
 
     }
 

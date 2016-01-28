@@ -15,4 +15,6 @@ public interface IHomeView {
     public   void   showMessage(View v,String message);
 
     public   void   OpenMultipleApp();
+
+    public   void   switchUserManager();
 }

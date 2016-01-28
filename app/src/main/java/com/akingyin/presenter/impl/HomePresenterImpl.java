@@ -1,11 +1,13 @@
 package com.akingyin.presenter.impl;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.akingyin.presenter.IHomePresenter;
 import com.akingyin.view.IHomeView;
 import com.appeaser.sublimenavigationviewlibrary.OnNavigationMenuEventListener;
 import com.appeaser.sublimenavigationviewlibrary.SublimeBaseMenuItem;
+import com.md.multipleapp.R;
 
 /**
  * Created by Administrator on 2016/1/26.
@@ -24,23 +26,17 @@ public class HomePresenterImpl  implements IHomePresenter{
     }
 
     @Override
-    public void onNavMenuEvent(OnNavigationMenuEventListener.Event event, SublimeBaseMenuItem menuItem) {
+    public boolean onNavMenuEvent(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.navigation_implicitapp:
+                 homeView.OpenMultipleApp();
+                return  true;
+            case R.id.navigation_userlist:
+                homeView.switchUserManager();
 
-         switch (event){
-             case CHECKED:
+                return  true;
 
-                 break;
-             case CLICKED:
-
-                 break;
-             case GROUP_COLLAPSED:
-                 break;
-             case GROUP_EXPANDED:
-
-                 break;
-             case UNCHECKED:
-
-                 break;
-         }
+        }
+        return false;
     }
 }

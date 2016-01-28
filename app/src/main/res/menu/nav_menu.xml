@@ -21,6 +21,10 @@
             android:id="@+id/navigation_implicitapp"
             android:icon="@drawable/ic_favorite"
             android:title="隐式APK" />
+        <item
+            android:id="@+id/navigation_userlist"
+            android:icon="@drawable/ic_favorite"
+            android:title="用户管理" />
 
     </group>
 
