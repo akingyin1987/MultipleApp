@@ -13,36 +13,36 @@ import java.util.List;
  */
 public class UserModelImpl  implements IUserModel {
     @Override
-    public boolean addUser(@NonNull UserEntity userEntity) {
+    public UserEntity addUser(@NonNull UserEntity userEntity) {
         try {
             userEntity.save();
-            return  true;
+            return  userEntity;
         }catch (Exception e){
 
         }
-        return false;
+        return null;
     }
 
     @Override
-    public boolean modeifyUser(@NonNull UserEntity userEntity) {
+    public UserEntity modeifyUser(@NonNull UserEntity userEntity) {
         try {
             userEntity.save();
-            return  true;
+            return  userEntity;
         }catch (Exception e){
 
         }
-        return false;
+        return null;
     }
 
     @Override
-    public boolean delectUser(@NonNull UserEntity userEntity) {
+    public UserEntity delectUser(@NonNull UserEntity userEntity) {
         try {
             userEntity.delete();
-            return  true;
+            return  userEntity;
         }catch (Exception e){
 
         }
-        return false;
+        return null;
     }
 
     @Override

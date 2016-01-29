@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,12 +13,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.akingyin.presenter.IUserListPresenter;
 import com.akingyin.presenter.impl.UserListPresenter;
 import com.akingyin.ui.adapter.UserAdapter;
 import com.akingyin.view.IUserListView;
 import com.md.multipleapp.R;
+import com.md.multipleapp.UserEntity;
 
 import org.byteam.superadapter.recycler.OnItemClickListener;
 
@@ -70,18 +76,56 @@ public class UserListFragment  extends Fragment  implements IUserListView {
         add_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                EditUserInfo(null);
             }
         });
     }
 
     @Override
     public void showMessage(String message) {
-
+        Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void showMessage(View v, String message) {
+        Snackbar.make(v, message, Snackbar.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void addUserSucess(UserEntity userEntity) {
+        adapter.add(userEntity);
+    }
+
+    public  void  EditUserInfo(final UserEntity  userEntity){
+            View   view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edituser,null);
+
+        if(null != userEntity){
+            EditText user_name = (EditText) view.findViewById(R.id.user_name);
+            EditText user_age = (EditText) view.findViewById(R.id.user_age);
+            user_name.setText(userEntity.userName);
+            user_age.setText(String.valueOf(userEntity.age));
+        }
+            new MaterialDialog.Builder(getContext()).title("用户编辑").positiveText("确定")
+                .negativeText("取消").onPositive(new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(MaterialDialog dialog, DialogAction which) {
+                    if (null != dialog && null != dialog.getCustomView()) {
+                        EditText user_name = (EditText) dialog.getCustomView().findViewById(R.id.user_name);
+                        EditText user_age = (EditText) dialog.getCustomView().findViewById(R.id.user_age);
+                        if (null == userEntity) {
+                            System.out.println("name==" + user_name.getText().toString().trim());
+                            presenter.addUser(user_name.getText().toString().trim(), user_age.getText().toString().trim());
+                        }
+                    }
+
+
+                }
+            }).onNegative(new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(MaterialDialog dialog, DialogAction which) {
+
+                }
+            }).customView(R.layout.dialog_edituser, true).show();
 
     }
 }

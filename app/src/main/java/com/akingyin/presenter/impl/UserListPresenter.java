@@ -1,6 +1,7 @@
 package com.akingyin.presenter.impl;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.akingyin.model.IUserModel;
@@ -31,8 +32,26 @@ public class UserListPresenter implements IUserListPresenter {
     }
 
     @Override
-    public void addUser(UserEntity userEntity) {
-
+    public void addUser(String userName, String agestr) {
+        System.out.println(userName+":"+agestr);
+        if(TextUtils.isEmpty(userName) || TextUtils.isEmpty(agestr)){
+            userListView.showMessage("用户名，年龄不能为空");
+            return;
+        }
+        UserEntity   userEntity = new UserEntity();
+        try{
+            userEntity.userName = userName;
+            userEntity.age = Integer.parseInt(agestr);
+            userEntity = userModel.addUser(userEntity);
+            if(null == userEntity){
+                userListView.showMessage("数据保存失败");
+            }else{
+                userListView.addUserSucess(userEntity);
+            }
+        }catch ( Exception e){
+            e.printStackTrace();
+            userListView.showMessage("数据出错了"+e.getMessage());
+        }
     }
 
     @Override

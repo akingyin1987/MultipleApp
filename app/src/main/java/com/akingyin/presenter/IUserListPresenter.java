@@ -16,7 +16,7 @@ public interface IUserListPresenter {
 
 
 
-    public   void    addUser(UserEntity  userEntity);
+    public   void    addUser(String userName,String  agestr);
 
     public   void    modifyUser(UserEntity  userEntity);
 

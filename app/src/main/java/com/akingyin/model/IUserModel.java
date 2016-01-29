@@ -11,11 +11,11 @@ import java.util.List;
  */
 public interface IUserModel {
 
-    public   boolean    addUser(@NonNull UserEntity  userEntity);
+    public   UserEntity    addUser(@NonNull UserEntity  userEntity);
 
-    public   boolean    modeifyUser(@NonNull UserEntity  userEntity);
+    public   UserEntity    modeifyUser(@NonNull UserEntity  userEntity);
 
-    public   boolean    delectUser(@NonNull UserEntity  userEntity);
+    public   UserEntity    delectUser(@NonNull UserEntity  userEntity);
 
     public List<UserEntity>   findUsers();
 }
