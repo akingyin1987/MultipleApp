@@ -17,4 +17,6 @@ public interface IHomeView {
     public   void   OpenMultipleApp();
 
     public   void   switchUserManager();
+
+    public   void   switchFlashlight();
 }

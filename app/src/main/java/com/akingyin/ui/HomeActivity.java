@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.akingyin.presenter.IHomePresenter;
 import com.akingyin.presenter.impl.HomePresenterImpl;
+import com.akingyin.ui.fragment.FlashlightFragment;
 import com.akingyin.ui.fragment.ImplicitFragment;
 import com.akingyin.ui.fragment.UserListFragment;
 import com.akingyin.view.IHomeView;
@@ -67,6 +68,9 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
                     case R.id.navigation_userlist:
                         switchUserManager();
                         break;
+                    case R.id.navigation_flashlight:
+                        switchFlashlight();
+                        break;
                 }
                 item.setChecked(true);
                 snv.closeDrawers();
@@ -114,7 +118,17 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
         if(null == fragment){
             fragment = UserListFragment.newInstance();
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment,"usermagager").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment, "usermagager").commit();
+    }
+
+    @Override
+    public void switchFlashlight() {
+        FlashlightFragment  fragment = (FlashlightFragment)getSupportFragmentManager().findFragmentByTag("flashlight");
+        if(null == fragment){
+            fragment = FlashlightFragment.newInstance();
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment,"flashlight").commit();
+
     }
 
     @Override
