@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
+import com.tencent.bugly.crashreport.CrashReport;
 
 /**
  * Created by zlcd on 2016/1/11.
@@ -17,6 +18,8 @@ public class MyApp extends Application {
                        .addModelClass(UserEntity.class)
                        .create();
         ActiveAndroid.initialize(cfg,true);
+        CrashReport.initCrashReport(this, "900018539", true);
+      //  CrashReport.testJavaCrash();
     }
 
     @Override

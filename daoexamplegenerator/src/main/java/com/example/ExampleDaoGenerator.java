@@ -1,5 +1,10 @@
 package com.example;
 
+import org.apache.commons.codec.StringEncoder;
+import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.RandomUtils;
+
 import de.greenrobot.daogenerator.DaoGenerator;
 import de.greenrobot.daogenerator.Entity;
 import de.greenrobot.daogenerator.Property;
@@ -13,12 +18,20 @@ public class ExampleDaoGenerator {
 
     public static void main(String[] args) throws Exception {
         System.out.println("ExampleDaoGenerator->>>>>2222222222111");
-        Schema schema = new Schema(1000, "com.md.db");
+         byte[]  data = ConversionUtil.hexStringToBytes("2000000023000000104010F1D04010B2");
 
-        addNote(schema);
-        addCustomerOrder(schema);
+         byte[]  data2= ConversionUtil.hexStringToBytes("12474051991485C1000488F09BB061BA");
+         for(int i=0;i<data.length;i++){
+             System.out.println("data1="+data[i]+":data2="+data2[i]);
+         }
 
-        new DaoGenerator().generateAll(schema, "./appdemo/src/main/java-gen");
+         System.out.println("hex="+ConversionUtil.decode("2000000023000000104010F1D04010B2"));
+//        Schema schema = new Schema(1000, "com.md.db");
+//
+//        addNote(schema);
+//        addCustomerOrder(schema);
+//
+//        new DaoGenerator().generateAll(schema, "./appdemo/src/main/java-gen");
     }
 
     private static void addNote(Schema schema) {
