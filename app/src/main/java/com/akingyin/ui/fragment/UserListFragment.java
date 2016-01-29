@@ -20,29 +20,32 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.akingyin.presenter.IUserListPresenter;
 import com.akingyin.presenter.impl.UserListPresenter;
-import com.akingyin.ui.adapter.UserAdapter;
+
+import com.akingyin.ui.adapter.UserSwipeAdapter;
 import com.akingyin.view.IUserListView;
+
+import com.daimajia.swipe.SwipeLayout;
 import com.md.multipleapp.R;
 import com.md.multipleapp.UserEntity;
 
-import org.byteam.superadapter.recycler.OnItemClickListener;
 
 /**
  * Created by Administrator on 2016/1/28.
  */
-public class UserListFragment  extends Fragment  implements IUserListView {
+public class UserListFragment  extends Fragment  implements IUserListView,SwipeLayout.SwipeListener {
 
     public IUserListPresenter presenter;
 
 
     RecyclerView rvToDoList;
     FloatingActionButton add_user;
-    UserAdapter adapter;
+    UserSwipeAdapter adapter;
 
     public   static   UserListFragment   newInstance(){
         UserListFragment   fragment = new UserListFragment();
         return  fragment;
     }
+
 
     @Nullable
     @Override
@@ -64,15 +67,10 @@ public class UserListFragment  extends Fragment  implements IUserListView {
         rvToDoList =(RecyclerView)view.findViewById(R.id.rvToDoList);
         rvToDoList.setLayoutManager(new LinearLayoutManager(getContext()));
        // rvToDoList.setItemAnimator(new DefaultItemAnimator());
-        adapter = new UserAdapter(getContext(),presenter.findUsers(),R.layout.item_user);
-        System.out.println("size="+adapter.getList().size());
-        rvToDoList.setAdapter(adapter);
-        adapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(View itemView, int viewType, int position) {
+        adapter = new UserSwipeAdapter(presenter.findUsers(),getContext());
 
-            }
-        });
+        rvToDoList.setAdapter(adapter);
+        adapter.setListener(this);
         add_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +124,36 @@ public class UserListFragment  extends Fragment  implements IUserListView {
 
                 }
             }).customView(R.layout.dialog_edituser, true).show();
+
+    }
+
+    @Override
+    public void onStartOpen(SwipeLayout layout) {
+
+    }
+
+    @Override
+    public void onOpen(SwipeLayout layout) {
+
+    }
+
+    @Override
+    public void onStartClose(SwipeLayout layout) {
+
+    }
+
+    @Override
+    public void onClose(SwipeLayout layout) {
+
+    }
+
+    @Override
+    public void onUpdate(SwipeLayout layout, int leftOffset, int topOffset) {
+
+    }
+
+    @Override
+    public void onHandRelease(SwipeLayout layout, float xvel, float yvel) {
 
     }
 }
