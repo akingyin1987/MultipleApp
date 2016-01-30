@@ -6,9 +6,10 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 /**
+ * OkHTTP 网络请求回调
  * Created by zlcd on 2015/12/29.
  */
-public abstract class OkHttpCallBack  implements Callback {
+public abstract class AbsAPICallback implements Callback {
 
     //请求错误
     public  abstract void   onFailure(int code,String  message);
@@ -17,6 +18,7 @@ public abstract class OkHttpCallBack  implements Callback {
     public  abstract  void  onSuccess(JSONObject   jsonObject);
 
 
+    //是否验证信息
     private    boolean    iSintercept  = true;
 
     public boolean Valintercept() {
