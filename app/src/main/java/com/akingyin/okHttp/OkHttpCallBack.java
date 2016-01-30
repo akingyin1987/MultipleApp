@@ -1,17 +1,14 @@
 package com.akingyin.okHttp;
-
-import com.squareup.okhttp.Callback;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-
 import org.json.JSONObject;
-
 import java.io.IOException;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * Created by zlcd on 2015/12/29.
  */
-public abstract class OkHttpCallBack  implements Callback{
+public abstract class OkHttpCallBack  implements Callback {
 
     //请求错误
     public  abstract void   onFailure(int code,String  message);
@@ -31,12 +28,14 @@ public abstract class OkHttpCallBack  implements Callback{
     }
 
     @Override
-    public void onFailure(Request request, IOException e) {
+    public void onFailure(Call call, IOException e) {
+
         onFailure(0,"网络连接错误，请检查网络是否正常开启");
+
     }
 
     @Override
-    public void onResponse(Response response) throws IOException {
+    public void onResponse(Call call,Response response) throws IOException {
         try{
             int  httpcode = response.code();
             if(response.isSuccessful()){
