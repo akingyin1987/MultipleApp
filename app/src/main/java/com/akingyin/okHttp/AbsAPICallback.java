@@ -33,6 +33,9 @@ public abstract class AbsAPICallback implements Callback {
     public void onFailure(Call call, IOException e) {
 
         onFailure(0,"网络连接错误，请检查网络是否正常开启");
+        if(null != call){
+            call.cancel();
+        }
 
     }
 
@@ -61,6 +64,10 @@ public abstract class AbsAPICallback implements Callback {
         }catch (Exception e){
             e.printStackTrace();
             onFailure(0,"处理数据异常");
+        }finally {
+            if(null != call){
+                call.cancel();
+            }
         }
     }
 }
