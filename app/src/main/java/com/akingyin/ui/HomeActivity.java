@@ -21,8 +21,11 @@ import com.akingyin.ui.fragment.ImplicitFragment;
 import com.akingyin.ui.fragment.UserListFragment;
 import com.akingyin.view.IHomeView;
 
+import com.jakewharton.rxbinding.view.RxView;
 import com.md.multipleapp.AppInstallReceiver;
 import com.md.multipleapp.R;
+
+import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by Administrator on 2016/1/26.
