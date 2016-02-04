@@ -13,8 +13,7 @@ import android.view.ViewGroup;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.md.multipleapp.R;
-import com.pddstudio.talking.Talk;
-import com.pddstudio.talking.model.SpeechObject;
+
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +22,7 @@ import rx.functions.Action1;
 /**
  * Created by zlcd on 2016/2/4.
  */
-public class VoiceFragment extends Fragment implements Talk.Callback{
+public class VoiceFragment extends Fragment {
 
     public   static   VoiceFragment   newInstance(){
         VoiceFragment   fragment = new VoiceFragment();
@@ -34,13 +33,13 @@ public class VoiceFragment extends Fragment implements Talk.Callback{
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Talk.init(getContext(),this);
+
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        Talk.getInstance().stopListening();
+
 
     }
 
@@ -58,11 +57,7 @@ public class VoiceFragment extends Fragment implements Talk.Callback{
             .throttleFirst(1, TimeUnit.SECONDS).subscribe(new Action1<Void>() {
             @Override
             public void call(Void aVoid) {
-                if(hasPermission()) {
-                    Talk.getInstance().startListening();
-                } else {
-                    requestPermission();
-                }
+
             }
         });
 
@@ -79,23 +74,5 @@ public class VoiceFragment extends Fragment implements Talk.Callback{
         }
     }
 
-    @Override
-    public void onStartListening() {
 
-    }
-
-    @Override
-    public void onRmsChanged(float rms) {
-
-    }
-
-    @Override
-    public void onFailedListening(int errorCode) {
-         System.out.println("error="+errorCode);
-    }
-
-    @Override
-    public void onFinishedListening(SpeechObject speechObject) {
-       System.out.println("finish=="+speechObject.getVoiceString());
-    }
 }

@@ -30,7 +30,10 @@
             android:id="@+id/navigation_flashlight"
             android:icon="@drawable/ic_favorite"
             android:title="安卓电筒" />
-
+        <item
+            android:id="@+id/navigation_voice"
+            android:icon="@drawable/ic_favorite"
+            android:title="语音" />
     </group>
 
 </menu>

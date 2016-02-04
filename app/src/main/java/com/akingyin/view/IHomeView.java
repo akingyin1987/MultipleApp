@@ -19,4 +19,6 @@ public interface IHomeView {
     public   void   switchUserManager();
 
     public   void   switchFlashlight();
+
+    public   void   switchVoiceRecord();
 }

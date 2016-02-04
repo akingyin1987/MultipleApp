@@ -19,6 +19,7 @@ import com.akingyin.presenter.impl.HomePresenterImpl;
 import com.akingyin.ui.fragment.FlashlightFragment;
 import com.akingyin.ui.fragment.ImplicitFragment;
 import com.akingyin.ui.fragment.UserListFragment;
+import com.akingyin.ui.fragment.VoiceFragment;
 import com.akingyin.view.IHomeView;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -132,6 +133,15 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment,"flashlight").commit();
 
+    }
+
+    @Override
+    public void switchVoiceRecord() {
+        VoiceFragment fragment = (VoiceFragment)getSupportFragmentManager().findFragmentByTag("voice");
+        if(null == fragment){
+            fragment = VoiceFragment.newInstance();
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment,"voice").commit();
     }
 
     @Override
