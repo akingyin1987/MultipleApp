@@ -21,4 +21,6 @@ public interface IHomeView {
     public   void   switchFlashlight();
 
     public   void   switchVoiceRecord();
+
+    public   void   switchRxview();
 }
