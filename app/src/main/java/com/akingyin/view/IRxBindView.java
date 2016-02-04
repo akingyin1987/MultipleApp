@@ -15,4 +15,6 @@ public interface IRxBindView {
     public   void   showMessage(String  message);
 
     public   void   showMessage(View v,String message);
+
+    public   void   printMessage(String  message);
 }

@@ -9,4 +9,6 @@ import android.view.View;
 public interface IRxbindPresenter {
 
     public   void   initialize(Bundle savedInstanceState,View  view);//
+
+    public   void   rxEach();
 }

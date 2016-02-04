@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.akingyin.presenter.IRxbindPresenter;
@@ -20,6 +21,9 @@ import org.apache.commons.lang.RandomStringUtils;
 import java.util.concurrent.TimeUnit;
 
 
+import co.mobiwise.materialintro.shape.Focus;
+import co.mobiwise.materialintro.shape.FocusGravity;
+import co.mobiwise.materialintro.view.MaterialIntroView;
 import rx.functions.Action1;
 
 /**
@@ -28,8 +32,9 @@ import rx.functions.Action1;
 public class RxViewFragment extends Fragment implements IRxBindView{
 
     IRxbindPresenter   presenter;
-    public Button   rxview_one_btn,rxview_tow_btn;
+    public Button   rxview_one_btn,rxview_tow_btn,rxview_each;
 
+    public TextView  rxview_info;
     public   static   RxViewFragment   newInstance(){
         RxViewFragment   fragment = new RxViewFragment();
         return  fragment;
@@ -63,13 +68,24 @@ public class RxViewFragment extends Fragment implements IRxBindView{
     public void initialize(Bundle savedInstanceState, View view) {
         rxview_one_btn = (Button)view.findViewById(R.id.rxview_one_btn);
         rxview_tow_btn = (Button)view.findViewById(R.id.rxview_tow_btn);
+        rxview_info = (TextView)view.findViewById(R.id.rxview_info);
+        rxview_each = (Button)view.findViewById(R.id.rxview_each);
+
+        RxView.clicks(rxview_each).throttleFirst(1,TimeUnit.SECONDS)
+              .subscribe(new Action1<Void>() {
+                  @Override
+                  public void call(Void aVoid) {
+                      presenter.rxEach();
+                  }
+              });
+
         RxView.clicks(rxview_one_btn)
               .throttleFirst(1, TimeUnit.SECONDS)
               .subscribe(new Action1<Void>() {
                   @Override
                   public void call(Void aVoid) {
                       rxview_one_btn.setText("one"+ RandomStringUtils.random(4,"我是中国人我爱您"));
-                      showMessage("testOne");
+                      showMessage(rxview_one_btn,"testOne");
                   }
               });
 
@@ -79,18 +95,40 @@ public class RxViewFragment extends Fragment implements IRxBindView{
                 @Override
                 public void call(Void aVoid) {
                     rxview_one_btn.setText("tow"+ RandomStringUtils.random(4,"我是中国人我爱您"));
-                    showMessage("testTow");
+                    showMessage(rxview_tow_btn,"testTow");
                 }
             });
     }
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+        new MaterialIntroView.Builder(getActivity())
+            .enableDotAnimation(false)
+            .setFocusGravity(FocusGravity.CENTER)
+            .setFocusType(Focus.ALL)
+            .setDelayMillis(200)
+            .enableFadeAnimation(true)
+            .performClick(true)
+            .setInfoText(message)
+            .show();
     }
 
     @Override
     public void showMessage(View v, String message) {
+        new MaterialIntroView.Builder(getActivity())
+            .enableDotAnimation(false)
+            .setFocusGravity(FocusGravity.CENTER)
+            .setFocusType(Focus.ALL)
+            .setDelayMillis(200)
+            .enableFadeAnimation(true)
+            .performClick(true)
+            .setTarget(v)
+            .setInfoText(message)
+            .show();
+    }
 
+    @Override
+    public void printMessage(String message) {
+        rxview_info.setText(message);
     }
 }
