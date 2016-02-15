@@ -55,6 +55,7 @@ android {
 }
 
 def AAVersion = '4.0-SNAPSHOT'
+def Retrofit_Version='2.0.0-beta4'
 apt {
     arguments {
         androidManifestFile variant.outputs[0].processResources.manifestFile
@@ -70,7 +71,7 @@ apt {
         // logFile '/var/log/aa.log'
     }
 }
-
+def retrofitVersion = '2.0.0-beta4'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
@@ -104,11 +105,15 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.1.0'
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'com.squareup.okhttp3:okhttp:3.0.1'
-    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
+    compile "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    compile "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
+    compile 'com.alibaba:fastjson:1.1.46.android'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
     compile 'com.danikula:videocache:2.3.4'
     compile 'com.github.iammert:MaterialIntroView:1.5'
+
 }
 
 bugly {

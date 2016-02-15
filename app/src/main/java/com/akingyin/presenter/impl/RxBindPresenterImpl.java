@@ -42,6 +42,7 @@ public class RxBindPresenterImpl implements IRxbindPresenter {
             data.add(RandomUtils.nextInt(100));
         }
         sb = new StringBuffer();
+
         Observable.from(data).filter(new Func1<Integer, Boolean>() {
             @Override
             public Boolean call(Integer integer) {
@@ -58,11 +59,11 @@ public class RxBindPresenterImpl implements IRxbindPresenter {
             }
         }).observeOn(AndroidSchedulers.mainThread())
             .finallyDo(new Action0() {
-            @Override
-            public void call() {
-                rxBindView.printMessage(sb.toString());
-            }
-        }).forEach(new Action1<Integer>() {
+                @Override
+                public void call() {
+                    rxBindView.printMessage(sb.toString());
+                }
+            }).forEach(new Action1<Integer>() {
             @Override
             public void call(Integer integer) {
                 sb.append("each=" + integer);

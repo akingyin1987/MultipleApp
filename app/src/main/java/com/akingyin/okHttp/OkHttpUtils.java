@@ -1,22 +1,19 @@
 package com.akingyin.okHttp;
 
 
-import android.content.Context;
+
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 
-import com.akingyin.okHttp.cookieStore.PersistentCookieStore;
+
 import com.akingyin.okHttp.cookieStore.SimpleCookieJar;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
-import com.squareup.picasso.OkHttpDownloader;
+
 
 import java.io.File;
 import java.io.IOException;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-import java.net.CookieStore;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,7 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import okio.BufferedSink;
+
 
 /**
  * Created by zlcd on 2015/12/29.
@@ -292,6 +289,7 @@ public class OkHttpUtils {
 
                     OkHttpClient.Builder builder = new OkHttpClient.Builder()
                         .addNetworkInterceptor(new StethoInterceptor())
+
                         .cookieJar(new SimpleCookieJar())
                         .cache(new Cache(cacheDir, Config.RESPONSE_CACHE_SIZE))
                         .connectTimeout(Config.HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS)
