@@ -1,11 +1,9 @@
 package com.akingyin.net;
 
-import android.content.Context;
+
 
 import com.akingyin.okHttp.OkHttpUtils;
 
-import okhttp3.HttpUrl;
-import retrofit2.BaseUrl;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -35,6 +33,18 @@ public class RetrofitUtils {
             }
         }
         return singleton.create(clazz);
+    }
+
+
+    public static <T> T createApi(Class<T> clazz,String baseUrl) {
+        synchronized (RetrofitUtils.class) {
+                Retrofit.Builder builder = new Retrofit.Builder();
+                builder.baseUrl(baseUrl);//设置远程地址
+                builder.addConverterFactory(GsonConverterFactory.create());
+                builder.addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+                builder.client(OkHttpUtils.getInstance());
+                return builder.build().create(clazz);
+        }
     }
 
 }

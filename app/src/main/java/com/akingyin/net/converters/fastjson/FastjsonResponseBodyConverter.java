@@ -11,7 +11,7 @@ import retrofit2.Converter;
 /**
  * Created by zlcd on 2016/2/15.
  */
-public class FastjsonResponseBodyConverter<T> implements Converter<ResponseBody,T> {
+public final class FastjsonResponseBodyConverter<T> implements Converter<ResponseBody,T> {
 
        private   Class<T>    t;
 
@@ -24,7 +24,7 @@ public class FastjsonResponseBodyConverter<T> implements Converter<ResponseBody,
         try {
           return  JSON.parseObject(value.string(),t);
         }catch (Exception e){
-
+          e.printStackTrace();
         }
         return  null;
     }
