@@ -2,8 +2,10 @@ package com.akingyin.net.api;
 
 import com.akingyin.pojo.UserInfo;
 
+import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -14,5 +16,7 @@ public interface GitHubApi {
     @GET("/users/{account}")
     Observable<UserInfo>   getUserInfo(@Path("account")String  account);
 
+    @GET("/v2/movie/in_theaters")
+    Observable<ResponseBody>  getHostMoves(@Query("city") String  account);
 
 }

@@ -47,6 +47,11 @@ public class RetrofitFragment  extends Fragment implements IRetrofitView{
         presenter.findUserInfo("akingyin1987");
     }
 
+    @Click
+    public  void  retrofit_btn2(){
+        presenter.findBodyUserInfo("akingyin1987");
+    }
+
     @Override
     public void initialize(Bundle savedInstanceState, View view) {
 

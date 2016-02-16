@@ -1,6 +1,7 @@
 package com.akingyin.presenter.impl;
 
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 
 import com.akingyin.model.impl.UserRetrofitModelImpl;
@@ -13,7 +14,11 @@ import com.akingyin.view.IRetrofitView;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+
+import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -70,5 +75,34 @@ public class RetrofitPresenterImpl implements IRetrofitPresenter {
         });
     }
 
+    @Override
+    public void findBodyUserInfo(String account) {
+        retrofitView.showMessage("网上获取中body");
+        GitHubApi   gitHubApi = RetrofitUtils.createApi(GitHubApi.class);
+        Observable<ResponseBody>  observable = gitHubApi.getHostMoves("重庆");
+           observable .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(new Action1<ResponseBody>() {
+                @Override
+                public void call(ResponseBody responseBody) {
+                     try {
 
+                         JSONObject   jsonObject  =  new JSONObject(responseBody.string());
+                         JSONArray   jsonArray = jsonObject.getJSONArray("subjects");
+                         for(int i=0;i<jsonArray.length();i++){
+                             retrofitView.printMessage(jsonArray.get(i).toString());
+                             System.out.println(jsonArray.get(i).toString());
+                         }
+                     }catch (Exception e){
+
+                     }
+
+                }
+            }, new Action1<Throwable>() {
+                @Override
+                public void call(Throwable throwable) {
+                    retrofitView.showMessage("出错了"+throwable.getMessage());
+                }
+            });
+    }
 }

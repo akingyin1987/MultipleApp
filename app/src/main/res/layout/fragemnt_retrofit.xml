@@ -19,6 +19,13 @@
             android:id="@+id/retrofit_btn1"
             android:text="Rxjava+Retrofit(get)"/>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/retrofit_btn2"
+            android:layout_marginTop="10dp"
+            android:text="Rxjava+Retrofit+body"/>
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

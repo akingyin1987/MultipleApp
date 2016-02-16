@@ -14,5 +14,8 @@ public interface IRetrofitPresenter {
     public   void   findUserInfo(String  account);
 
 
+    public   void   findBodyUserInfo(String  account);
+
+
 
 }

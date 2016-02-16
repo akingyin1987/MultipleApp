@@ -114,6 +114,7 @@ dependencies {
     compile 'com.danikula:videocache:2.3.4'
     compile 'com.github.iammert:MaterialIntroView:1.5'
 
+
 }
 
 bugly {
