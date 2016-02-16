@@ -18,6 +18,7 @@ import com.akingyin.presenter.IHomePresenter;
 import com.akingyin.presenter.impl.HomePresenterImpl;
 import com.akingyin.ui.fragment.FlashlightFragment;
 import com.akingyin.ui.fragment.ImplicitFragment;
+import com.akingyin.ui.fragment.RetrofitFragment;
 import com.akingyin.ui.fragment.RxViewFragment;
 import com.akingyin.ui.fragment.UserListFragment;
 import com.akingyin.ui.fragment.VoiceFragment;
@@ -80,6 +81,9 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
                     case R.id.navigation_rxview:
                         switchRxview();
                         break;
+                    case R.id.navigation_retrofit:
+                        switchRetrofit();
+                        break;
                 }
                 item.setChecked(true);
                 snv.closeDrawers();
@@ -136,7 +140,7 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
         if(null == fragment){
             fragment = FlashlightFragment.newInstance();
         }
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment,"flashlight").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment, "flashlight").commit();
 
     }
 
@@ -149,6 +153,14 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment,"voice").commit();
     }
 
+    @Override
+    public void switchRetrofit() {
+        RetrofitFragment   fragment = (RetrofitFragment)getSupportFragmentManager().findFragmentByTag("retrofit");
+        if(null == fragment){
+           fragment = com.akingyin.ui.fragment.RetrofitFragment_.builder().build();
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment,"retrofit").commit();
+    }
 
     @Override
     public void switchRxview() {

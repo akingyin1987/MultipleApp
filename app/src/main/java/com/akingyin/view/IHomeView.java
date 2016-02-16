@@ -23,4 +23,6 @@ public interface IHomeView {
     public   void   switchVoiceRecord();
 
     public   void   switchRxview();
+
+    public   void   switchRetrofit();
 }

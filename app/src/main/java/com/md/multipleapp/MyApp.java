@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
+import com.facebook.stetho.Stetho;
 import com.tencent.bugly.crashreport.CrashReport;
 
 /**
@@ -19,6 +20,10 @@ public class MyApp extends Application {
                        .create();
         ActiveAndroid.initialize(cfg,true);
         CrashReport.initCrashReport(this, "900018539", true);
+        Stetho.initialize(Stetho.newInitializerBuilder(this)
+            .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
+            .enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this))
+            .build());
       //  CrashReport.testJavaCrash();
     }
 

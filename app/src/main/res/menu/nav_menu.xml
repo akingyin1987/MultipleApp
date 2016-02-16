@@ -39,6 +39,11 @@
             android:id="@+id/navigation_rxview"
             android:icon="@drawable/ic_favorite"
             android:title="Rxview" />
+
+        <item
+            android:id="@+id/navigation_retrofit"
+            android:icon="@drawable/ic_favorite"
+            android:title="retrofit2" />
     </group>
 
 </menu>

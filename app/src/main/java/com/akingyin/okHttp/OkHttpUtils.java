@@ -289,14 +289,11 @@ public class OkHttpUtils {
 
                     OkHttpClient.Builder builder = new OkHttpClient.Builder()
                         .addNetworkInterceptor(new StethoInterceptor())
-
                         .cookieJar(new SimpleCookieJar())
                         .cache(new Cache(cacheDir, Config.RESPONSE_CACHE_SIZE))
                         .connectTimeout(Config.HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS)
                         .readTimeout(Config.HTTP_READ_TIMEOUT, TimeUnit.SECONDS);
-
                     singleton = builder.build();
-
                 }
             }
 
