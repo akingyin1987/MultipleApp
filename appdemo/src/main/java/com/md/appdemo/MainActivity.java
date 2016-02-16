@@ -27,6 +27,7 @@ import com.md.appdemo.ui.IdemoView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Bean;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
@@ -141,10 +142,17 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
+
         demoPresenter.findAllUser();
 
     }
 
+    @Click
+    public   void  menu_labels_right(){
+       if(menu_labels_right.isOpened()){
+           menu_labels_right.toggle(true);
+       }
+    }
 
 
     @Override

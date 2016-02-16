@@ -69,6 +69,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit"
             fab:fab_size="mini"
+
             fab:fab_label="Menu item 1" />
 
         <com.github.clans.fab.FloatingActionButton
