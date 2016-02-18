@@ -113,7 +113,7 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
     compile 'com.danikula:videocache:2.3.4'
     compile 'com.github.iammert:MaterialIntroView:1.5'
-
+    compile 'com.ragnarok.rxcamera:lib:0.0.2'
 
 }
 
