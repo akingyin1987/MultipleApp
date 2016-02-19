@@ -10,8 +10,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.akingyin.presenter.IHomePresenter;
@@ -26,6 +28,8 @@ import com.akingyin.view.IHomeView;
 
 import com.md.multipleapp.AppInstallReceiver;
 import com.md.multipleapp.R;
+
+import info.hoang8f.android.segmented.SegmentedGroup;
 
 
 /**
@@ -45,11 +49,32 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        System.out.println("mtoolbar="+(null == mToolbar));
         setSupportActionBar(mToolbar);
         if(null != getSupportActionBar()){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+        SegmentedGroup segmentedGroup = (SegmentedGroup) mToolbar.findViewById(R.id.toolbar_segment);
+        segmentedGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if(checkedId == R.id.toolbar_phone){
+                    showMessage(group,"one");
+                }else{
+                    showMessage(group,"tow");
+                }
+            }
+        });
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if(item.getItemId() == R.id.action_edit){
+                    showMessage("编辑");
+                }
+                return false;
+            }
+        });
         homePresenter = new HomePresenterImpl(this);
         homePresenter.initialize(savedInstanceState);
     }
@@ -160,6 +185,12 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
            fragment = com.akingyin.ui.fragment.RetrofitFragment_.builder().build();
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment,"retrofit").commit();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return  true;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.akingyin.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.akingyin.presenter.IRxbindPresenter;
 import com.akingyin.presenter.impl.RxBindPresenterImpl;
 import com.akingyin.view.IRxBindView;
+import com.desmond.squarecamera.CameraActivity;
 import com.jakewharton.rxbinding.view.RxView;
 import com.md.multipleapp.R;
 import com.ragnarok.rxcamera.RxCamera;
@@ -28,11 +30,13 @@ import com.ragnarok.rxcamera.config.RxCameraConfigChooser;
 import com.ragnarok.rxcamera.request.Func;
 
 import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang.SystemUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.LogRecord;
 
 
 import co.mobiwise.materialintro.shape.Focus;
@@ -144,6 +148,8 @@ public class RxViewFragment extends Fragment implements IRxBindView{
             .subscribe(new Action1<Void>() {
                 @Override
                 public void call(Void aVoid) {
+                    Intent   intent  =  new Intent(getContext(), CameraActivity.class);
+                    startActivityForResult(intent,100);
                     rxview_one_btn.setText("tow"+ RandomStringUtils.random(4,"我是中国人我爱您"));
                 }
             });
@@ -228,5 +234,11 @@ public class RxViewFragment extends Fragment implements IRxBindView{
         if(null != camera){
             camera.closeCamera();
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("request_code="+requestCode+":"+resultCode);
     }
 }

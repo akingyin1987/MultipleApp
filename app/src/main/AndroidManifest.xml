@@ -64,5 +64,10 @@
         </activity>
 
         <activity android:name="com.advancedrecyclerview.RecyclerviewDemoActivity"/>
+        <activity android:name="com.desmond.squarecamera.CameraActivity"
+                  android:theme="@style/squarecamera__CameraFullScreenTheme.NoUI"/>
+        <activity android:name="com.desmond.squarecamera.RuntimePermissionActivity"
+                  android:theme="@style/squarecamera__CameraFullScreenTheme.NoUI"
+                  />
     </application>
 </manifest>

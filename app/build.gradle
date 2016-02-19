@@ -94,7 +94,7 @@ dependencies {
     compile 'com.github.maksim88:PasswordEditText:v0.4'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'org.byteam.superadapter:superadapter:2.2.3'
-    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.daimajia.swipelayout:library:1.2.0@aar'
     compile 'com.github.bmelnychuk:atv:1.2.7'
     compile 'com.github.iwgang:countdownview:1.2'
     compile 'com.github.tittojose:timerangepicker-library:0.2'
@@ -114,7 +114,8 @@ dependencies {
     compile 'com.danikula:videocache:2.3.4'
     compile 'com.github.iammert:MaterialIntroView:1.5'
     compile 'com.ragnarok.rxcamera:lib:0.0.2'
-
+    compile project(':squarecamera')
+    compile 'info.hoang8f:android-segmented:1.0.6'
 
 }
 

@@ -37,7 +37,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
                 android:text="rxview2"
-                android:visibility="gone"
+
                 android:id="@+id/rxview_tow_btn"/>
 
             <Button

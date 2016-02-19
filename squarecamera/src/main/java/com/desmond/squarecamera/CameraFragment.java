@@ -536,6 +536,7 @@ public class CameraFragment extends Fragment implements SurfaceHolder.Callback, 
         public void onOrientationChanged(int orientation) {
             if (orientation != ORIENTATION_UNKNOWN) {
                 mCurrentNormalizedOrientation = normalize(orientation);
+                System.out.println("orientation="+mCurrentNormalizedOrientation);
             }
         }
 
