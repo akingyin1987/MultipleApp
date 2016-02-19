@@ -1,1 +1,1 @@
-include ':app', ':appdemo', ':daoexamplegenerator', ':squarecamera'
+include ':app', ':appdemo', ':daoexamplegenerator', ':squarecamera', ':akingyinlib'
