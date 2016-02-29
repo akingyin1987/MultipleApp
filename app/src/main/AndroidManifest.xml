@@ -70,7 +70,7 @@
                   android:theme="@style/squarecamera__CameraFullScreenTheme.NoUI"
                   />
         <activity android:name="com.akingyin.ui.RecyclerviewActivity_"
-                  android:theme="@style/App_NoActionbar"
+                  android:theme="@style/App_baseNoAction"
                  />
     </application>
 </manifest>
