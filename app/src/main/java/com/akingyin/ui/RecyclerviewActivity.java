@@ -1,6 +1,7 @@
 package com.akingyin.ui;
 
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -28,6 +29,9 @@ public class RecyclerviewActivity extends AppCompatActivity{
 
     @ViewById
     public Toolbar   toolbar;
+
+    @ViewById
+    public FloatingActionButton  fab;
 
     @ViewById
     public CollapsingToolbarLayout  collapsing_toolbar;
@@ -87,5 +91,6 @@ public class RecyclerviewActivity extends AppCompatActivity{
                 recycler_view.setPullLoadMoreCompleted();
             }
         });
+
     }
 }
