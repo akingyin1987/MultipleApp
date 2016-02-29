@@ -69,5 +69,8 @@
         <activity android:name="com.desmond.squarecamera.RuntimePermissionActivity"
                   android:theme="@style/squarecamera__CameraFullScreenTheme.NoUI"
                   />
+        <activity android:name="com.akingyin.ui.RecyclerviewActivity_"
+                  android:theme="@style/App_NoActionbar"
+                 />
     </application>
 </manifest>

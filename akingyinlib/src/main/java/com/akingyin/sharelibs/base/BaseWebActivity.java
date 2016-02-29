@@ -51,6 +51,7 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
         mWebTitle = extras.getString(BUNDLE_KEY_TITLE);
         mWebUrl = extras.getString(BUNDLE_KEY_URL);
         isShowBottomBar = extras.getBoolean(BUNDLE_KEY_SHOW_BOTTOM_BAR);
+
     }
 
     @Override
@@ -114,10 +115,6 @@ public class BaseWebActivity extends BaseSwipeBackCompatActivity {
         return true;
     }
 
-    @Override
-    protected boolean isBindEventBusHere() {
-        return false;
-    }
 
     @Override
     protected boolean toggleOverridePendingTransition() {

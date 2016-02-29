@@ -4,9 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MultipleApp.iml" filepath="$PROJECT_DIR$/MultipleApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/akingyinlib/akingyinlib.iml" filepath="$PROJECT_DIR$/akingyinlib/akingyinlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/akingyinlib/akingyinlib.iml" filepath="$PROJECT_DIR$/akingyinlib/akingyinlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/appdemo/appdemo.iml" filepath="$PROJECT_DIR$/appdemo/appdemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/daoexamplegenerator/daoexamplegenerator.iml" filepath="$PROJECT_DIR$/daoexamplegenerator/daoexamplegenerator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/squarecamera/squarecamera.iml" filepath="$PROJECT_DIR$/squarecamera/squarecamera.iml" />
       <module fileurl="file://$PROJECT_DIR$/squarecamera/squarecamera.iml" filepath="$PROJECT_DIR$/squarecamera/squarecamera.iml" />
     </modules>
   </component>

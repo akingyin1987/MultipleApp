@@ -117,6 +117,13 @@ public class ImplicitFragment extends Fragment{
                startActivity(intent);
            }
        });
+
+        view.findViewById(R.id.app_recyclerview_more).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               com.akingyin.ui.RecyclerviewActivity_.intent(getContext()).start();
+            }
+        });
     }
 
     @Override
