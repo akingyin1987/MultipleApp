@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'bugly'   //添加Bugly插件
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion 23
@@ -44,7 +46,9 @@ android {
             java.srcDirs = ['src/main/java']
             res.srcDirs = ['src/main/res']
             jniLibs.srcDirs = ['libs']
+
         }
+
     }
 
     lintOptions {
@@ -119,9 +123,29 @@ dependencies {
     compile 'com.lapism:searchview:2.0.3'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile project(':akingyinlib')
+    //银行卡编辑界面
+    compile 'com.github.cooltechworks:CreditCardView:v1.0'
+
+    // md风格的等待对话框
+    compile('com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
 }
 
 bugly {
     appId = '900018539'    //注册时分配的App ID
     appKey = 'RptDuw9nSGrNwNwP'  //注册时分配的App Key
 }
+buildscript {
+    ext.kotlin_version = '1.0.0'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+repositories {
+    mavenCentral()
+}
+

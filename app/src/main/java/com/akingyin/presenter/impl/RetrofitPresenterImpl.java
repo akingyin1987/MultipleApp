@@ -1,7 +1,7 @@
 package com.akingyin.presenter.impl;
 
 import android.os.Bundle;
-import android.provider.Settings;
+
 import android.view.View;
 
 import com.akingyin.model.impl.UserRetrofitModelImpl;
@@ -33,8 +33,9 @@ import rx.schedulers.Schedulers;
 @EBean
 public class RetrofitPresenterImpl implements IRetrofitPresenter {
 
+
     @Bean
-     UserRetrofitModelImpl     userRetrofitModel;
+    UserRetrofitModelImpl     userRetrofitModel;
 
     private GitHubApi    api;
 

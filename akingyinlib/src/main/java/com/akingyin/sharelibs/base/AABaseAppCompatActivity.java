@@ -142,10 +142,7 @@ public abstract class AABaseAppCompatActivity  extends AppCompatActivity {
      */
     protected abstract void getBundleExtras(Bundle extras);
 
-    /**
-     * init all views and add events
-     */
-    protected abstract void initViewsAndEvents();
+
 
     /**
      * network connected

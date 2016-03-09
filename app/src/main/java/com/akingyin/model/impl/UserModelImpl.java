@@ -1,3 +1,5 @@
+
+
 package com.akingyin.model.impl;
 
 import android.support.annotation.NonNull;
@@ -7,6 +9,7 @@ import com.akingyin.model.IUserModel;
 import com.md.multipleapp.UserEntity;
 
 import java.util.List;
+
 
 /**
  * Created by Administrator on 2016/1/28.

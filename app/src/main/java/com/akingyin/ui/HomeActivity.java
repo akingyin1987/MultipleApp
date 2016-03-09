@@ -2,6 +2,7 @@ package com.akingyin.ui;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -30,6 +31,7 @@ import com.md.multipleapp.AppInstallReceiver;
 import com.md.multipleapp.R;
 
 import info.hoang8f.android.segmented.SegmentedGroup;
+import rx.Observable;
 
 
 /**
@@ -51,6 +53,7 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         System.out.println("mtoolbar="+(null == mToolbar));
         setSupportActionBar(mToolbar);
+
         if(null != getSupportActionBar()){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -81,7 +84,9 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
 
     @Override
     public void initialize(Bundle savedInstanceState) {
+
         snv = (DrawerLayout)findViewById(R.id.drawer_layout);
+
         System.out.println("snv=="+(null == snv));
         mDrawerToggle = new ActionBarDrawerToggle(this, snv, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerToggle.syncState();
