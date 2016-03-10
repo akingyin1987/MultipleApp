@@ -43,6 +43,10 @@ public class FastJsonConverterFactory  extends Converter.Factory {
         return new FastJsonResponseBodyConverter<>(type);
     }
 
+
+
+
+
     /**
      * 需要重写父类中responseBodyConverter，该方法用来转换发送给服务器的数据
      */
