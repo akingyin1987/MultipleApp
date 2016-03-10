@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
+
 apply plugin: 'com.neenbedankt.android-apt'
 
 android {
@@ -74,17 +74,6 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
     compile 'com.github.clans:fab:1.6.2'
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
 }
-buildscript {
-    ext.kotlin_version = '1.0.0'
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
-repositories {
-    mavenCentral()
-}
+
