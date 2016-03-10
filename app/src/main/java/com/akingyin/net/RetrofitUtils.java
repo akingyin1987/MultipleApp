@@ -19,6 +19,8 @@ public class RetrofitUtils {
 
     private  static  final  String   baseUrl="https://api.douban.com";
 
+    public static final String BAIDU_IMAGES_URLS = "http://image.baidu.com";
+
     public static <T> T createApi(Class<T> clazz) {
         if (singleton == null) {
             synchronized (RetrofitUtils.class) {
