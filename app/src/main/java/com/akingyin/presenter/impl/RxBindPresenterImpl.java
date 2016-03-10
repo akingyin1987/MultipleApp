@@ -11,6 +11,9 @@ import org.apache.commons.lang.math.RandomUtils;
 import java.util.ArrayList;
 import java.util.List;
 import rx.Observable;
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -70,4 +73,48 @@ public class RxBindPresenterImpl implements IRxbindPresenter {
             }
         });
     }
+
+    @Override
+    public void rxMap() {
+        Observable.just(1).subscribe(new Action1<Integer>() {
+            @Override
+            public void call(Integer integer) {
+
+            }
+        }, new Action1<Throwable>() {
+            @Override
+            public void call(Throwable throwable) {
+
+            }
+        });
+        final Subscriber<Integer>  subscriber = new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+
+            }
+        };
+
+        Observable<Integer> observable =Observable.just(1).map(new Func1<Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer) {
+                subscriber.onError(new Throwable());
+                return integer;
+            }
+        });
+
+
+        observable.subscribe(subscriber);
+    }
+
+
 }
