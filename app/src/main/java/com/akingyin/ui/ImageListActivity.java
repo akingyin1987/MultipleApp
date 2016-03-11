@@ -52,7 +52,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
     @ViewById
     public PullLoadMoreRecyclerView  recycler_view;
 
-    @Bean
+
     public ImagelistAdapter  adapter;
 
     @Bean
@@ -65,6 +65,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+        adapter = new ImagelistAdapter(this,null,R.layout.item_imageview);
         recycler_view.setAdapter(adapter);
         recycler_view.setPushRefreshEnable(true);
         recycler_view.setPullRefreshEnable(true);
@@ -73,7 +74,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
         recycler_view.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
-                presenter.onRefresh("");
+                presenter.onRefresh("美女");
             }
 
             @Override
@@ -81,20 +82,26 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
 
             }
         });
+        presenter.setIqueryImageListView(this);
         presenter.onRefresh(null);
     }
 
 
     @Override
-    public void onRefresh(List<ImageBean> items) {
-        adapter.clear();
-        adapter.addAll(items);
+    public void onRefresh(List<ImageBean> items,boolean  success) {
+
         recycler_view.setPullLoadMoreCompleted();
+        if(success){
+            adapter.clear();
+            adapter.addAll(items);
+        }
     }
 
     @Override
-    public void onLoadMore(List<ImageBean> moreitems) {
-        adapter.addAll(moreitems);
+    public void onLoadMore(List<ImageBean> moreitems,boolean  success) {
+        if(success){
+            adapter.addAll(moreitems);
+        }
         recycler_view.setPullLoadMoreCompleted();
     }
 

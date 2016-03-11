@@ -72,5 +72,8 @@
         <activity android:name="com.akingyin.ui.RecyclerviewActivity_"
                   android:theme="@style/App_baseNoAction"
                  />
+        <activity android:name="com.akingyin.ui.ImageListActivity_"
+                  android:excludeFromRecents="true"
+                  android:theme="@style/App_NoActionbar"/>
     </application>
 </manifest>

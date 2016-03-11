@@ -20,7 +20,8 @@ package com.akingyin.view;
 
 import android.view.View;
 
-import com.akingyin.pojo.ImageBean;
+
+import com.akingyin.pojo.ImageListBean;
 
 import java.util.List;
 
@@ -29,10 +30,10 @@ import java.util.List;
  */
 public interface IqueryImageListView {
 
-    public    void    onRefresh(List<ImageBean>  items);
+    public    void    onRefresh(List<ImageListBean.ImgsEntity>  items,boolean   success);
 
 
-    public    void    onLoadMore(List<ImageBean> moreitems);
+    public    void    onLoadMore(List<ImageListBean.ImgsEntity> moreitems,boolean   success);
 
     public   void   showMessage(String  message);
 

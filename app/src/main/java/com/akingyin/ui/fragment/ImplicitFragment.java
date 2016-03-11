@@ -121,7 +121,8 @@ public class ImplicitFragment extends Fragment{
         view.findViewById(R.id.app_recyclerview_more).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               com.akingyin.ui.RecyclerviewActivity_.intent(getContext()).start();
+              // com.akingyin.ui.RecyclerviewActivity_.intent(getContext()).start();
+                com.akingyin.ui.ImageListActivity_.intent(getContext()).start();
             }
         });
     }

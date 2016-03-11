@@ -18,9 +18,11 @@
 
 package com.akingyin.model;
 
-import com.akingyin.pojo.ImageBean;
 
-import java.util.List;
+
+import com.akingyin.pojo.ImageListBean;
+
+
 
 import rx.Observable;
 
@@ -29,7 +31,7 @@ import rx.Observable;
  */
 public interface IQueryImageModel {
 
-    public Observable<List<ImageBean>> onLoadData(String  category,String tag,int  pn,int rn,int from);
+    public Observable<ImageListBean> onLoadData(String  category,String tag,int  pn,int rn,int from);
 
 
 }

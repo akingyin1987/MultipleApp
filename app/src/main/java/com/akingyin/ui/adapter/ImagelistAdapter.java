@@ -19,11 +19,14 @@
 package com.akingyin.ui.adapter;
 
 import android.content.Context;
+import android.net.Uri;
 import android.widget.ImageView;
 
-import com.akingyin.pojo.ImageBean;
+
+import com.akingyin.pojo.ImageListBean;
+import com.bumptech.glide.Glide;
 import com.md.multipleapp.R;
-import com.squareup.picasso.Picasso;
+
 
 import org.byteam.superadapter.recycler.BaseViewHolder;
 import org.byteam.superadapter.recycler.SuperAdapter;
@@ -33,15 +36,23 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/3/10.
  */
-public class ImagelistAdapter extends SuperAdapter<ImageBean> {
-    public ImagelistAdapter(Context context, List<ImageBean> items, int layoutResId) {
+public class ImagelistAdapter extends SuperAdapter<ImageListBean.ImgsEntity> {
+    public ImagelistAdapter(Context context, List<ImageListBean.ImgsEntity> items, int layoutResId) {
         super(context, items, layoutResId);
     }
 
     @Override
-    public void onBind(int viewType, BaseViewHolder holder, int position, ImageBean item) {
+    public void onBind(int viewType, BaseViewHolder holder, int position, ImageListBean.ImgsEntity item) {
          holder.setText(R.id.item_text,"postion"+position);
          ImageView  imageView = holder.getView(R.id.item_image);
+        Glide.with(getContext())
+            .load(Uri.parse(item.getThumbnailUrl()))
+            .centerCrop()
+            .placeholder(R.drawable.ic_error)
+            .override(item.getThumbnailWidth(),item.getThumbnailHeight())
+            .crossFade()
+            .into(imageView);
+
 
     }
 }

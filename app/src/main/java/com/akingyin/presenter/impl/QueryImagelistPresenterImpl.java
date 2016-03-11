@@ -18,12 +18,25 @@
 
 package com.akingyin.presenter.impl;
 
+import android.text.TextUtils;
+
 import com.akingyin.model.impl.QueryImageModelImpl;
+
+import com.akingyin.pojo.ImageListBean;
 import com.akingyin.presenter.IQueryImagelistPresenter;
 import com.akingyin.view.IqueryImageListView;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.EBean;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.List;
+
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2016/3/10.
@@ -37,17 +50,60 @@ public class QueryImagelistPresenterImpl  implements IQueryImagelistPresenter {
 
     private IqueryImageListView    iqueryImageListView;
 
-    public QueryImagelistPresenterImpl(IqueryImageListView iqueryImageListView) {
+    public IqueryImageListView getIqueryImageListView() {
+        return iqueryImageListView;
+    }
+
+    public void setIqueryImageListView(IqueryImageListView iqueryImageListView) {
         this.iqueryImageListView = iqueryImageListView;
     }
 
     @Override
     public void onRefresh(String query) {
+        try {
+            String category = TextUtils.isEmpty(query)?"":URLEncoder.encode(query,"utf-8");
+            String  tag  = URLEncoder.encode("全部","utf-8");
+            Observable<ImageListBean>  observable = queryImageModel.onLoadData(category, tag, 1, 100, 1);
+            observable.observeOn(AndroidSchedulers.mainThread())
+                      .subscribeOn(Schedulers.io())
+                      .subscribe(new Action1<ImageListBean>() {
+                          @Override
+                          public void call(ImageListBean imageBeans) {
+                              iqueryImageListView.onRefresh(imageBeans.getImgs(),true);
+                          }
+                      }, new Action1<Throwable>() {
+                          @Override
+                          public void call(Throwable throwable) {
+                              iqueryImageListView.onRefresh(null,false);
+                          }
+                      });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public void onLoadMore(int page, String query) {
-
+        try {
+            String category = TextUtils.isEmpty(query)?"":URLEncoder.encode(query,"utf-8");
+            String  tag  = URLEncoder.encode("全部","utf-8");
+            Observable<ImageListBean>  observable = queryImageModel.onLoadData(category, tag, page, 100, 1);
+            observable.observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(new Action1<ImageListBean>() {
+                    @Override
+                    public void call(ImageListBean imageBeans) {
+                        iqueryImageListView.onLoadMore(imageBeans.getImgs(), true);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        iqueryImageListView.onLoadMore(null,false);
+                    }
+                });
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 }

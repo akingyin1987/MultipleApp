@@ -21,7 +21,8 @@ package com.akingyin.model.impl;
 import com.akingyin.model.IQueryImageModel;
 import com.akingyin.net.RetrofitUtils;
 import com.akingyin.net.api.BaiDuImagesApi;
-import com.akingyin.pojo.ImageBean;
+
+import com.akingyin.pojo.ImageListBean;
 
 import org.androidannotations.annotations.EBean;
 
@@ -44,7 +45,7 @@ public class QueryImageModelImpl  implements IQueryImageModel {
     }
 
     @Override
-    public Observable<List<ImageBean>> onLoadData(String category, String tag, int pn, int rn, int from) {
+    public Observable<ImageListBean> onLoadData(String category, String tag, int pn, int rn, int from) {
         return api.queryImages(category,tag,pn,rn,from);
     }
 }

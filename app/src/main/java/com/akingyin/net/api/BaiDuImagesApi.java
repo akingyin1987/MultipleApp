@@ -18,9 +18,10 @@
 
 package com.akingyin.net.api;
 
-import com.akingyin.pojo.ImageBean;
 
-import java.util.List;
+import com.akingyin.pojo.ImageListBean;
+
+
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -34,7 +35,7 @@ public interface BaiDuImagesApi {
 
 
     @GET("/data/imgs")
-    Observable<List<ImageBean>>   queryImages(@Query("col")String  category,@Query("tag")String tag,
+    Observable<ImageListBean>   queryImages(@Query("col")String  category,@Query("tag")String tag,
                                         @Query("pn")int  pn,@Query("rn")int rn,@Query("from")int from);
 
 }

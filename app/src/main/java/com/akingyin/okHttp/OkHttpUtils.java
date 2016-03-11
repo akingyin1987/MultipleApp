@@ -30,6 +30,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 
 /**
@@ -275,6 +276,12 @@ public class OkHttpUtils {
         }
     }
 
+    public   static HttpLoggingInterceptor    httpLoggingInterceptor ;
+
+    static {
+        httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+    }
 
     /**
      * 获取OkHttp实例
@@ -289,6 +296,7 @@ public class OkHttpUtils {
 
                     OkHttpClient.Builder builder = new OkHttpClient.Builder()
                         .addNetworkInterceptor(new StethoInterceptor())
+                        .addInterceptor(httpLoggingInterceptor)
                         .cookieJar(new SimpleCookieJar())
                         .cache(new Cache(cacheDir, Config.RESPONSE_CACHE_SIZE))
                         .connectTimeout(Config.HTTP_CONNECT_TIMEOUT, TimeUnit.SECONDS)
