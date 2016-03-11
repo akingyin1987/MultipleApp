@@ -18,7 +18,7 @@
 
 package com.akingyin.presenter.impl;
 
-import android.text.TextUtils;
+
 
 import com.akingyin.model.impl.QueryImageModelImpl;
 
