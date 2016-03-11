@@ -20,6 +20,8 @@ package com.akingyin.presenter.impl;
 
 
 
+import android.text.TextUtils;
+
 import com.akingyin.model.impl.QueryImageModelImpl;
 
 import com.akingyin.pojo.ImageListBean;
@@ -31,11 +33,15 @@ import org.androidannotations.annotations.EBean;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
@@ -61,18 +67,35 @@ public class QueryImagelistPresenterImpl  implements IQueryImagelistPresenter {
     @Override
     public void onRefresh(String query) {
         try {
-            Observable<ImageListBean>  observable = queryImageModel.onLoadData(query, "全部", 0, 20, 1);
+            Random  r = new Random();
+            final int page = r.nextInt(1000);
+            Observable<ImageListBean>  observable = queryImageModel.onLoadData(query, "全部", page, 20, 1);
             observable.observeOn(AndroidSchedulers.mainThread())
                       .subscribeOn(Schedulers.io())
+                      .map(new Func1<ImageListBean, ImageListBean>() {
+                          @Override
+                          public ImageListBean call(ImageListBean imageListBean) {
+                              if (null != imageListBean) {
+                                  Iterator<ImageListBean.ImgsEntity> iterator = imageListBean.getImgs().iterator();
+                                  while (iterator.hasNext()) {
+                                      ImageListBean.ImgsEntity item = iterator.next();
+                                      if (TextUtils.isEmpty(item.getThumbnailUrl())) {
+                                          iterator.remove();
+                                      }
+                                  }
+                              }
+                              return imageListBean;
+                          }
+                      })
                       .subscribe(new Action1<ImageListBean>() {
                           @Override
                           public void call(ImageListBean imageBeans) {
-                              iqueryImageListView.onRefresh(imageBeans.getImgs(),true);
+                              iqueryImageListView.onRefresh(imageBeans.getImgs(), true,page);
                           }
                       }, new Action1<Throwable>() {
                           @Override
                           public void call(Throwable throwable) {
-                              iqueryImageListView.onRefresh(null,false);
+                              iqueryImageListView.onRefresh(null, false,page);
                           }
                       });
         } catch (Exception e) {
@@ -82,21 +105,37 @@ public class QueryImagelistPresenterImpl  implements IQueryImagelistPresenter {
     }
 
     @Override
-    public void onLoadMore(int page, String query) {
+    public void onLoadMore(final int page, String query) {
         try {
 
-            Observable<ImageListBean>  observable = queryImageModel.onLoadData(query, "全部", page, 10, 1);
+            Observable<ImageListBean>  observable = queryImageModel.onLoadData(query, "全部", page, 20, 1);
             observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
+                    .map(new Func1<ImageListBean, ImageListBean>() {
+                        @Override
+                        public ImageListBean call(ImageListBean imageListBean) {
+                            if (null != imageListBean) {
+                                Iterator<ImageListBean.ImgsEntity> iterator = imageListBean.getImgs().iterator();
+                                while (iterator.hasNext()) {
+                                    ImageListBean.ImgsEntity item = iterator.next();
+                                    if (TextUtils.isEmpty(item.getThumbnailUrl())) {
+                                        iterator.remove();
+                                    }
+                                }
+                            }
+                            return imageListBean;
+                        }
+                    })
                 .subscribe(new Action1<ImageListBean>() {
                     @Override
                     public void call(ImageListBean imageBeans) {
-                        iqueryImageListView.onLoadMore(imageBeans.getImgs(), true);
+                        System.out.println(imageBeans.getImgs().size());
+                        iqueryImageListView.onLoadMore(imageBeans.getImgs(), true, page);
                     }
                 }, new Action1<Throwable>() {
                     @Override
                     public void call(Throwable throwable) {
-                        iqueryImageListView.onLoadMore(null,false);
+                        iqueryImageListView.onLoadMore(null, false, page);
                     }
                 });
         } catch (Exception e) {

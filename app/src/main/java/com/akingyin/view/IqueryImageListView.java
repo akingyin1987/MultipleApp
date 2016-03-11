@@ -30,10 +30,10 @@ import java.util.List;
  */
 public interface IqueryImageListView {
 
-    public    void    onRefresh(List<ImageListBean.ImgsEntity>  items,boolean   success);
+    public    void    onRefresh(List<ImageListBean.ImgsEntity>  items,boolean   success,int page);
 
 
-    public    void    onLoadMore(List<ImageListBean.ImgsEntity> moreitems,boolean   success);
+    public    void    onLoadMore(List<ImageListBean.ImgsEntity> moreitems,boolean   success,int page);
 
     public   void   showMessage(String  message);
 

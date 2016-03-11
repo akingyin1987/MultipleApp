@@ -25,6 +25,7 @@ import android.widget.ImageView;
 
 
 import com.akingyin.pojo.ImageListBean;
+import com.akingyin.sharelibs.widgets.PLAImageView;
 import com.bumptech.glide.Glide;
 import com.md.multipleapp.R;
 
@@ -45,15 +46,18 @@ public class ImagelistAdapter extends SuperAdapter<ImageListBean.ImgsEntity> {
     @Override
     public void onBind(int viewType, BaseViewHolder holder, int position, ImageListBean.ImgsEntity item) {
          holder.setText(R.id.item_text, item.getDesc());
-         ImageView  imageView = holder.getView(R.id.item_image);
+         PLAImageView imageView = holder.getView(R.id.item_image);
          System.out.println("url=" + item.getImageUrl());
-        if(!TextUtils.isEmpty(item.getDownloadUrl())){
+        if(!TextUtils.isEmpty(item.getThumbnailUrl())){
             Glide.with(getContext())
-                .load(Uri.parse(item.getDownloadUrl()))
-                .centerCrop()
-                .placeholder(R.drawable.ic_error)
+                .load(Uri.parse(item.getThumbnailUrl()))
                 .crossFade()
+
+                .placeholder(R.drawable.ic_error)
+
                 .into(imageView);
+            imageView.setImageHeight(item.getThumbnailHeight());
+            imageView.setImageWidth(item.getThumbnailWidth());
         }
 
 

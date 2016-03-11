@@ -164,6 +164,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (isRefresh || isLoadMore) {
+                System.out.println("onTouch");
                 return true;
             } else {
                 return false;

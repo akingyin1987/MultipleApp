@@ -59,6 +59,8 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
     @Bean
     public QueryImagelistPresenterImpl  presenter;
 
+
+
     @AfterViews
     public   void    initView(){
         setSupportActionBar(toolbar);
@@ -70,8 +72,8 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
         recycler_view.setAdapter(adapter);
         recycler_view.setPushRefreshEnable(true);
         recycler_view.setPullRefreshEnable(true);
-        recycler_view.setGridLayout(2);
-        recycler_view.getRecyclerView().addItemDecoration(new SpacesItemDecoration(16));
+        recycler_view.setStaggeredGridLayout(2);
+        recycler_view.getRecyclerView().addItemDecoration(new SpacesItemDecoration(5));
         recycler_view.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
@@ -80,7 +82,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
 
             @Override
             public void onLoadMore() {
-                presenter.onLoadMore(2,"体育");
+               presenter.onLoadMore(page++,"体育");
             }
         });
         presenter.setIqueryImageListView(this);
@@ -88,22 +90,27 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
     }
 
 
+    public   int  page;
+
     @Override
-    public void onRefresh(List<ImageListBean.ImgsEntity> items,boolean  success) {
+    public void onRefresh(List<ImageListBean.ImgsEntity> items,boolean  success,int page) {
 
         recycler_view.setPullLoadMoreCompleted();
         if(success){
             adapter.clear();
             adapter.addAll(items);
         }
+        this.page = page;
+
     }
 
     @Override
-    public void onLoadMore(List<ImageListBean.ImgsEntity> moreitems,boolean  success) {
+    public void onLoadMore(List<ImageListBean.ImgsEntity> moreitems,boolean  success,int page) {
         if(success){
             adapter.addAll(moreitems);
         }
         recycler_view.setPullLoadMoreCompleted();
+        this.page = page;
     }
 
     @Override
