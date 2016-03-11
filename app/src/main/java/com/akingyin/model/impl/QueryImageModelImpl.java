@@ -46,6 +46,7 @@ public class QueryImageModelImpl  implements IQueryImageModel {
 
     @Override
     public Observable<ImageListBean> onLoadData(String category, String tag, int pn, int rn, int from) {
+        System.out.println("tag="+tag+"--->>"+category);
         return api.queryImages(category,tag,pn,rn,from);
     }
 }

@@ -24,8 +24,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
-import com.akingyin.model.impl.QueryImageModelImpl;
-import com.akingyin.pojo.ImageBean;
+
+
+import com.akingyin.pojo.ImageListBean;
 import com.akingyin.presenter.impl.QueryImagelistPresenterImpl;
 import com.akingyin.sharelibs.widgets.PullLoadMoreRecyclerView;
 import com.akingyin.ui.adapter.ImagelistAdapter;
@@ -79,7 +80,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
 
             @Override
             public void onLoadMore() {
-
+                presenter.onLoadMore(2,"体育");
             }
         });
         presenter.setIqueryImageListView(this);
@@ -88,7 +89,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
 
 
     @Override
-    public void onRefresh(List<ImageBean> items,boolean  success) {
+    public void onRefresh(List<ImageListBean.ImgsEntity> items,boolean  success) {
 
         recycler_view.setPullLoadMoreCompleted();
         if(success){
@@ -98,7 +99,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
     }
 
     @Override
-    public void onLoadMore(List<ImageBean> moreitems,boolean  success) {
+    public void onLoadMore(List<ImageListBean.ImgsEntity> moreitems,boolean  success) {
         if(success){
             adapter.addAll(moreitems);
         }

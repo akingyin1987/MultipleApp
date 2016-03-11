@@ -20,6 +20,7 @@ package com.akingyin.ui.adapter;
 
 import android.content.Context;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 
@@ -43,15 +44,18 @@ public class ImagelistAdapter extends SuperAdapter<ImageListBean.ImgsEntity> {
 
     @Override
     public void onBind(int viewType, BaseViewHolder holder, int position, ImageListBean.ImgsEntity item) {
-         holder.setText(R.id.item_text,"postion"+position);
+         holder.setText(R.id.item_text, item.getDesc());
          ImageView  imageView = holder.getView(R.id.item_image);
-        Glide.with(getContext())
-            .load(Uri.parse(item.getThumbnailUrl()))
-            .centerCrop()
-            .placeholder(R.drawable.ic_error)
-            .override(item.getThumbnailWidth(),item.getThumbnailHeight())
-            .crossFade()
-            .into(imageView);
+         System.out.println("url=" + item.getImageUrl());
+        if(!TextUtils.isEmpty(item.getDownloadUrl())){
+            Glide.with(getContext())
+                .load(Uri.parse(item.getDownloadUrl()))
+                .centerCrop()
+                .placeholder(R.drawable.ic_error)
+                .crossFade()
+                .into(imageView);
+        }
+
 
 
     }

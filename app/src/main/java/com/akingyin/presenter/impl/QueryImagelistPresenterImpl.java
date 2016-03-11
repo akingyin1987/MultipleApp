@@ -31,7 +31,7 @@ import org.androidannotations.annotations.EBean;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.List;
+
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -61,9 +61,7 @@ public class QueryImagelistPresenterImpl  implements IQueryImagelistPresenter {
     @Override
     public void onRefresh(String query) {
         try {
-            String category = TextUtils.isEmpty(query)?"":URLEncoder.encode(query,"utf-8");
-            String  tag  = URLEncoder.encode("全部","utf-8");
-            Observable<ImageListBean>  observable = queryImageModel.onLoadData(category, tag, 1, 100, 1);
+            Observable<ImageListBean>  observable = queryImageModel.onLoadData(query, "全部", 0, 20, 1);
             observable.observeOn(AndroidSchedulers.mainThread())
                       .subscribeOn(Schedulers.io())
                       .subscribe(new Action1<ImageListBean>() {
@@ -77,7 +75,7 @@ public class QueryImagelistPresenterImpl  implements IQueryImagelistPresenter {
                               iqueryImageListView.onRefresh(null,false);
                           }
                       });
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -86,9 +84,8 @@ public class QueryImagelistPresenterImpl  implements IQueryImagelistPresenter {
     @Override
     public void onLoadMore(int page, String query) {
         try {
-            String category = TextUtils.isEmpty(query)?"":URLEncoder.encode(query,"utf-8");
-            String  tag  = URLEncoder.encode("全部","utf-8");
-            Observable<ImageListBean>  observable = queryImageModel.onLoadData(category, tag, page, 100, 1);
+
+            Observable<ImageListBean>  observable = queryImageModel.onLoadData(query, "全部", page, 10, 1);
             observable.observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new Action1<ImageListBean>() {
@@ -102,7 +99,7 @@ public class QueryImagelistPresenterImpl  implements IQueryImagelistPresenter {
                         iqueryImageListView.onLoadMore(null,false);
                     }
                 });
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
