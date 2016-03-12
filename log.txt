@@ -11,3 +11,6 @@ https://github.com/alorma/TimelineView
 
 RXjava 一些特殊没有用过的操作符
 https://github.com/mickyliu945/RxJavaSample
+
+过滤功能的下拉菜单（类型百度糯米分类查询，个人非常喜欢）
+https://github.com/leerduo/FilterDropDownMenu
