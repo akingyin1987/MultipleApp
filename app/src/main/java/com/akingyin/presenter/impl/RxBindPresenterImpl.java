@@ -14,11 +14,16 @@ import java.util.Arrays;
 import java.util.List;
 import rx.Observable;
 
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.functions.Func2;
+import rx.subjects.AsyncSubject;
+import rx.subjects.BehaviorSubject;
+import rx.subjects.PublishSubject;
+import rx.subjects.ReplaySubject;
 
 /**
  * Created by zlcd on 2016/2/4.
@@ -99,6 +104,40 @@ public class RxBindPresenterImpl implements IRxbindPresenter {
             }
         });
 
+        /** PublishSubject的观察者接收到的是后续的消息*/
+        PublishSubject<String>   publishSubject = PublishSubject.create();
+
+        /** BehaviorSubject的观察者接收到的永远是最近的消息 和后续的消息*/
+        BehaviorSubject<String>  behaviorSubject = BehaviorSubject.create("behavior-defaultValue");
+
+        /**ReplaySubject会缓存所有消息，所以观察者都会收到所有消息*/
+        ReplaySubject<String>    replaySubject  = ReplaySubject.create();
+
+        /**当Observable完成时AsyncSubject只会发布最后一条消息给已经订阅的每一个观察者,
+         * 如果没有调用onCompleted则被观察者不会发送任何消息给观察者*/
+        AsyncSubject<String>   asyncSubject = AsyncSubject.create();
+
+        Subscriber<String>   subscriber = new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+                System.out.println("onCompleted");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                System.out.println("onError");
+            }
+
+            @Override
+            public void onNext(String s) {
+                System.out.println("onNext="+s);
+            }
+        };
+        publishSubject.subscribe(subscriber);
+        behaviorSubject.subscribe(subscriber);
+        replaySubject.subscribe(subscriber);
+        asyncSubject.subscribe(subscriber);
+        publishSubject.onNext("AAAAA");
     }
 
 
