@@ -8,16 +8,17 @@ import com.akingyin.view.IRxBindView;
 
 import org.apache.commons.lang.math.RandomUtils;
 
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import rx.Observable;
-import rx.Scheduler;
-import rx.Subscriber;
-import rx.Subscription;
+
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import rx.functions.Func2;
 
 /**
  * Created by zlcd on 2016/2/4.
@@ -76,44 +77,28 @@ public class RxBindPresenterImpl implements IRxbindPresenter {
 
     @Override
     public void rxMap() {
-        Observable.just(1).subscribe(new Action1<Integer>() {
-            @Override
-            public void call(Integer integer) {
 
+        List<Integer>   data = new ArrayList<>();
+        for(int i=0;i<10;i++){
+            data.add(RandomUtils.nextInt(100));
+        }
+        System.out.println(Arrays.toString(data.toArray()));
+        //这是一个排序的操作符号
+        Observable.from(data).toSortedList(new Func2<Integer, Integer, Integer>() {
+            @Override
+            public Integer call(Integer integer, Integer integer2) {
+                if (integer > integer2) {
+                    return 1;
+                }
+                return -1;
             }
-        }, new Action1<Throwable>() {
+        }).subscribe(new Action1<List<Integer>>() {
             @Override
-            public void call(Throwable throwable) {
-
-            }
-        });
-        final Subscriber<Integer>  subscriber = new Subscriber<Integer>() {
-            @Override
-            public void onCompleted() {
-
-            }
-
-            @Override
-            public void onError(Throwable e) {
-
-            }
-
-            @Override
-            public void onNext(Integer integer) {
-
-            }
-        };
-
-        Observable<Integer> observable =Observable.just(1).map(new Func1<Integer, Integer>() {
-            @Override
-            public Integer call(Integer integer) {
-                subscriber.onError(new Throwable());
-                return integer;
+            public void call(List<Integer> integers) {
+                System.out.println(Arrays.toString(integers.toArray()));
             }
         });
 
-
-        observable.subscribe(subscriber);
     }
 
 

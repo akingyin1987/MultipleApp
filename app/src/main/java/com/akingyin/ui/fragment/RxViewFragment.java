@@ -54,7 +54,7 @@ import rx.functions.Func1;
 public class RxViewFragment extends Fragment implements IRxBindView{
 
     IRxbindPresenter   presenter;
-    public Button   rxview_one_btn,rxview_tow_btn,rxview_each;
+    public Button   rxview_one_btn,rxview_tow_btn,rxview_each,rxview_map;
     public  TextureView rxb_texture;
     private RxCamera camera;
     public TextView  rxview_info;
@@ -94,7 +94,13 @@ public class RxViewFragment extends Fragment implements IRxBindView{
         rxview_info = (TextView)view.findViewById(R.id.rxview_info);
         rxview_each = (Button)view.findViewById(R.id.rxview_each);
         rxb_texture= (TextureView)view.findViewById(R.id.rxb_texture);
-
+        rxview_map =(Button)view.findViewById(R.id.rxview_map);
+        RxView.clicks(rxview_map).throttleFirst(1,TimeUnit.SECONDS).subscribe(new Action1<Void>() {
+            @Override
+            public void call(Void aVoid) {
+                presenter.rxMap();
+            }
+        });
         RxView.clicks(rxview_each).throttleFirst(1,TimeUnit.SECONDS)
               .subscribe(new Action1<Void>() {
                   @Override
