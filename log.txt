@@ -14,3 +14,10 @@ https://github.com/mickyliu945/RxJavaSample
 
 过滤功能的下拉菜单（类型百度糯米分类查询，个人非常喜欢）
 https://github.com/leerduo/FilterDropDownMenu
+
+//图片显示角标，非常的漂亮
+https://github.com/shts/TriangleLabelView
+
+//模仿QQ IOS 的取消与确认对话框
+https://github.com/baoyongzhang/android-ActionSheet
+
