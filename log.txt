@@ -21,3 +21,11 @@ https://github.com/shts/TriangleLabelView
 //模仿QQ IOS 的取消与确认对话框
 https://github.com/baoyongzhang/android-ActionSheet
 
+//字符串格式化，采用建造者模式，功能比较强大
+https://github.com/pwittchen/kirai
+
+//日期格式化，采用友好的方式显示
+https://github.com/ZieIony/NaturalDateFormat
+
+//一个非常漂亮的导航
+https://github.com/DevLight-Mobile-Agency/NavigationTabBar
