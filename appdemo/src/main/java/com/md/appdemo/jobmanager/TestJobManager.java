@@ -16,34 +16,25 @@
  *
  */
 
-package com.md.appdemo.center;
+package com.md.appdemo.jobmanager;
 
-import android.app.Application;
 
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
+import com.md.appdemo.entity.UserEntity;
 
 /**
  * Author:  king
  * Email:
- * Date:  2016/4/6 18:33
+ * Date:  2016/4/7 11:24
  * Description:
  */
+public class TestJobManager  extends  AsyncJobManager<UserEntity> {
 
-@Module
-public class AppModule {
-
-    private Application   application;
-
-    public AppModule(Application application){
-        this.application=application;
+    public  TestJobManager(){
+        super();
     }
 
-    @Provides
-    @Singleton
-    public Application provideApplication(){
-        return application;
+    public  TestJobManager (int  nThreads,OnJobManagerListion  listion){
+        super(nThreads,listion);
     }
+
 }

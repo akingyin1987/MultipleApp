@@ -30,6 +30,8 @@ public class TLog {
      */
     private static boolean isLogEnable = true;
 
+    public   static   String   TAG="My_App";
+
     /**
      * Disable the log output.
      */
@@ -57,6 +59,10 @@ public class TLog {
         }
     }
 
+    public static  void  d(String  msg){
+        d(TAG,msg);
+    }
+
     /**
      * Information
      *
@@ -69,6 +75,8 @@ public class TLog {
             Log.i(tag, rebuildMsg(stackTraceElement, msg));
         }
     }
+
+
 
     /**
      * Verbose

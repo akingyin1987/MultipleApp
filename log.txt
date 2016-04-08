@@ -29,3 +29,6 @@ https://github.com/ZieIony/NaturalDateFormat
 
 //一个非常漂亮的导航
 https://github.com/DevLight-Mobile-Agency/NavigationTabBar
+
+//不错的一个登录界面
+https://github.com/PaoloRotolo/GittyReporter

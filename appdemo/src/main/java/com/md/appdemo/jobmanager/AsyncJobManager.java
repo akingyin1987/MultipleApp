@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by Administrator on 2016/1/19.
  */
-public class AsyncJobManager<T>  implements AsyncJob.OnJobListion ,Runnable{
+public  class AsyncJobManager<T>  implements AsyncJob.OnJobListion ,Runnable{
 
     public   static   final   int   nThreads = 3;
 

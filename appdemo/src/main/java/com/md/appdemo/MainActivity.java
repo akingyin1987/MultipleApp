@@ -19,10 +19,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.Theme;
 import com.github.clans.fab.FloatingActionMenu;
 import com.md.appdemo.jobmanager.AsyncJobManager;
+import com.md.appdemo.jobmanager.TestJobManager;
 import com.md.appdemo.model.UserEntity;
 
 import com.md.appdemo.presenter.impl.DemoPresenterImpl;
-import com.md.appdemo.tuwen.TuwenInfoActivity;
+
 import com.md.appdemo.ui.IdemoView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -65,11 +66,12 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
    @Bean
     DemoPresenterImpl   demoPresenter;
 
-    AsyncJobManager    jobManager;
+
+    TestJobManager    jobManager;
     private int mScrollOffset = 4;
     @AfterViews
     public  void  initView(){
-        jobManager = new AsyncJobManager(3,this);
+        jobManager = new TestJobManager(3,this);
         int  age = 2000;
         Random  random = new Random();
         for(int i=0;i<500;i++){

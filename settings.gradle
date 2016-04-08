@@ -1,1 +1,1 @@
-include ':squarecamera', ':akingyinlib', ':app', ':appdemo'
+include ':squarecamera', ':akingyinlib', ':app', ':appdemo', ':materialCamera'

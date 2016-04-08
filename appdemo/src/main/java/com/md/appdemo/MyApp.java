@@ -1,13 +1,11 @@
 package com.md.appdemo;
 
 import android.app.Application;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
+
 import android.widget.Toast;
 
 import com.facebook.stetho.Stetho;
-import com.md.appdemo.center.AppComponent;
-import com.md.appdemo.center.AppModule;
+
 
 
 /**
@@ -22,11 +20,6 @@ public class MyApp extends Application {
     }
 
 
-    private AppComponent appComponent;
-
-    public static MyApp get(Context context){
-        return (MyApp)context.getApplicationContext();
-    }
 
 
 
