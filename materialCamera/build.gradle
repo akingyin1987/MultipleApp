@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+group='com.afollestad'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.2"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 4
+        versionName "0.2.0"
+
+    }
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
+    }
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+}
+
+
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.devbrackets.android:exomedia:2.5.6'
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.7@aar') {
+        transitive = true
+    }
+}
