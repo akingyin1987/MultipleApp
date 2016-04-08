@@ -69,7 +69,7 @@
             android:readPermission="com.zlcdgroup.provider.READ"
             android:writePermission="com.zlcdgroup.provider.WIRTE"/>
 
-        <activity android:name="com.akingyin.ui.HomeActivity"
+        <activity android:name="com.akingyin.ui.WelcomeActivity"
                  android:theme="@style/App_NoActionbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

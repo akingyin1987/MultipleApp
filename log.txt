@@ -32,3 +32,6 @@ https://github.com/DevLight-Mobile-Agency/NavigationTabBar
 
 //不错的一个登录界面
 https://github.com/PaoloRotolo/GittyReporter
+
+//比较好看的一个欢迎界面
+https://github.com/txusballesteros/welcome-coordinator

@@ -127,6 +127,7 @@ dependencies {
     // md风格的等待对话框
     compile 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.redbooth:WelcomeCoordinator:1.0.1'
     compile files('libs/BaiduLBS_Android.jar')
     //相机
     compile project(':materialCamera')
