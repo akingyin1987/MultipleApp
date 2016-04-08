@@ -18,18 +18,27 @@
 
 package com.akingyin.receiver;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
+
 /**
  * @ Description:
  *
  * Company:重庆中陆承大科技有限公司
  * @ Author king
- * @ Date 2016/4/8 13:02
+ * @ Date 2016/4/8 13:11
  * @ Version V1.0
  */
-public class ReceiverConstants {
+public class ReceiverUtil {
 
-  public  static  final  String   APP_RECEIVER="com.zlcdgroup.app.receiver";
-
-  public  static  final  String   APP_METER_RECEIVER="com.zlcdgroup.app.meter.receiver";
+  public   static   void   sendAppReceiver(Context   context,String  action){
+    Intent   intent = new Intent();
+    intent.setAction(action);
+    Bundle   data = new Bundle();
+    data.putString("app",System.currentTimeMillis()+"time");
+    context.sendBroadcast(intent);
+  }
 
 }

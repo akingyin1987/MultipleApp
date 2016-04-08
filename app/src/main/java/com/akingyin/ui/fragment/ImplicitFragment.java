@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.advancedrecyclerview.RecyclerviewDemoActivity;
+import com.akingyin.receiver.ReceiverConstants;
+import com.akingyin.receiver.ReceiverUtil;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.md.multipleapp.AppInstallReceiver;
 import com.md.multipleapp.AutoInstall;
@@ -87,7 +89,7 @@ public class ImplicitFragment extends Fragment{
             public void onClick(View v) {
                 String message = editText.getText().toString().trim();
                 if (AutoInstall.isAppInstalled(getContext(), "com.md.appdemo")) {
-
+                    ReceiverUtil.sendAppReceiver(getContext(), ReceiverConstants.APP_METER_RECEIVER);
                     Intent intent = new Intent();
                     intent.setAction(MY_ACTION);
                     intent.setType("test/");

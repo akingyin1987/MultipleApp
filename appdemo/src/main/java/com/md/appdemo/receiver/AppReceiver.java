@@ -16,20 +16,25 @@
  *
  */
 
-package com.akingyin.receiver;
+package com.md.appdemo.receiver;
+
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
 
 /**
  * @ Description:
  *
  * Company:重庆中陆承大科技有限公司
  * @ Author king
- * @ Date 2016/4/8 13:02
+ * @ Date 2016/4/8 12:53
  * @ Version V1.0
  */
-public class ReceiverConstants {
+public class AppReceiver extends BroadcastReceiver {
 
-  public  static  final  String   APP_RECEIVER="com.zlcdgroup.app.receiver";
-
-  public  static  final  String   APP_METER_RECEIVER="com.zlcdgroup.app.meter.receiver";
-
+  @Override
+  public void onReceive(Context context, Intent intent) {
+    Toast.makeText(context,"APP->"+intent.getAction(),Toast.LENGTH_SHORT).show();
+  }
 }

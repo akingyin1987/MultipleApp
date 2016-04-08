@@ -47,13 +47,19 @@
             android:value="1" />
 
 
-        <provider android:authorities="com.zlcdgroup.db.userEntity.provider"
+        <provider android:authorities="com.md.multipleapp"
                   android:name="com.activeandroid.content.ContentProvider"
                   android:multiprocess="true"
                   android:exported="true"
                   android:readPermission="com.zlcdgroup.provider.READ"
                   android:writePermission="com.zlcdgroup.provider.WIRTE"/>
 
+        <receiver android:name="com.akingyin.receiver.AppReceiver"
+                  >
+            <intent-filter >
+                <action android:name="com.zlcdgroup.app.receiver"/>
+            </intent-filter>
+        </receiver>
 
         <provider
             android:authorities="org.jraf.androidcontentprovidergenerator.sample.provider"

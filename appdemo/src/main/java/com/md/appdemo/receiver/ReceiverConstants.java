@@ -16,7 +16,7 @@
  *
  */
 
-package com.akingyin.receiver;
+package com.md.appdemo.receiver;
 
 /**
  * @ Description:

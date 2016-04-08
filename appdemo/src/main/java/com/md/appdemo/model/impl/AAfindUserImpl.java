@@ -25,9 +25,9 @@ import java.util.List;
 @EBean
 public class AAfindUserImpl  implements AAfindUser {
 
-    public   static Uri contentUri = Uri.parse("content://org.jraf.androidcontentprovidergenerator.sample.provider/tb_user");
+   // public   static Uri contentUri = Uri.parse("content://org.jraf.androidcontentprovidergenerator.sample.provider/tb_user");
 
-
+    public   static Uri contentUri = Uri.parse("content://com.md.multipleapp/tb_user");
 
     @RootContext
     Context   context;

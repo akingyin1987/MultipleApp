@@ -24,6 +24,8 @@ import com.md.appdemo.model.UserEntity;
 
 import com.md.appdemo.presenter.impl.DemoPresenterImpl;
 
+import com.md.appdemo.receiver.ReceiverConstants;
+import com.md.appdemo.receiver.ReceiverUtil;
 import com.md.appdemo.ui.IdemoView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements IdemoView,Recycle
                 String message = send_message.getText().toString().trim();
                 intent1.putExtra("data", message);
                 setResult(RESULT_OK, intent1);
+                 ReceiverUtil.sendAppReceiver(MainActivity.this, ReceiverConstants.APP_RECEIVER);
                 finish();
             }
         });
