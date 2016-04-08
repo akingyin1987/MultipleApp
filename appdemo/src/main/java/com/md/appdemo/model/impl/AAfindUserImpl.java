@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.BaseColumns;
 import android.provider.Contacts;
 
 import com.md.appdemo.model.AAfindUser;
@@ -64,7 +65,7 @@ public class AAfindUserImpl  implements AAfindUser {
         ContentValues   contentValues = new ContentValues();
         contentValues.put("userName",userEntity.userName);
         contentValues.put("age", userEntity.age);
-        int result =contentResolver.update(contentUri,contentValues,"Id=?",new String[]{String.valueOf(userEntity.Id)});
+        int result =contentResolver.update(contentUri,contentValues,BaseColumns._ID+"=?",new String[]{String.valueOf(userEntity.Id)});
         return result>0;
     }
 
@@ -76,7 +77,7 @@ public class AAfindUserImpl  implements AAfindUser {
         if(null == contentResolver ){
             contentResolver = context.getContentResolver();
         }
-        int result = contentResolver.delete(contentUri, "Id=?", new String[]{String.valueOf(userEntity.Id)});
+        int result = contentResolver.delete(contentUri, BaseColumns._ID+"=?", new String[]{String.valueOf(userEntity.Id)});
         return result>0;
     }
 
@@ -92,7 +93,7 @@ public class AAfindUserImpl  implements AAfindUser {
 
             userEntity.age = cursor.getInt(cursor.getColumnIndex("age"));
             userEntity.userName = cursor.getString(cursor.getColumnIndex("userName"));
-            userEntity.Id = cursor.getLong(cursor.getColumnIndex("Id"));
+            userEntity.Id = cursor.getLong(cursor.getColumnIndex(BaseColumns._ID));
             cursor.close();
             return  userEntity;
         }
@@ -114,7 +115,7 @@ public class AAfindUserImpl  implements AAfindUser {
             UserEntity  userEntity = new UserEntity();
             userEntity.age = cursor.getInt(cursor.getColumnIndex("age"));
             userEntity.userName = cursor.getString(cursor.getColumnIndex("userName"));
-            userEntity.Id = cursor.getLong(cursor.getColumnIndex("Id"));
+            userEntity.Id = cursor.getLong(cursor.getColumnIndex(BaseColumns._ID));
             data.add(userEntity);
         }
 

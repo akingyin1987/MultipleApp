@@ -17,7 +17,7 @@ public class UserEneityColumns  implements BaseColumns {
     /**
      * Primary key.
      */
-    public static final String _ID = "Id";
+    public static final String _ID = BaseColumns._ID;
 
 
     public static final String NAME = "name";
