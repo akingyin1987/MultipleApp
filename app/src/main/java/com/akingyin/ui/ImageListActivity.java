@@ -68,6 +68,8 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
         if(null != getSupportActionBar()){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            //隐藏标题
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
         adapter = new ImagelistAdapter(this,null,R.layout.item_imageview);
@@ -97,6 +99,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
         if(item.getItemId() == android.R.id.home){
             finish();
         }
+
         return super.onOptionsItemSelected(item);
     }
 
