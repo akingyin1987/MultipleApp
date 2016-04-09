@@ -21,7 +21,7 @@ package com.akingyin.ui.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.widget.ImageView;
+
 
 
 import com.akingyin.pojo.ImageListBean;
@@ -47,17 +47,15 @@ public class ImagelistAdapter extends SuperAdapter<ImageListBean.ImgsEntity> {
     public void onBind(int viewType, BaseViewHolder holder, int position, ImageListBean.ImgsEntity item) {
          holder.setText(R.id.item_text, item.getDesc());
          PLAImageView imageView = holder.getView(R.id.item_image);
-         System.out.println("url=" + item.getImageUrl());
+
         if(!TextUtils.isEmpty(item.getThumbnailUrl())){
             Glide.with(getContext())
                 .load(Uri.parse(item.getThumbnailUrl()))
                 .crossFade()
-
                 .placeholder(R.drawable.ic_error)
-
                 .into(imageView);
-            imageView.setImageHeight(item.getThumbnailHeight());
-            imageView.setImageWidth(item.getThumbnailWidth());
+           imageView.setImageHeight(item.getThumbnailHeight());
+           imageView.setImageWidth(item.getThumbnailWidth());
         }
 
 

@@ -28,11 +28,14 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     private boolean hasMore = true;
     private boolean isRefresh = false;
     private boolean isLoadMore = false;
+    private boolean isClickLoadMore = false;//是否是点击加载更多
     private boolean pullRefreshEnable = true;
     private boolean pushRefreshEnable = true;
     private View mFooterView;
     private Context mContext;
     private TextView loadMoreText;
+    private TextView  footer_click_loadmore;
+    private LinearLayout  footer_loading;
 
     public PullLoadMoreRecyclerView(Context context) {
         super(context);
@@ -49,7 +52,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         View view = LayoutInflater.from(context).inflate(R.layout.pull_loadmore_layout, null);
         mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
         mSwipeRefreshLayout.setColorSchemeResources(android.R.color.holo_green_dark, android.R.color.holo_blue_dark, android.R.color.holo_orange_dark);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayoutOnRefresh(this));
+         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayoutOnRefresh(this));
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mRecyclerView.setVerticalScrollBarEnabled(true);
@@ -58,15 +61,41 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addOnScrollListener(new RecyclerViewOnScroll(this));
 
-        mRecyclerView.setOnTouchListener(new onTouchRecyclerView());
+       // mRecyclerView.setOnTouchListener(new onTouchRecyclerView());
 
         mFooterView = view.findViewById(R.id.footerView);
         loadMoreText = (TextView) view.findViewById(R.id.loadMoreText);
+        footer_click_loadmore = (TextView)view.findViewById(R.id.footer_click_loadmore);
+        footer_loading  = (LinearLayout)view.findViewById(R.id.footer_loading);
         mFooterView.setVisibility(View.GONE);
+        footer_click_loadmore.setOnClickListener(loadmorelistener);
         this.addView(view);
 
     }
 
+    private SwipeRefreshLayout.OnRefreshListener    refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+
+            if(null != mPullLoadMoreListener){
+
+                if(mFooterView.getVisibility() == VISIBLE){
+                    mFooterView.setVisibility(GONE);
+                }
+                mPullLoadMoreListener.onLoadMore();
+            }
+        }
+    };
+
+    private   OnClickListener    loadmorelistener = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            footer_click_loadmore.setVisibility(GONE);
+            footer_loading.setVisibility(VISIBLE);
+            mPullLoadMoreListener.onLoadMore();
+
+        }
+    };
 
     /**
      * LinearLayoutManager
@@ -118,6 +147,14 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         }
     }
 
+    public boolean isClickLoadMore() {
+        return isClickLoadMore;
+    }
+
+    public void setClickLoadMore(boolean clickLoadMore) {
+        isClickLoadMore = clickLoadMore;
+    }
+
     public void setPullRefreshEnable(boolean enable) {
         pullRefreshEnable = enable;
         setSwipeRefreshEnable(enable);
@@ -157,6 +194,16 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
 
     }
 
+    public   void   onCancelLoadMore(){
+        if(isClickLoadMore){
+            if(mFooterView.getVisibility() == VISIBLE){
+                if(footer_click_loadmore.getVisibility() == VISIBLE){
+                   mFooterView.setVisibility(GONE);
+                }
+            }
+        }
+    }
+
     /**
      * Solve IndexOutOfBoundsException exception
      */
@@ -164,7 +211,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
             if (isRefresh || isLoadMore) {
-                System.out.println("onTouch");
+
                 return true;
             } else {
                 return false;
@@ -198,7 +245,15 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         if (mPullLoadMoreListener != null && hasMore) {
             mFooterView.setVisibility(View.VISIBLE);
             invalidate();
-            mPullLoadMoreListener.onLoadMore();
+            if(isClickLoadMore){
+                footer_loading.setVisibility(View.GONE);
+                footer_click_loadmore.setVisibility(View.VISIBLE);
+            }else{
+                footer_click_loadmore.setVisibility(GONE);
+                footer_loading.setVisibility(VISIBLE);
+                mPullLoadMoreListener.onLoadMore();
+            }
+
 
         }
     }
@@ -207,7 +262,6 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     public void setPullLoadMoreCompleted() {
         isRefresh = false;
         mSwipeRefreshLayout.setRefreshing(false);
-
         isLoadMore = false;
         mFooterView.setVisibility(View.GONE);
 

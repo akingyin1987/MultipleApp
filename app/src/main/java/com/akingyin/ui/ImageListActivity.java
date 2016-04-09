@@ -21,6 +21,7 @@ package com.akingyin.ui;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -68,12 +69,14 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
         adapter = new ImagelistAdapter(this,null,R.layout.item_imageview);
         recycler_view.setAdapter(adapter);
         recycler_view.setPushRefreshEnable(true);
         recycler_view.setPullRefreshEnable(true);
+        recycler_view.setClickLoadMore(true);
         recycler_view.setStaggeredGridLayout(2);
-        recycler_view.getRecyclerView().addItemDecoration(new SpacesItemDecoration(5));
+      //  recycler_view.getRecyclerView().addItemDecoration(new SpacesItemDecoration(5));
         recycler_view.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
@@ -86,9 +89,16 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
             }
         });
         presenter.setIqueryImageListView(this);
-        presenter.onRefresh(null);
+        presenter.onRefresh("游戏");
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == android.R.id.home){
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public   int  page;
 
@@ -117,6 +127,9 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
     public void showMessage(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+
+
 
     @Override
     public void showMessage(View v, String message) {

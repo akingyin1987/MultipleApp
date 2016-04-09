@@ -38,8 +38,10 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
             int[] lastPositions = new int[((StaggeredGridLayoutManager) layoutManager).getSpanCount()];
             staggeredGridLayoutManager.findLastCompletelyVisibleItemPositions(lastPositions);
             lastCompletelyVisibleItem = findMax(lastPositions);
-            firstVisibleItem = staggeredGridLayoutManager.findFirstVisibleItemPositions(lastPositions)[0];
+            int[] firstPositions = staggeredGridLayoutManager.findFirstCompletelyVisibleItemPositions(lastPositions);
+            firstVisibleItem = findMin(firstPositions);
         }
+        System.out.println("firstVisibleItem="+firstVisibleItem+":"+lastCompletelyVisibleItem);
         if (firstVisibleItem == 0) {
             if (mPullLoadMoreRecyclerView.getPullRefreshEnable())
                 mPullLoadMoreRecyclerView.setSwipeRefreshEnable(true);
@@ -54,6 +56,8 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
                 && (dx > 0 || dy > 0)) {
             mPullLoadMoreRecyclerView.setIsLoadMore(true);
             mPullLoadMoreRecyclerView.loadMore();
+        }else{
+            mPullLoadMoreRecyclerView.onCancelLoadMore();
         }
 
     }
@@ -69,5 +73,16 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
             }
         }
         return max;
+    }
+
+    private  int  findMin(int[] lastPositions){
+        int min = lastPositions[0];
+        for (int value : lastPositions) {
+            //       int max    = Math.max(lastPositions,value);
+            if (value < min) {
+                min = value;
+            }
+        }
+        return min;
     }
 }
