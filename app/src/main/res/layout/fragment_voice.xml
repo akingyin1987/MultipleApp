@@ -17,4 +17,21 @@
         android:text="material-camera"
         android:layout_marginTop="20dp"
         android:layout_height="wrap_content"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_keyboard"/>
+
+    <com.akingyin.widget.NumberKeyboardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/keyboard"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        android:layout_marginLeft="30dp"
+        app:padding="3dp"
+        android:layout_marginRight="30dp"
+        app:cardBackgroundColor="#535a67"
+        app:cardCornerRadius="8dp"/>
 </LinearLayout>
