@@ -106,6 +106,7 @@ public class ImplicitFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 UserEntity userEntity = new UserEntity();
+
                 userEntity.userName="test"+(RandomStringUtils.random(100, "utf-8"));
                 userEntity.age = RandomUtils.nextInt();
                 userEntity.save();

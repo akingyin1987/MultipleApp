@@ -51,11 +51,10 @@ public class RecyclerviewDemoActivity  extends AppCompatActivity {
 
         List<String>  items = new ArrayList<>();
         for(int i=1;i<100;i++){
-            items.add(RandomStringUtils.random(5) +i);
+            items.add(RandomStringUtils.random(5,"ABCDEFGHIJKLMN") +i);
         }
         myItemAdapter = new MyDraggableItemAdapter(items);
         mWrappedAdapter = mRecyclerViewDragDropManager.createWrappedAdapter(myItemAdapter);      // wrap for dragging
-
         final GeneralItemAnimator animator = new RefactoredDefaultItemAnimator();
 
         recycler_view.setLayoutManager(mLayoutManager);

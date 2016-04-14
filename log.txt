@@ -35,3 +35,6 @@ https://github.com/PaoloRotolo/GittyReporter
 
 //比较好看的一个欢迎界面
 https://github.com/txusballesteros/welcome-coordinator
+
+//RX控制访问权限
+https://github.com/tbruyelle/RxPermissions
