@@ -74,7 +74,7 @@ apt {
         // logFile '/var/log/aa.log'
     }
 }
-def retrofitVersion = '2.0.0-beta4'
+def retrofitVersion = '2.0.1'
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
