@@ -58,7 +58,7 @@ android {
 }
 
 def AAVersion = '4.0-SNAPSHOT'
-def Retrofit_Version='2.0.0-beta4'
+
 apt {
     arguments {
         androidManifestFile variant.outputs[0].processResources.manifestFile
