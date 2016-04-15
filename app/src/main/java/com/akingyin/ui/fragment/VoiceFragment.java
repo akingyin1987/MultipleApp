@@ -9,12 +9,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.afollestad.materialcamera.MaterialCamera;
 import com.akingyin.sharelibs.utils.TLog;
+import com.akingyin.widget.NumberKeyboardView;
 import com.jakewharton.rxbinding.view.RxView;
 import com.md.multipleapp.R;
 
@@ -55,6 +58,7 @@ public class VoiceFragment extends Fragment {
         return  view;
     }
 
+    TextView   tv_keyboard;
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -70,7 +74,7 @@ public class VoiceFragment extends Fragment {
 
             }
         });
-        RxView.clicks(view.findViewById(R.id.material_camera)).throttleFirst(1,TimeUnit.SECONDS)
+        RxView.clicks(view.findViewById(R.id.material_camera)).throttleFirst(1, TimeUnit.SECONDS)
               .subscribe(new Action1<Void>() {
                   @Override
                   public void call(Void aVoid) {
@@ -80,9 +84,30 @@ public class VoiceFragment extends Fragment {
                   @Override
                   public void call(Throwable throwable) {
                       throwable.printStackTrace();
-                      TLog.d("出错了"+throwable.getMessage());
+                      TLog.d("出错了" + throwable.getMessage());
                   }
               });
+        tv_keyboard = (TextView)view.findViewById(R.id.tv_keyboard);
+        NumberKeyboardView   keyboardView = (NumberKeyboardView)view.findViewById(R.id.keyboard);
+        keyboardView.setListion(new NumberKeyboardView.KeyboardListion() {
+            @Override
+            public void onKeyboard(String keyNum) {
+                tv_keyboard.setText(tv_keyboard.getText()+keyNum);
+            }
+
+            @Override
+            public void onDelect() {
+               String  context = tv_keyboard.getText().toString();
+                if(!TextUtils.isEmpty(context)){
+                    tv_keyboard.setText(context.substring(0,context.length()-1));
+                }
+            }
+
+            @Override
+            public void onClean() {
+                  tv_keyboard.setText("");
+            }
+        });
 
     }
 
