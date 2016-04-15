@@ -223,6 +223,16 @@ public class ImageListBean {
         private String shareUrl;
 
 
+        private  boolean  isCheck;
+
+        public boolean isCheck() {
+            return isCheck;
+        }
+
+        public void setCheck(boolean check) {
+            isCheck = check;
+        }
+
         private List<String> tags;
 
         public void setId(String id) {

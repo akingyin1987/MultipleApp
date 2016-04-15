@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~
+  ~   Copyright (c) 2016 [akingyin@163.com]
+  ~
+  ~   Licensed under the Apache License, Version 2.0 (the "License”);
+  ~   you may not use this file except in compliance with the License.
+  ~   You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~   Unless required by applicable law or agreed to in writing, software
+  ~   distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~   See the License for the specific language governing permissions and
+  ~   limitations under the License.
+  ~
+  -->
+
+<resources>
+  <declare-styleable name="MultiChoiceAdapter">
+
+    <!-- Defines what happens when an item is clicked and the action mode was already active -->
+    <attr name="itemClickInActionMode">
+
+      <!--
+           Changes the selection state of the clicked item, just as if it had been
+           long clicked. This is what the native MULTICHOICE_MODAL mode of List does,
+            and what almost every app does
+      -->
+      <enum name="selectItem" value="0" />
+      <!--
+           Opens the clicked item, just as if it had been clicked outside of the action
+           mode. This is what the Gmail app does
+      -->
+      <enum name="openItem" value="1" />
+    </attr>
+  </declare-styleable>
+
+  <attr name="multiChoiceAdapterStyle" format="reference" />
+
+  <declare-styleable name="CheckableImageView">
+    <attr name="android:foreground" />
+  </declare-styleable>
+
+  <attr name="checkableImageViewStyle" format="reference" />
+
+</resources>

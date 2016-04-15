@@ -40,6 +40,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
+import org.byteam.superadapter.recycler.OnItemClickListener;
 
 /**
  * Created by Administrator on 2016/3/10.
@@ -77,7 +78,15 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
         recycler_view.setPushRefreshEnable(true);
         recycler_view.setPullRefreshEnable(true);
         recycler_view.setClickLoadMore(true);
-        recycler_view.setStaggeredGridLayout(2);
+        recycler_view.setGridLayout(2);
+        adapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(View itemView, int viewType, int position) {
+               ImageListBean.ImgsEntity  item =  adapter.getItem(position);
+                item.setCheck(!item.isCheck());
+                adapter.notifyDataSetChanged();
+            }
+        });
       //  recycler_view.getRecyclerView().addItemDecoration(new SpacesItemDecoration(5));
         recycler_view.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override

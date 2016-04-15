@@ -22,9 +22,9 @@ import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 
-
-
+import android.widget.ImageView;
 import com.akingyin.pojo.ImageListBean;
+import com.akingyin.sharelibs.widgets.CheckableImageView;
 import com.akingyin.sharelibs.widgets.PLAImageView;
 import com.bumptech.glide.Glide;
 import com.md.multipleapp.R;
@@ -54,11 +54,14 @@ public class ImagelistAdapter extends SuperAdapter<ImageListBean.ImgsEntity> {
                 .crossFade()
                 .placeholder(R.drawable.ic_error)
                 .into(imageView);
+
            imageView.setImageHeight(item.getThumbnailHeight());
            imageView.setImageWidth(item.getThumbnailWidth());
         }
 
+    }
 
-
+    public ImageListBean.ImgsEntity  getItem(int  postion){
+        return getList().get(postion);
     }
 }

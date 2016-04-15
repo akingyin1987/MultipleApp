@@ -244,7 +244,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     public void loadMore() {
         if (mPullLoadMoreListener != null && hasMore) {
             mFooterView.setVisibility(View.VISIBLE);
-            invalidate();
+
             if(isClickLoadMore){
                 footer_loading.setVisibility(View.GONE);
                 footer_click_loadmore.setVisibility(View.VISIBLE);

@@ -48,12 +48,15 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
         } else {
             mPullLoadMoreRecyclerView.setSwipeRefreshEnable(false);
         }
+        System.out.println(lastCompletelyVisibleItem+":"+totalItemCount);
+        System.out.println(mPullLoadMoreRecyclerView.getPullRefreshEnable());
         if (mPullLoadMoreRecyclerView.getPushRefreshEnable() &&
                 !mPullLoadMoreRecyclerView.isRefresh()
                 && mPullLoadMoreRecyclerView.isHasMore()
                 && (lastCompletelyVisibleItem == totalItemCount - 1)
                 && !mPullLoadMoreRecyclerView.isLoadMore()
                 && (dx > 0 || dy > 0)) {
+            System.out.println("到底了");
             mPullLoadMoreRecyclerView.setIsLoadMore(true);
             mPullLoadMoreRecyclerView.loadMore();
         }else{
