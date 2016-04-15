@@ -153,6 +153,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
 
     public void setClickLoadMore(boolean clickLoadMore) {
         isClickLoadMore = clickLoadMore;
+
     }
 
     public void setPullRefreshEnable(boolean enable) {
@@ -198,6 +199,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         if(isClickLoadMore){
             if(mFooterView.getVisibility() == VISIBLE){
                 if(footer_click_loadmore.getVisibility() == VISIBLE){
+                    invalidate();
                    mFooterView.setVisibility(GONE);
                 }
             }
@@ -244,7 +246,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
     public void loadMore() {
         if (mPullLoadMoreListener != null && hasMore) {
             mFooterView.setVisibility(View.VISIBLE);
-
+            invalidate();
             if(isClickLoadMore){
                 footer_loading.setVisibility(View.GONE);
                 footer_click_loadmore.setVisibility(View.VISIBLE);
@@ -263,6 +265,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
         isRefresh = false;
         mSwipeRefreshLayout.setRefreshing(false);
         isLoadMore = false;
+        hasMore = false;
         mFooterView.setVisibility(View.GONE);
 
     }
@@ -279,6 +282,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
 
     public void setIsLoadMore(boolean isLoadMore) {
         this.isLoadMore = isLoadMore;
+
     }
 
     public boolean isRefresh() {
@@ -295,6 +299,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
 
     public void setHasMore(boolean hasMore) {
         this.hasMore = hasMore;
+
     }
 
     public interface PullLoadMoreListener {

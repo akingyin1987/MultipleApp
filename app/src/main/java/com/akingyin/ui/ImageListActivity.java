@@ -77,6 +77,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
         recycler_view.setAdapter(adapter);
         recycler_view.setPushRefreshEnable(true);
         recycler_view.setPullRefreshEnable(true);
+        recycler_view.setHasMore(false);
         recycler_view.setClickLoadMore(true);
         recycler_view.setGridLayout(2);
         adapter.setOnItemClickListener(new OnItemClickListener() {
@@ -118,6 +119,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
     public void onRefresh(List<ImageListBean.ImgsEntity> items,boolean  success,int page) {
 
         recycler_view.setPullLoadMoreCompleted();
+        recycler_view.setHasMore(true);
         if(success){
             adapter.clear();
             adapter.addAll(items);
@@ -132,6 +134,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
             adapter.addAll(moreitems);
         }
         recycler_view.setPullLoadMoreCompleted();
+        recycler_view.setHasMore(true);
         this.page = page;
     }
 

@@ -4,11 +4,13 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.MotionEvent;
+import android.view.View;
 
 /**
  * Created by WuXiaolong on 2015/7/7.
  */
-public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
+public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener implements View.OnTouchListener {
     private PullLoadMoreRecyclerView mPullLoadMoreRecyclerView;
 
     public RecyclerViewOnScroll(PullLoadMoreRecyclerView pullLoadMoreRecyclerView) {
@@ -22,8 +24,10 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
         int firstVisibleItem = 0;
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         int totalItemCount = layoutManager.getItemCount();
+
         if (layoutManager instanceof GridLayoutManager) {
             GridLayoutManager gridLayoutManager = ((GridLayoutManager) layoutManager);
+            System.out.println("sp="+gridLayoutManager.getSpanCount());
             //Position to find the final item of the current LayoutManager
             lastCompletelyVisibleItem = gridLayoutManager.findLastCompletelyVisibleItemPosition();
             firstVisibleItem = gridLayoutManager.findFirstCompletelyVisibleItemPosition();
@@ -46,24 +50,41 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
             if (mPullLoadMoreRecyclerView.getPullRefreshEnable())
                 mPullLoadMoreRecyclerView.setSwipeRefreshEnable(true);
         } else {
-            mPullLoadMoreRecyclerView.setSwipeRefreshEnable(false);
+               mPullLoadMoreRecyclerView.setSwipeRefreshEnable(false);
         }
-        System.out.println(lastCompletelyVisibleItem+":"+totalItemCount);
-        System.out.println(mPullLoadMoreRecyclerView.getPullRefreshEnable());
+
+        System.out.println(lastCompletelyVisibleItem+":"+totalItemCount+":"+mPullLoadMoreRecyclerView.getPullRefreshEnable());
+        System.out.println(mPullLoadMoreRecyclerView.isRefresh()+":"+mPullLoadMoreRecyclerView.isLoadMore());
         if (mPullLoadMoreRecyclerView.getPushRefreshEnable() &&
                 !mPullLoadMoreRecyclerView.isRefresh()
                 && mPullLoadMoreRecyclerView.isHasMore()
-                && (lastCompletelyVisibleItem == totalItemCount - 1)
+                && (lastCompletelyVisibleItem == totalItemCount - 1 ||(lastCompletelyVisibleItem==totalItemCount-1) )
                 && !mPullLoadMoreRecyclerView.isLoadMore()
                 && (dx > 0 || dy > 0)) {
-            System.out.println("到底了");
-            mPullLoadMoreRecyclerView.setIsLoadMore(true);
             mPullLoadMoreRecyclerView.loadMore();
         }else{
             mPullLoadMoreRecyclerView.onCancelLoadMore();
         }
-
     }
+
+    @Override
+    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        super.onScrollStateChanged(recyclerView, newState);
+    }
+
+    int    lasty=0;
+    public   boolean   isdown = false;
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()){
+            case MotionEvent.ACTION_MOVE:
+                isdown = lasty-event.getY()<0;
+                lasty = (int)event.getY();
+                break;
+        }
+        return false;
+    }
+
     //To find the maximum value in the array
 
     private int findMax(int[] lastPositions) {

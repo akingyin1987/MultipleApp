@@ -33,5 +33,5 @@
         app:padding="3dp"
         android:layout_marginRight="30dp"
         app:cardBackgroundColor="#535a67"
-        app:cardCornerRadius="8dp"/>
+        app:cardCornerRadius="4dp"/>
 </LinearLayout>
