@@ -28,7 +28,7 @@ import android.view.ViewGroup;
 interface IViewBindData<T, VH> {
 
     /**
-     * @param convertView Support by {@link BaseSuperAdapter#getView(int, View, ViewGroup)}.
+     * @param convertView Support by {@link AABaseSuperAdapter#(int, View, ViewGroup)}.
      * @param parent      Target container(ListView, GridView, RecyclerView,Spinner, etc.).
      * @param viewType    Choose the layout resource according to view type.
      * @return Created view holder.
@@ -39,7 +39,7 @@ interface IViewBindData<T, VH> {
      * Method for binding data to view.
      *
      * @param holder   ViewHolder
-     * @param viewType {@link BaseSuperAdapter#getItemViewType(int)}
+     * @param viewType {@link AABaseSuperAdapter#getItemViewType(int)}
      * @param position position
      * @param item     data
      */

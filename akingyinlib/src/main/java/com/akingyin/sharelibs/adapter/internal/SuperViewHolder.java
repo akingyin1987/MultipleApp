@@ -41,7 +41,7 @@ import android.widget.TextView;
  * <p>Universal view holder.</p>
  * Created by Cheney on 16/3/30.
  */
-public class SuperViewHolder extends RecyclerView.ViewHolder implements ChainSetter<SuperViewHolder> {
+public class SuperViewHolder extends BaseViewHolder<View> implements ChainSetter<SuperViewHolder> {
 
     private SparseArray<View> childViews = new SparseArray<>();
 

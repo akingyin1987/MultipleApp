@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.akingyin.sharelibs.adapter.OnItemClickListener;
 import com.akingyin.sharelibs.widgets.PullLoadMoreRecyclerView;
 import com.akingyin.ui.adapter.UserRecyclerviewAdapter;
 import com.md.multipleapp.R;
@@ -15,7 +16,7 @@ import com.md.multipleapp.UserEntity;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.byteam.superadapter.recycler.OnItemClickListener;
+
 
 import java.util.ArrayList;
 import java.util.List;

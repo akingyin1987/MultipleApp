@@ -2,11 +2,12 @@ package com.akingyin.ui.adapter;
 
 import android.content.Context;
 
+import com.akingyin.sharelibs.adapter.SuperAdapter;
+import com.akingyin.sharelibs.adapter.internal.SuperViewHolder;
 import com.md.multipleapp.R;
 import com.md.multipleapp.UserEntity;
 
-import org.byteam.superadapter.recycler.BaseViewHolder;
-import org.byteam.superadapter.recycler.SuperAdapter;
+
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class UserAdapter extends SuperAdapter<UserEntity> {
     }
 
     @Override
-    public void onBind(int viewType, BaseViewHolder holder, int position, UserEntity item) {
-           holder.setText(R.id.tx_name,item.toString());
+    public void onBind(SuperViewHolder holder, int viewType, int position, UserEntity item) {
+        holder.setText(R.id.tx_name,item.toString());
     }
 }

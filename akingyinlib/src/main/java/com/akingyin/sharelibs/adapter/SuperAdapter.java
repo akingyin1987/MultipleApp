@@ -22,7 +22,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.akingyin.sharelibs.adapter.internal.BaseSuperAdapter;
 import com.akingyin.sharelibs.adapter.internal.CRUD;
 import com.akingyin.sharelibs.adapter.internal.SuperViewHolder;
@@ -43,6 +42,7 @@ public abstract class SuperAdapter<T> extends BaseSuperAdapter<T> implements CRU
         super(context, items, layoutResId);
         this.mLayoutInflater = LayoutInflater.from(context);
     }
+
 
     /**
      * Constructor for multiple itemView types.
@@ -78,7 +78,7 @@ public abstract class SuperAdapter<T> extends BaseSuperAdapter<T> implements CRU
         if (hasHeaderView())
             index++;
         notifyItemInserted(index);
-        notifyDataSetHasChanged();
+
     }
 
     @Override
@@ -87,7 +87,7 @@ public abstract class SuperAdapter<T> extends BaseSuperAdapter<T> implements CRU
         if (hasHeaderView())
             index++;
         notifyItemInserted(index);
-        notifyDataSetHasChanged();
+
     }
 
     @Override
@@ -100,7 +100,7 @@ public abstract class SuperAdapter<T> extends BaseSuperAdapter<T> implements CRU
         if (hasHeaderView())
             start++;
         notifyItemRangeInserted(start, items.size());
-        notifyDataSetHasChanged();
+
     }
 
     @Override
@@ -117,7 +117,7 @@ public abstract class SuperAdapter<T> extends BaseSuperAdapter<T> implements CRU
         if (hasHeaderView())
             index++;
         notifyItemRemoved(index);
-        notifyDataSetHasChanged();
+
     }
 
     @Override
@@ -131,7 +131,7 @@ public abstract class SuperAdapter<T> extends BaseSuperAdapter<T> implements CRU
         if (hasHeaderView())
             index++;
         notifyItemChanged(index);
-        notifyDataSetHasChanged();
+
     }
 
     @Override
@@ -149,6 +149,8 @@ public abstract class SuperAdapter<T> extends BaseSuperAdapter<T> implements CRU
     public final void clear() {
         mList.clear();
         notifyDataSetChanged();
-        notifyDataSetHasChanged();
+
     }
+
+
 }

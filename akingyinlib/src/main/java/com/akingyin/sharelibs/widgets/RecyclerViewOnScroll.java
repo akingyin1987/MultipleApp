@@ -20,11 +20,13 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
         super.onScrolled(recyclerView, dx, dy);
         int lastCompletelyVisibleItem = 0;
         int firstVisibleItem = 0;
+
         RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
         int totalItemCount = layoutManager.getItemCount();
         if (layoutManager instanceof GridLayoutManager) {
             GridLayoutManager gridLayoutManager = ((GridLayoutManager) layoutManager);
             //Position to find the final item of the current LayoutManager
+
             lastCompletelyVisibleItem = gridLayoutManager.findLastCompletelyVisibleItemPosition();
             firstVisibleItem = gridLayoutManager.findFirstCompletelyVisibleItemPosition();
         } else if (layoutManager instanceof LinearLayoutManager) {
@@ -41,6 +43,7 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
             int[] firstPositions = staggeredGridLayoutManager.findFirstCompletelyVisibleItemPositions(lastPositions);
             firstVisibleItem = findMin(firstPositions);
         }
+        System.out.println(mPullLoadMoreRecyclerView.getPullRefreshEnable()+""+mPullLoadMoreRecyclerView.isRefresh()+":"+mPullLoadMoreRecyclerView.isHasMore());
         System.out.println("firstVisibleItem="+firstVisibleItem+":"+lastCompletelyVisibleItem);
         if (firstVisibleItem == 0) {
             if (mPullLoadMoreRecyclerView.getPullRefreshEnable())
@@ -49,7 +52,7 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
             mPullLoadMoreRecyclerView.setSwipeRefreshEnable(false);
         }
         System.out.println(lastCompletelyVisibleItem+":"+totalItemCount);
-        System.out.println(mPullLoadMoreRecyclerView.getPullRefreshEnable());
+
         if (mPullLoadMoreRecyclerView.getPushRefreshEnable() &&
                 !mPullLoadMoreRecyclerView.isRefresh()
                 && mPullLoadMoreRecyclerView.isHasMore()
@@ -57,10 +60,10 @@ public class RecyclerViewOnScroll extends RecyclerView.OnScrollListener {
                 && !mPullLoadMoreRecyclerView.isLoadMore()
                 && (dx > 0 || dy > 0)) {
             System.out.println("到底了");
-            mPullLoadMoreRecyclerView.setIsLoadMore(true);
-            mPullLoadMoreRecyclerView.loadMore();
+
+              mPullLoadMoreRecyclerView.loadMore();
         }else{
-            mPullLoadMoreRecyclerView.onCancelLoadMore();
+              mPullLoadMoreRecyclerView.onCancelLoadMore();
         }
 
     }

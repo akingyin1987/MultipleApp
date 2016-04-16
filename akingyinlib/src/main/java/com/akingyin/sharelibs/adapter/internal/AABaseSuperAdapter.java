@@ -19,37 +19,30 @@
 package com.akingyin.sharelibs.adapter.internal;
 
 import android.content.Context;
-import android.database.DataSetObservable;
-import android.database.DataSetObserver;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.SpinnerAdapter;
-
 import com.akingyin.sharelibs.adapter.IMulItemViewType;
 import com.akingyin.sharelibs.adapter.OnItemClickListener;
 import com.akingyin.sharelibs.adapter.OnItemLongClickListener;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * <p>Base adapter.</p>
  * Created by Cheney on 16/3/30.
  */
-public abstract class BaseSuperAdapter<T> extends RecyclerView.Adapter<SuperViewHolder>
-        implements ListAdapter, SpinnerAdapter, IViewBindData<T, SuperViewHolder>,
+public abstract class AABaseSuperAdapter<T,V extends  View> extends RecyclerView.Adapter<BaseViewHolder<V>>
+        implements IViewBindData<T, BaseViewHolder<V>>,
         ILayoutManager, IHeaderFooter {
-    // BaseAdapter
-    private DataSetObservable mDataSetObservable;
 
     protected Context mContext;
-    protected List<T> mList; // DataSources.
+    protected List<T> mList = new LinkedList<>(); // DataSources.
 
     protected int mLayoutResId;
     protected IMulItemViewType<T> mMulItemViewType;
@@ -60,6 +53,7 @@ public abstract class BaseSuperAdapter<T> extends RecyclerView.Adapter<SuperView
     protected RecyclerView mRecyclerView;
     protected static final int TYPE_HEADER = -0x100;
     protected static final int TYPE_FOOTER = -0x101;
+    protected static final int TYPE_ITEM = 0;
     private View mHeader;
     private View mFooter;
 
@@ -70,7 +64,7 @@ public abstract class BaseSuperAdapter<T> extends RecyclerView.Adapter<SuperView
      * @param list        Data list.
      * @param layoutResId {@link android.support.annotation.LayoutRes}
      */
-    public BaseSuperAdapter(Context context, List<T> list, int layoutResId) {
+    public AABaseSuperAdapter(Context context, List<T> list, int layoutResId) {
         this.mContext = context;
         this.mList = list == null ? new ArrayList<T>() : new ArrayList<>(list);
         this.mLayoutResId = layoutResId;
@@ -84,10 +78,17 @@ public abstract class BaseSuperAdapter<T> extends RecyclerView.Adapter<SuperView
      * @param list            Data list.
      * @param mulItemViewType If null, plz override {@link #offerMultiItemViewType()}.
      */
-    public BaseSuperAdapter(Context context, List<T> list, IMulItemViewType<T> mulItemViewType) {
+    public AABaseSuperAdapter(Context context, List<T> list, IMulItemViewType<T> mulItemViewType) {
         this.mContext = context;
-        this.mList = list == null ? new ArrayList<T>() : new ArrayList<>(list);
+        if(null != list){
+            mList.addAll(list);
+        }
         this.mMulItemViewType = mulItemViewType == null ? offerMultiItemViewType() : mulItemViewType;
+    }
+
+    public AABaseSuperAdapter(){}
+    public AABaseSuperAdapter(Context  context){
+        this.mContext = context;
     }
 
     /**
@@ -114,62 +115,16 @@ public abstract class BaseSuperAdapter<T> extends RecyclerView.Adapter<SuperView
     }
 
     /**
-     * @return True if all items are enabled, false otherwise.
-     * @see #isEnabled(int)
-     */
-    @Override
-    public boolean areAllItemsEnabled() {
-        return true;
-    }
-
-    /**
-     * @param position Index of the item
-     * @return True if the item is not a separator
-     * @see #areAllItemsEnabled()
-     */
-    @Override
-    public boolean isEnabled(int position) {
-        return true;
-    }
-
-    @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
-        return getView(position, convertView, parent);
-    }
-
-    @Override
-    public void registerDataSetObserver(DataSetObserver observer) {
-        mDataSetObservable = new DataSetObservable();
-        mDataSetObservable.registerObserver(observer);
-    }
-
-    @Override
-    public void unregisterDataSetObserver(DataSetObserver observer) {
-        mDataSetObservable.unregisterObserver(observer);
-        mDataSetObservable = null;
-    }
-
-    // BaseAdapter
-    public void notifyDataSetHasChanged() {
-        if (mDataSetObservable != null)
-            mDataSetObservable.notifyChanged();
-    }
-
-    // BaseAdapter
-    public void notifyDataSetInvalidated() {
-        if (mDataSetObservable != null)
-            mDataSetObservable.notifyInvalidated();
-    }
-
-    /**
      * How many items are in the data set represented by this Adapter.
      *
      * @return Count of items.
      */
-    @Override
+
     public int getCount() {
+
         return mList == null ? 0 : mList.size();
     }
+
 
     /**
      * Get the data item associated with the specified position in the data set.
@@ -178,7 +133,7 @@ public abstract class BaseSuperAdapter<T> extends RecyclerView.Adapter<SuperView
      *                 data set.
      * @return The data at the specified position.
      */
-    @Override
+
     public T getItem(int position) {
         if (position >= mList.size())
             return null;
@@ -211,43 +166,9 @@ public abstract class BaseSuperAdapter<T> extends RecyclerView.Adapter<SuperView
         return size;
     }
 
-    /**
-     * Get a View that displays the data at the specified position in the data set. You can either
-     * create a View manually or inflate it from an XML layout file. When the View is inflated, the
-     * parent View (GridView, ListView...) will apply default layout parameters unless you use
-     * {@link LayoutInflater#inflate(int, ViewGroup, boolean)}
-     * to specify a root view and to prevent attachment to the root.
-     *
-     * @param position    The position of the item within the adapter's data set of the item whose view
-     *                    we want.
-     * @param convertView The old view to reuse, if possible. Note: You should check that this view
-     *                    is non-null and of an appropriate type before using. If it is not possible to convert
-     *                    this view to display the correct data, this method can create a new view.
-     *                    Heterogeneous lists can specify their number of view types, so that this View is
-     *                    always of the right type (see {@link #getViewTypeCount()} and
-     *                    {@link #getItemViewType(int)}).
-     * @param parent      The parent that this view will eventually be attached to
-     * @return A View corresponding to the data at the specified position.
-     */
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        SuperViewHolder holder = onCreate(convertView, parent, getItemViewType(position));
-        T item = getItem(position);
-        onBind(holder, getItemViewType(position), position, item);
-        return holder.itemView;
-    }
 
-    /**
-     * Get the type of View that will be created by {@link #getView} for the specified item.
-     *
-     * @param position The position of the item within the adapter's data set whose view type we
-     *                 want.
-     * @return An integer representing the type of View. Two views should share the same type if one
-     * can be converted to the other in {@link #getView}. Note: Integers must be in the
-     * range 0 to {@link #getViewTypeCount} - 1. {@link #IGNORE_ITEM_VIEW_TYPE} can
-     * also be returned.
-     * @see #IGNORE_ITEM_VIEW_TYPE
-     */
+
+
     @Override
     public int getItemViewType(int position) {
         int viewType;
@@ -262,46 +183,16 @@ public abstract class BaseSuperAdapter<T> extends RecyclerView.Adapter<SuperView
                 }
                 return mMulItemViewType.getItemViewType(position, mList.get(position));
             }
-            return 0;
+            return TYPE_ITEM;
         }
         return viewType;
     }
 
-    /**
-     * <p>
-     * Returns the number of types of Views that will be created by
-     * {@link #getView}. Each type represents a set of views that can be
-     * converted in {@link #getView}. If the adapter always returns the same
-     * type of View for all items, this method should return 1.
-     * </p>
-     * <p>
-     * This method will only be called when when the adapter is set on the
-     * the {@link AdapterView}.
-     * </p>
-     *
-     * @return The number of types of Views that will be created by this adapter
-     */
-    @Override
-    public int getViewTypeCount() {
-        if (mMulItemViewType != null)
-            return mMulItemViewType.getViewTypeCount();
-        return 1;
-    }
 
-    /**
-     * @return true if this adapter doesn't contain any data.  This is used to determine
-     * whether the empty view should be displayed.  A typical implementation will return
-     * getCount() == 0 but since getCount() includes the headers and footers, specialized
-     * adapters might want a different behavior.
-     */
-    @Override
-    public boolean isEmpty() {
-        return getCount() == 0;
-    }
 
     @Override
-    public SuperViewHolder onCreateViewHolder(ViewGroup parent, final int viewType) {
-        final SuperViewHolder holder = onCreate(null, parent, viewType);
+    public BaseViewHolder<V> onCreateViewHolder(ViewGroup parent, final int viewType) {
+        final BaseViewHolder<V> holder = onCreate(null, parent, viewType);
         if (!(holder.itemView instanceof AdapterView)) {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -326,7 +217,7 @@ public abstract class BaseSuperAdapter<T> extends RecyclerView.Adapter<SuperView
     }
 
     @Override
-    public void onBindViewHolder(SuperViewHolder holder, int position) {
+    public void onBindViewHolder(BaseViewHolder<V> holder, int position) {
         int viewType = getItemViewType(position);
         if (hasHeaderView())
             position--;
@@ -350,7 +241,7 @@ public abstract class BaseSuperAdapter<T> extends RecyclerView.Adapter<SuperView
     }
 
     @Override
-    public void onViewAttachedToWindow(SuperViewHolder holder) {
+    public void onViewAttachedToWindow(BaseViewHolder<V> holder) {
         ViewGroup.LayoutParams lp = holder.itemView.getLayoutParams();
         if (lp != null && lp instanceof StaggeredGridLayoutManager.LayoutParams) {
             // add header or footer to StaggeredGridLayoutManager
@@ -442,13 +333,13 @@ public abstract class BaseSuperAdapter<T> extends RecyclerView.Adapter<SuperView
         final RecyclerView.LayoutManager layoutManager = getLayoutManager();
         if (layoutManager instanceof GridLayoutManager) {
             final GridLayoutManager.SpanSizeLookup originalSpanSizeLookup =
-                    ((GridLayoutManager) layoutManager).getSpanSizeLookup();
+                ((GridLayoutManager) layoutManager).getSpanSizeLookup();
             ((GridLayoutManager) layoutManager).setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
                 @Override
                 public int getSpanSize(int position) {
                     return (isHeaderView(position) || isFooterView(position)) ?
-                            ((GridLayoutManager) layoutManager).getSpanCount() :
-                            originalSpanSizeLookup.getSpanSize(position);
+                        ((GridLayoutManager) layoutManager).getSpanCount() :
+                        originalSpanSizeLookup.getSpanSize(position);
                 }
             });
         }
