@@ -153,4 +153,15 @@ public abstract class SuperAdapter<T> extends BaseSuperAdapter<T> implements CRU
     }
 
 
+    @Override
+    public void addTop(T item) {
+        mList.add(0,item);
+    }
+
+    @Override
+    public void addAllTop(List<T> items) {
+        mList.addAll(0,items);
+    }
+
+
 }

@@ -135,7 +135,7 @@ public abstract class AABaseSuperAdapter<T,V extends  View> extends RecyclerView
      */
 
     public T getItem(int position) {
-        if (position >= mList.size())
+        if (position<0 || position >= mList.size())
             return null;
         return mList.get(position);
     }
@@ -148,6 +148,7 @@ public abstract class AABaseSuperAdapter<T,V extends  View> extends RecyclerView
      */
     @Override
     public long getItemId(int position) {
+
         return position;
     }
 

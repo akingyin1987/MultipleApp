@@ -41,6 +41,10 @@ public interface CRUD<T> {
 
     void replaceAll(List<T> items);
 
+    void addTop(T  item);
+
+    void addAllTop(List<T>  items);
+
     boolean contains(T item);
 
     void clear();
