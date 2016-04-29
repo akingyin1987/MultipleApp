@@ -34,8 +34,8 @@ public class ImplicitFragment extends Fragment{
 
     public EditText editText;
 
-    private static String MY_ACTION = "com.view.my_action";
-
+    //private static String MY_ACTION = "com.view.my_action";
+    private static String MY_ACTION = "com.zlcdgroup.tuya";
     public TextView tv_data;
 
     public FloatingActionsMenu menuMultipleActions;

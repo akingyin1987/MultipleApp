@@ -38,3 +38,9 @@ https://github.com/txusballesteros/welcome-coordinator
 
 //RX控制访问权限
 https://github.com/tbruyelle/RxPermissions
+
+//一个比较好看的文字格式
+https://github.com/androidessence/RichTextView
+
+//比较好看的更新日志
+https://github.com/gabrielemariotti/changeloglib
