@@ -90,13 +90,18 @@ public class ImplicitFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 String message = editText.getText().toString().trim();
+
                 if (AutoInstall.isAppInstalled(getContext(), "com.md.appdemo")) {
+
                     ReceiverUtil.sendAppReceiver(getContext(), ReceiverConstants.APP_METER_RECEIVER);
                     Intent intent = new Intent();
                     intent.setAction(MY_ACTION);
-                    intent.setType("text/");
+                    intent.setType("test/*");
                     intent.putExtra("data", message);
-
+                    if(null == intent.resolveActivity(getActivity().getPackageManager())){
+                        Toast.makeText(getContext(), "无法启动", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     startActivityForResult(intent, 1);
                     return;
                 }

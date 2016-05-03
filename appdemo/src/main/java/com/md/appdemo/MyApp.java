@@ -1,12 +1,7 @@
 package com.md.appdemo;
-
 import android.app.Application;
-
 import android.widget.Toast;
-
 import com.facebook.stetho.Stetho;
-
-
 
 /**
  * Created by zlcd on 2016/1/11.
