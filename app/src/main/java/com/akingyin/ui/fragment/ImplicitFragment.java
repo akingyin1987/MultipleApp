@@ -21,6 +21,7 @@ import com.md.multipleapp.AutoInstall;
 import com.md.multipleapp.R;
 import com.md.multipleapp.UserEntity;
 
+import java.util.UUID;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 
@@ -34,8 +35,8 @@ public class ImplicitFragment extends Fragment{
 
     public EditText editText;
 
-    //private static String MY_ACTION = "com.view.my_action";
-    private static String MY_ACTION = "com.zlcdgroup.tuya";
+    private static String MY_ACTION = "com.view.my_action";
+    //private static String MY_ACTION = "com.zlcdgroup.camera";
     public TextView tv_data;
 
     public FloatingActionsMenu menuMultipleActions;
@@ -92,8 +93,9 @@ public class ImplicitFragment extends Fragment{
                     ReceiverUtil.sendAppReceiver(getContext(), ReceiverConstants.APP_METER_RECEIVER);
                     Intent intent = new Intent();
                     intent.setAction(MY_ACTION);
-                    intent.setType("test/");
+                    intent.setType("text/");
                     intent.putExtra("data", message);
+
                     startActivityForResult(intent, 1);
                     return;
                 }
@@ -128,15 +130,51 @@ public class ImplicitFragment extends Fragment{
                 com.akingyin.ui.ImageListActivity_.intent(getContext()).start();
             }
         });
+        view.findViewById(R.id.app_camera).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction("com.zlcdgroup.camera");
+                intent.setType("camera/");
+
+                intent.putExtra("save_name", UUID.randomUUID().toString().replace("-","")+".jpg");
+                File   dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"test");
+                dir.mkdirs();
+                intent.putExtra("save_dir",dir.getAbsolutePath());
+                startActivityForResult(intent,2);
+            }
+        });
+
+        view.findViewById(R.id.app_camera2).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction("com.zlcdgroup.camera2");
+                intent.setType("camera/");
+
+                intent.putExtra("save_name", UUID.randomUUID().toString().replace("-","")+".jpg");
+                File   dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"test");
+                dir.mkdirs();
+                intent.putExtra("save_dir",dir.getAbsolutePath());
+                startActivityForResult(intent,3);
+            }
+        });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         System.out.println("requestcode" + requestCode + ":" + resultCode);
-        if(null != data){
+        if(null != data && requestCode == 1){
             editText.setText(data.getStringExtra("data"));
 
         }
+        if(null != data){
+            if(requestCode == 2 || requestCode == 3){
+                 RESULT_FILE = data.getStringExtra("result_file");
+            }
+            System.out.println(data.toString());
+        }
     }
+
+    public   static    String    RESULT_FILE="";
 }
