@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.advancedrecyclerview.RecyclerviewDemoActivity;
 import com.akingyin.receiver.ReceiverConstants;
 import com.akingyin.receiver.ReceiverUtil;
+import com.akingyin.sharelibs.jlog.util.FileUtils;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.md.multipleapp.AppInstallReceiver;
 import com.md.multipleapp.AutoInstall;
@@ -135,7 +136,7 @@ public class ImplicitFragment extends Fragment{
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setAction("com.zlcdgroup.camera");
-                intent.setType("camera/");
+                intent.setType("camera/*");
 
                 intent.putExtra("save_name", UUID.randomUUID().toString().replace("-","")+".jpg");
                 File   dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"test");
@@ -149,7 +150,7 @@ public class ImplicitFragment extends Fragment{
             @Override public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setAction("com.zlcdgroup.camera2");
-                intent.setType("camera/");
+                intent.setType("camera/*");
 
                 intent.putExtra("save_name", UUID.randomUUID().toString().replace("-","")+".jpg");
                 File   dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"test");
@@ -158,7 +159,40 @@ public class ImplicitFragment extends Fragment{
                 startActivityForResult(intent,3);
             }
         });
+
+        view.findViewById(R.id.app_tuya1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    File  file = new File(RESULT_FILE);
+                    if(file.exists()){
+                        Intent intent = new Intent();
+                        intent.setAction("com.zlcdgroup.tuya");
+                        intent.setType("tuya/*");
+
+                        intent.putExtra(KEY_PIC_NAME,FileUtils.getFileName(RESULT_FILE));
+                        intent.putExtra(KEY_PIC_DIRECTORYPATH,FileUtils.getFolderName(RESULT_FILE));
+                        intent.putExtra(KEY_SAVE_RENAME,UUID.randomUUID().toString().replace("-","")+".jpg");
+
+                        startActivityForResult(intent,4);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
+
+
+    // 图片名
+    public static final String KEY_PIC_NAME = "picName";
+
+    public static final String KEY_PIC_ORIGINAL = "Original_name";// 原始图片路径
+
+    // 路径
+    public static final String KEY_PIC_DIRECTORYPATH = "directoryPath";
+
+    public static final String KEY_SAVE_RENAME = "saveReName";
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -171,6 +205,16 @@ public class ImplicitFragment extends Fragment{
         if(null != data){
             if(requestCode == 2 || requestCode == 3){
                  RESULT_FILE = data.getStringExtra("result_file");
+            }else if(requestCode == 4){
+                String  dir = data.getStringExtra(KEY_PIC_DIRECTORYPATH);
+                String  name = data.getStringExtra(KEY_SAVE_RENAME);
+                RESULT_FILE = dir+File.separator+name;
+                try{
+                    File  file = new File(RESULT_FILE);
+                    Toast.makeText(getContext(),"图片是否存在："+file.exists(),Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
             System.out.println(data.toString());
         }
