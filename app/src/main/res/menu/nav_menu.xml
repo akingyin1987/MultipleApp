@@ -44,6 +44,11 @@
             android:id="@+id/navigation_retrofit"
             android:icon="@drawable/ic_favorite"
             android:title="retrofit2" />
+
+        <item
+            android:id="@+id/navigation_changelogs"
+            android:icon="@drawable/ic_favorite"
+            android:title="更新日志" />
     </group>
 
 </menu>

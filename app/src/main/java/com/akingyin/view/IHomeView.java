@@ -25,4 +25,6 @@ public interface IHomeView {
     public   void   switchRxview();
 
     public   void   switchRetrofit();
+
+    public   void   switchChangeLog();
 }

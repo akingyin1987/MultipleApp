@@ -22,16 +22,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import android.widget.ImageView;
+import android.view.View;
 import com.akingyin.pojo.ImageListBean;
-import com.akingyin.sharelibs.widgets.CheckableImageView;
+
+import com.akingyin.sharelibs.adapter.SuperAdapter;
+import com.akingyin.sharelibs.adapter.internal.BaseViewHolder;
+import com.akingyin.sharelibs.adapter.internal.SuperViewHolder;
 import com.akingyin.sharelibs.widgets.PLAImageView;
 import com.bumptech.glide.Glide;
 import com.md.multipleapp.R;
 
 
-import org.byteam.superadapter.recycler.BaseViewHolder;
-import org.byteam.superadapter.recycler.SuperAdapter;
+
 
 import java.util.List;
 
@@ -43,8 +45,8 @@ public class ImagelistAdapter extends SuperAdapter<ImageListBean.ImgsEntity> {
         super(context, items, layoutResId);
     }
 
-    @Override
-    public void onBind(int viewType, BaseViewHolder holder, int position, ImageListBean.ImgsEntity item) {
+  @Override public void onBind(SuperViewHolder holder, int viewType, int position,
+      ImageListBean.ImgsEntity item) {
          holder.setText(R.id.item_text, item.getDesc());
          PLAImageView imageView = holder.getView(R.id.item_image);
 
@@ -59,7 +61,25 @@ public class ImagelistAdapter extends SuperAdapter<ImageListBean.ImgsEntity> {
            imageView.setImageWidth(item.getThumbnailWidth());
         }
 
-    }
+  }
+
+  //@Override
+    //public void onBind(int viewType, BaseViewHolder holder, int position, ImageListBean.ImgsEntity item) {
+    //     holder.setText(R.id.item_text, item.getDesc());
+    //     PLAImageView imageView = holder.getView(R.id.item_image);
+    //
+    //    if(!TextUtils.isEmpty(item.getThumbnailUrl())){
+    //        Glide.with(getContext())
+    //            .load(Uri.parse(item.getThumbnailUrl()))
+    //            .crossFade()
+    //            .placeholder(R.drawable.ic_error)
+    //            .into(imageView);
+    //
+    //       imageView.setImageHeight(item.getThumbnailHeight());
+    //       imageView.setImageWidth(item.getThumbnailWidth());
+    //    }
+    //
+    //}
 
     public ImageListBean.ImgsEntity  getItem(int  postion){
         return getList().get(postion);

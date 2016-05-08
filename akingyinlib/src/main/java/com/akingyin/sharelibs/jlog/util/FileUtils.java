@@ -21,6 +21,7 @@ package com.akingyin.sharelibs.jlog.util;
 
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.akingyin.sharelibs.jlog.JLog;
@@ -104,5 +105,36 @@ public class FileUtils {
                 }
             }
         });
+    }
+
+    /**
+     * 获取文件名
+     *
+     * @param filePath
+     * @return
+     */
+    public static String getFileName(String filePath) {
+        if (TextUtils.isEmpty(filePath)) {
+            return "";
+        }
+
+        int filePosi = filePath.lastIndexOf(File.separator);
+        return (filePosi == -1) ? filePath : filePath.substring(filePosi + 1);
+    }
+
+    /**
+     * 获取路径
+     *
+     * @param filePath
+     * @return
+     */
+    public static String getFolderName(String filePath) {
+
+        if (TextUtils.isEmpty(filePath)) {
+            return filePath;
+        }
+
+        int filePosi = filePath.lastIndexOf(File.separator);
+        return (filePosi == -1) ? "" : filePath.substring(0, filePosi+1);
     }
 }

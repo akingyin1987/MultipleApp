@@ -1,6 +1,7 @@
 package com.akingyin.sharelibs.widgets;
 
 import android.content.Context;
+
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
@@ -201,6 +202,7 @@ public class PullLoadMoreRecyclerView extends LinearLayout {
                 if(footer_click_loadmore.getVisibility() == VISIBLE){
                     invalidate();
                    mFooterView.setVisibility(GONE);
+
                 }
             }
         }

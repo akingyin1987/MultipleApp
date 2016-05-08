@@ -15,12 +15,14 @@ import android.widget.Toast;
 import com.advancedrecyclerview.RecyclerviewDemoActivity;
 import com.akingyin.receiver.ReceiverConstants;
 import com.akingyin.receiver.ReceiverUtil;
+import com.akingyin.sharelibs.jlog.util.FileUtils;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.md.multipleapp.AppInstallReceiver;
 import com.md.multipleapp.AutoInstall;
 import com.md.multipleapp.R;
 import com.md.multipleapp.UserEntity;
 
+import java.util.UUID;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 
@@ -35,7 +37,7 @@ public class ImplicitFragment extends Fragment{
     public EditText editText;
 
     private static String MY_ACTION = "com.view.my_action";
-
+    //private static String MY_ACTION = "com.zlcdgroup.camera";
     public TextView tv_data;
 
     public FloatingActionsMenu menuMultipleActions;
@@ -88,12 +90,18 @@ public class ImplicitFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 String message = editText.getText().toString().trim();
+
                 if (AutoInstall.isAppInstalled(getContext(), "com.md.appdemo")) {
+
                     ReceiverUtil.sendAppReceiver(getContext(), ReceiverConstants.APP_METER_RECEIVER);
                     Intent intent = new Intent();
                     intent.setAction(MY_ACTION);
-                    intent.setType("test/");
+                    intent.setType("test/*");
                     intent.putExtra("data", message);
+                    if(null == intent.resolveActivity(getActivity().getPackageManager())){
+                        Toast.makeText(getContext(), "无法启动", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     startActivityForResult(intent, 1);
                     return;
                 }
@@ -128,15 +136,94 @@ public class ImplicitFragment extends Fragment{
                 com.akingyin.ui.ImageListActivity_.intent(getContext()).start();
             }
         });
+        view.findViewById(R.id.app_camera).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction("com.zlcdgroup.camera");
+                intent.setType("camera/*");
+
+                intent.putExtra("save_name", UUID.randomUUID().toString().replace("-","")+".jpg");
+                File   dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"test");
+                dir.mkdirs();
+                intent.putExtra("save_dir",dir.getAbsolutePath());
+                startActivityForResult(intent,2);
+            }
+        });
+
+        view.findViewById(R.id.app_camera2).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction("com.zlcdgroup.camera2");
+                intent.setType("camera/*");
+
+                intent.putExtra("save_name", UUID.randomUUID().toString().replace("-","")+".jpg");
+                File   dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator+"test");
+                dir.mkdirs();
+                intent.putExtra("save_dir",dir.getAbsolutePath());
+                startActivityForResult(intent,3);
+            }
+        });
+
+        view.findViewById(R.id.app_tuya1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try{
+                    File  file = new File(RESULT_FILE);
+                    if(file.exists()){
+                        Intent intent = new Intent();
+                        intent.setAction("com.zlcdgroup.tuya");
+                        intent.setType("tuya/*");
+
+                        intent.putExtra(KEY_PIC_NAME,FileUtils.getFileName(RESULT_FILE));
+                        intent.putExtra(KEY_PIC_DIRECTORYPATH,FileUtils.getFolderName(RESULT_FILE));
+                        intent.putExtra(KEY_SAVE_RENAME,UUID.randomUUID().toString().replace("-","")+".jpg");
+
+                        startActivityForResult(intent,4);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
     }
+
+
+    // 图片名
+    public static final String KEY_PIC_NAME = "picName";
+
+    public static final String KEY_PIC_ORIGINAL = "Original_name";// 原始图片路径
+
+    // 路径
+    public static final String KEY_PIC_DIRECTORYPATH = "directoryPath";
+
+    public static final String KEY_SAVE_RENAME = "saveReName";
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         System.out.println("requestcode" + requestCode + ":" + resultCode);
-        if(null != data){
+        if(null != data && requestCode == 1){
             editText.setText(data.getStringExtra("data"));
 
         }
+        if(null != data){
+            if(requestCode == 2 || requestCode == 3){
+                 RESULT_FILE = data.getStringExtra("result_file");
+            }else if(requestCode == 4){
+                String  dir = data.getStringExtra(KEY_PIC_DIRECTORYPATH);
+                String  name = data.getStringExtra(KEY_SAVE_RENAME);
+                RESULT_FILE = dir+File.separator+name;
+                try{
+                    File  file = new File(RESULT_FILE);
+                    Toast.makeText(getContext(),"图片是否存在："+file.exists(),Toast.LENGTH_SHORT).show();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            System.out.println(data.toString());
+        }
     }
+
+    public   static    String    RESULT_FILE="";
 }

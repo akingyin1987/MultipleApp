@@ -25,10 +25,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/send_message"/>
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/app_btn3"
-            android:text="发送消息到另一个APP"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/app_btn3"
+        android:text="发送消息到另一个APP"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -47,6 +47,29 @@
             android:layout_height="wrap_content"
             android:id="@+id/app_recyclerview_more"
             android:text="列表1"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/app_camera"
+            android:text="自定义相机1"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/app_camera2"
+            android:text="自定义相机2"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/app_tuya1"
+            android:text="涂鸦1"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/app_tuya2"
+            android:text="涂鸦2"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

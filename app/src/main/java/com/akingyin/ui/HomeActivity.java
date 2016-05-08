@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.akingyin.presenter.IHomePresenter;
 import com.akingyin.presenter.impl.HomePresenterImpl;
+import com.akingyin.ui.fragment.ChangelogFragment;
 import com.akingyin.ui.fragment.FlashlightFragment;
 import com.akingyin.ui.fragment.ImplicitFragment;
 import com.akingyin.ui.fragment.RetrofitFragment;
@@ -113,6 +114,9 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
                         break;
                     case R.id.navigation_retrofit:
                         switchRetrofit();
+                        break;
+                    case R.id.navigation_changelogs:
+                        switchChangeLog();
                         break;
                 }
                 item.setChecked(true);
@@ -240,6 +244,14 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
     public boolean onOptionsItemSelected(MenuItem item) {
         return  homePresenter.onNavMenuEvent(item);
 
+    }
+
+    @Override public void switchChangeLog() {
+        ChangelogFragment fragment = (ChangelogFragment)getSupportFragmentManager().findFragmentByTag("changelog");
+        if(null == fragment){
+            fragment = ChangelogFragment.newInstance();
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, fragment,"changelog").commit();
     }
 
     @Override

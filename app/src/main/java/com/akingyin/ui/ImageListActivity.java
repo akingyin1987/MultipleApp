@@ -29,6 +29,7 @@ import android.widget.Toast;
 
 import com.akingyin.pojo.ImageListBean;
 import com.akingyin.presenter.impl.QueryImagelistPresenterImpl;
+import com.akingyin.sharelibs.adapter.OnItemClickListener;
 import com.akingyin.sharelibs.widgets.PullLoadMoreRecyclerView;
 import com.akingyin.ui.adapter.ImagelistAdapter;
 import com.akingyin.view.IqueryImageListView;
@@ -40,7 +41,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.List;
-import org.byteam.superadapter.recycler.OnItemClickListener;
+
 
 /**
  * Created by Administrator on 2016/3/10.
@@ -79,7 +80,7 @@ public class ImageListActivity  extends AppCompatActivity  implements IqueryImag
         recycler_view.setPullRefreshEnable(true);
         recycler_view.setHasMore(false);
         recycler_view.setClickLoadMore(true);
-        recycler_view.setGridLayout(2);
+        recycler_view.setStaggeredGridLayout(2);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View itemView, int viewType, int position) {
