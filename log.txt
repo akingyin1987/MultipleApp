@@ -44,3 +44,7 @@ https://github.com/androidessence/RichTextView
 
 //比较好看的更新日志
 https://github.com/gabrielemariotti/changeloglib
+
+
+//很好看的速度表盘
+https://github.com/glomadrian/velocimeter-view
