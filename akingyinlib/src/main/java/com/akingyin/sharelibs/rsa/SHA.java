@@ -16,12 +16,32 @@
  *
  */
 
-package com.md.appdemo.jobmanager;
+package com.akingyin.sharelibs.rsa;
+
+import java.security.MessageDigest;
 
 /**
- * Created by Administrator on 2016/1/19.
+ * @ Description:
+ *
+ * Company:重庆中陆承大科技有限公司
+ * @ Author king
+ * @ Date 2016/5/12 17:41
+ * @ Version V1.0
  */
-public enum JobstatusEnum {
+public class SHA {
 
-    Null,Runing,Error,Success,NetWorkError;
+  /**
+   *
+   * @param data to be encrypted
+   * @param shaN encrypt method,SHA-1,SHA-224,SHA-256,SHA-384,SHA-512
+   * @return 已加密的数据
+   * @throws Exception
+   */
+  public static byte[] encryptSHA(byte[] data, String shaN) throws Exception {
+
+    MessageDigest sha = MessageDigest.getInstance(shaN);
+    sha.update(data);
+    return sha.digest();
+
+  }
 }

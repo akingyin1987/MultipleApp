@@ -186,6 +186,18 @@ public class ImplicitFragment extends Fragment{
                 }
             }
         });
+
+        view.findViewById(R.id.app_server).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                System.out.println("fdfdfd");
+                Intent intent = new Intent();
+                intent.setAction("com.zlcdgroup.testserver");
+                intent.setType("server/*");
+             //   intent.setPackage(getActivity().getPackageName());
+                getActivity().startService(intent);
+
+            }
+        });
     }
 
 

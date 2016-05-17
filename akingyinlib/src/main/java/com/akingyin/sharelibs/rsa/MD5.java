@@ -16,12 +16,24 @@
  *
  */
 
-package com.md.appdemo.jobmanager;
+package com.akingyin.sharelibs.rsa;
+
+import java.security.MessageDigest;
 
 /**
- * Created by Administrator on 2016/1/19.
+ * @ Description:
+ *
+ * Company:重庆中陆承大科技有限公司
+ * @ Author king
+ * @ Date 2016/5/12 17:34
+ * @ Version V1.0
  */
-public enum JobstatusEnum {
+public class MD5 {
 
-    Null,Runing,Error,Success,NetWorkError;
+  public static byte[] encryptMD5(byte[] data) throws Exception {
+    MessageDigest md5 = MessageDigest.getInstance("MD5");
+    md5.update(data);
+    return md5.digest();
+
+  }
 }
