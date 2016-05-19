@@ -1,5 +1,6 @@
 package com.md.multipleapp;
 
+import android.app.Activity;
 import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
@@ -19,6 +20,7 @@ public class MyApp extends Application {
                        .addModelClass(UserEntity.class)
                        .create();
         ActiveAndroid.initialize(cfg,true);
+
         CrashReport.initCrashReport(this, "900018539", true);
         Stetho.initialize(Stetho.newInitializerBuilder(this)
             .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))

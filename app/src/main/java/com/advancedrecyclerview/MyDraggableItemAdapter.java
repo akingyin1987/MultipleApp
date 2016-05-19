@@ -48,7 +48,9 @@ class MyDraggableItemAdapter
     private interface Draggable extends DraggableItemConstants {
     }
 
-
+    @Override public boolean onCheckCanDrop(int draggingPosition, int dropPosition) {
+        return false;
+    }
 
     public static class MyViewHolder extends AbstractDraggableItemViewHolder {
         public FrameLayout mContainer;
