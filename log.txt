@@ -48,3 +48,6 @@ https://github.com/gabrielemariotti/changeloglib
 
 //很好看的速度表盘
 https://github.com/glomadrian/velocimeter-view
+
+//一个很好看的刮奖View
+https://github.com/cooltechworks/ScratchView
