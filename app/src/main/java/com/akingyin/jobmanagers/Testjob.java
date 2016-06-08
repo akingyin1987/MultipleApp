@@ -18,7 +18,9 @@
 
 package com.akingyin.jobmanagers;
 
+import android.database.sqlite.SQLiteTransactionListener;
 import com.activeandroid.ActiveAndroid;
+import com.akingyin.sharelibs.jlog.JLog;
 import com.md.multipleapp.UserEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,15 +55,30 @@ public class Testjob extends  AsyncJob<Integer> {
     if(cancel){
       return;
     }
-    System.out.println("data="+getT());
+    System.out.println("doOnBackground --data="+getT());
         try{
-          ActiveAndroid.beginTransaction();
+          ActiveAndroid.getDatabase().beginTransactionWithListener(new SQLiteTransactionListener() {
+            @Override public void onBegin() {
+              JLog.d("onBegin");
+            }
+
+            @Override public void onCommit() {
+              JLog.d("onCommit");
+            }
+
+            @Override public void onRollback() {
+             JLog.d("onRollback");
+            }
+          });
           for(UserEntity  userEntity : datas){
+            JLog.d(userEntity.toString());
              userEntity.save();
+            JLog.d("Id="+userEntity.getId());
           }
           ActiveAndroid.setTransactionSuccessful();
           onSuccess();
         }catch (Exception e){
+          JLog.e(e);
           System.out.println("onError");
           e.printStackTrace();
           onError();
@@ -101,7 +118,7 @@ public class Testjob extends  AsyncJob<Integer> {
       UserEntity  userEntity = new UserEntity();
       userEntity.userName=getT()+"-"+random.nextInt(1000);
       userEntity.age = random.nextInt(1000);
-
+      datas.add(userEntity);
     }
     return true;
   }

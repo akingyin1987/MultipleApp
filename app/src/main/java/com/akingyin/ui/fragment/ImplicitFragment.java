@@ -272,4 +272,11 @@ public class ImplicitFragment extends Fragment{
     }
 
     public   static    String    RESULT_FILE="";
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        if(null != testJobManager){
+            testJobManager.onDestory();
+        }
+    }
 }

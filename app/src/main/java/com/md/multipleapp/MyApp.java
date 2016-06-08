@@ -1,10 +1,11 @@
 package com.md.multipleapp;
 
-import android.app.Activity;
+
 import android.app.Application;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
+import com.akingyin.sharelibs.jlog.JLog;
 import com.facebook.stetho.Stetho;
 import com.tencent.bugly.crashreport.CrashReport;
 
@@ -16,6 +17,7 @@ public class MyApp extends Application {
     public void onCreate() {
         super.onCreate();
         System.out.println("App create");
+        JLog.init(this);
         Configuration  cfg = new Configuration.Builder(this)
                        .addModelClass(UserEntity.class)
                        .create();

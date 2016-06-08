@@ -51,3 +51,6 @@ https://github.com/glomadrian/velocimeter-view
 
 //一个很好看的刮奖View
 https://github.com/cooltechworks/ScratchView
+
+//比较好看的文字显示
+https://github.com/sfsheng0322/MarqueeView
