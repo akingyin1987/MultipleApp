@@ -61,13 +61,13 @@
             </intent-filter>
         </receiver>
 
-        <provider
-            android:authorities="org.jraf.androidcontentprovidergenerator.sample.provider"
-            android:name="com.provider.SampleProvider"
-            android:multiprocess="true"
-            android:exported="true"
-            android:readPermission="com.zlcdgroup.provider.READ"
-            android:writePermission="com.zlcdgroup.provider.WIRTE"/>
+        <!--<provider-->
+            <!--android:authorities="org.jraf.androidcontentprovidergenerator.sample.provider"-->
+            <!--android:name="com.provider.SampleProvider"-->
+            <!--android:multiprocess="true"-->
+            <!--android:exported="true"-->
+            <!--android:readPermission="com.zlcdgroup.provider.READ"-->
+            <!--android:writePermission="com.zlcdgroup.provider.WIRTE"/>-->
 
         <activity android:name="com.akingyin.ui.HomeActivity"
                  android:theme="@style/App_NoActionbar">

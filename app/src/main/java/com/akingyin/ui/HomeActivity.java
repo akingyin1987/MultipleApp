@@ -60,7 +60,7 @@ public class HomeActivity  extends AppCompatActivity  implements IHomeView{
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        System.out.println(Base64.encodeToString("123456".getBytes(),Base64.DEFAULT));
+
         SegmentedGroup segmentedGroup = (SegmentedGroup) mToolbar.findViewById(R.id.toolbar_segment);
         segmentedGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override

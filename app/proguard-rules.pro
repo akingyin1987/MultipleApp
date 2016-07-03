@@ -15,3 +15,7 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-libraryjars libs/BaiduLBS_Android.jar
+-keep class com.baidu.** { *; }
+-keep class vi.com.gdi.bgl.android.**{*;}

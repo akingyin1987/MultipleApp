@@ -13,6 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.advancedrecyclerview.RecyclerviewDemoActivity;
+import com.akingyin.jobmanagers.AsyncJobManager;
+import com.akingyin.jobmanagers.TestJobManager;
+import com.akingyin.jobmanagers.Testjob;
 import com.akingyin.receiver.ReceiverConstants;
 import com.akingyin.receiver.ReceiverUtil;
 import com.akingyin.sharelibs.jlog.util.FileUtils;
@@ -198,8 +201,39 @@ public class ImplicitFragment extends Fragment{
 
             }
         });
+
+        view.findViewById(R.id.app_transaction).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testDbTransaction();
+            }
+        });
     }
 
+    private TestJobManager   testJobManager;
+    public    void    testDbTransaction(){
+        if(null != testJobManager){
+            testJobManager.cleanAllJobs();
+        }
+        testJobManager = new TestJobManager();
+        testJobManager.setListion(new AsyncJobManager.OnJobManagerListion() {
+            @Override public void onProgress(int total, int press, int error) {
+                System.out.println("total="+total+":"+press+":"+error);
+            }
+
+            @Override public void onError(String message) {
+                System.out.println("error="+message);
+            }
+
+            @Override public void onComplete() {
+               System.out.println("onComplete");
+            }
+        });
+        for(int i=0;i<100;i++){
+            testJobManager.onAddTask(new Testjob(i));
+        }
+        testJobManager.execute();
+    }
 
     // 图片名
     public static final String KEY_PIC_NAME = "picName";
@@ -238,4 +272,11 @@ public class ImplicitFragment extends Fragment{
     }
 
     public   static    String    RESULT_FILE="";
+
+    @Override public void onDestroyView() {
+        super.onDestroyView();
+        if(null != testJobManager){
+            testJobManager.onDestory();
+        }
+    }
 }

@@ -75,6 +75,12 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/app_transaction"
+            android:text="测试多线程并发事物"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/app_server"
             android:text="Server2"/>
 
