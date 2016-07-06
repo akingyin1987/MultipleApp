@@ -54,3 +54,6 @@ https://github.com/cooltechworks/ScratchView
 
 //比较好看的文字显示
 https://github.com/sfsheng0322/MarqueeView
+
+//完整的筛选器解决方案
+https://github.com/baiiu/DropDownMenu
