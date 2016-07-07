@@ -99,7 +99,11 @@ public  abstract class AbsTaskRunner implements Runnable{
           taskRunner.onCancel();
       }
         queueTasks.clear();
-      taskStatusEnum = TaskStatusEnum.CANCEL;
+        if(taskStatusEnum == TaskStatusEnum.NULL || taskStatusEnum == TaskStatusEnum.WAITING
+                || taskStatusEnum == TaskStatusEnum.DOING){
+            taskStatusEnum = TaskStatusEnum.CANCEL;
+        }
+
     }
 
 

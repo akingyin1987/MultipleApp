@@ -18,11 +18,11 @@ public class MultiTaskManager implements  ITaskResultCallBack{
     /** 线程池 */
     private ExecutorService threadPool;
     private LinkedBlockingQueue<AbsTaskRunner> queueTasks = new LinkedBlockingQueue<>();
-    private  AtomicInteger count = new AtomicInteger();//任务总数
+    private  AtomicInteger count = new AtomicInteger(0);//任务总数
 
-    private  AtomicInteger successTotal = new AtomicInteger();//成功数
-    private  AtomicInteger overTotal = new AtomicInteger();//已执行数
-    private  AtomicInteger errorTotal = new AtomicInteger();  //错误数
+    private  AtomicInteger successTotal = new AtomicInteger(0);//成功数
+    private  AtomicInteger overTotal = new AtomicInteger(0);//已执行数
+    private  AtomicInteger errorTotal = new AtomicInteger(0);  //错误数
 
     private  AtomicInteger  status = new AtomicInteger(0);//状态
 
@@ -76,6 +76,23 @@ public class MultiTaskManager implements  ITaskResultCallBack{
         }
     }
 
+    public   int    getTotal(){
+        return  count.get();
+    }
+
+    public  int    getSuccessTotal(){
+        return  successTotal.get();
+    }
+
+    public  int   getErrorTotal(){
+        return  errorTotal.get();
+    }
+
+    public   int   getOverTotal(){
+        return  overTotal.get();
+    }
+
+
     public boolean isOver() {
         if (threadPool == null) {
             return true;
@@ -110,29 +127,35 @@ public class MultiTaskManager implements  ITaskResultCallBack{
                 cancelTasks();
                 break;
             case SUCCESS:
+                 overTotal.getAndIncrement();
                  successTotal.getAndIncrement();
                 break;
             case  ERROR:
+                 overTotal.getAndIncrement();
                  errorTotal.getAndIncrement();
                 break;
             default:
+                overTotal.getAndIncrement();
                 errorTotal.getAndIncrement();
                 break;
 
         }
-        if(null != callBack && statusEnum != TaskStatusEnum.NETERROR){
-            int  errorNum = errorTotal.get();
-            int  sucNum = successTotal.get();
-            callBack.onCallBack(count.get(),errorNum+sucNum,errorNum);
-            if(count.get() == errorNum +sucNum){
-                  if(errorNum>0){
-                      status.getAndSet(4);
-                      callBack.onError(error,null);
-                  }else{
-                      callBack.onComplete();
-                  }
+        if(null != callBack ){
+            if(statusEnum != TaskStatusEnum.NETERROR){
+                int  errorNum = errorTotal.get();
+                int  sucNum = successTotal.get();
+                callBack.onCallBack(count.get(),errorNum+sucNum,errorNum);
+                if(count.get() == errorNum +sucNum){
+                    status.getAndSet(4);
+                    if(errorNum>0){
+                        callBack.onError(error,null);
+                    }else{
+                        callBack.onComplete();
+                    }
+                }
+            }else{
+                callBack.onError(error,TaskManagerStatusEnum.NULL);
             }
         }
-
     }
 }
