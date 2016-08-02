@@ -47,3 +47,9 @@ https://github.com/gabrielemariotti/changeloglib
 
 //非常漂亮的fab可用作菜单
 https://github.com/Clans/FloatingActionButton
+
+//一个很好看的新浪点赞控制
+https://github.com/YangShaoXiong/LikeSinaSportProgress
+
+//用于钱的显示，很好快的，字体还会滑动
+https://github.com/robinhood/ticker
