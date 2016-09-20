@@ -111,7 +111,6 @@ dependencies {
     compile 'com.danikula:videocache:2.3.4'
     compile 'com.github.iammert:MaterialIntroView:1.5'
     compile 'com.ragnarok.rxcamera:lib:0.0.2'
-    compile project(':squarecamera')
     compile 'info.hoang8f:android-segmented:1.0.6'
 
     compile 'org.greenrobot:eventbus:3.0.0'
@@ -125,15 +124,17 @@ dependencies {
     compile 'com.github.gabrielemariotti.changeloglib:changelog:2.1.0'
     compile files('libs/BaiduLBS_Android.jar')
     //相机
-    compile project(':materialCamera')
-    compile ('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.9.1@aar'){
-        transitive=true
+    compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.9.1@aar') {
+        transitive = true
     }
+
+
 }
 
 bugly {
     appId = '900018539'    //注册时分配的App ID
     appKey = 'RptDuw9nSGrNwNwP'  //注册时分配的App Key
 }
+
 
 

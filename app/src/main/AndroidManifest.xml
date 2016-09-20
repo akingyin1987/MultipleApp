@@ -79,23 +79,14 @@
         </activity>
 
         <activity android:name="com.advancedrecyclerview.RecyclerviewDemoActivity"/>
-        <activity android:name="com.desmond.squarecamera.CameraActivity"
-                  android:theme="@style/squarecamera__CameraFullScreenTheme.NoUI"/>
-        <activity android:name="com.desmond.squarecamera.RuntimePermissionActivity"
-                  android:theme="@style/squarecamera__CameraFullScreenTheme.NoUI"
-                  />
+
         <activity android:name="com.akingyin.ui.RecyclerviewActivity_"
                   android:theme="@style/App_baseNoAction"
                  />
         <activity android:name="com.akingyin.ui.ImageListActivity_"
                   android:excludeFromRecents="true"
                   android:theme="@style/App_NoActionbar"/>
-        <activity
-            android:name="com.afollestad.materialcamera.CaptureActivity"
-            android:theme="@style/MaterialCamera.CaptureActivity" />
-        <activity
-            android:name="com.afollestad.materialcamera.CaptureActivity2"
-            android:theme="@style/MaterialCamera.CaptureActivity" />
+
 
     </application>
 </manifest>

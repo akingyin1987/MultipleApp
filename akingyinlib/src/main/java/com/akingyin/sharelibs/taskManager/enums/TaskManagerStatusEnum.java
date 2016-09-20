@@ -6,7 +6,8 @@ package com.akingyin.sharelibs.taskManager.enums;
  */
 public enum  TaskManagerStatusEnum {
 
-    NULL(1,"无"),DOING(2,"进行中"),CANCEL(3,"已取消"),COMPLETE(4,"已完成");
+    NULL(1,"无"),DOING(2,"进行中"),CANCEL(3,"已取消"),COMPLETE(4,"已完成")
+    ,NETError(5,"网络错误");
 
 
 

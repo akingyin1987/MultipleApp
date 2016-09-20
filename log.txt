@@ -53,3 +53,6 @@ https://github.com/YangShaoXiong/LikeSinaSportProgress
 
 //用于钱的显示，很好快的，字体还会滑动
 https://github.com/robinhood/ticker
+
+//一个多选适配器，还有非常好看的选中样式
+https://github.com/ManuelPeinado/MultiChoiceAdapter

@@ -119,7 +119,7 @@ public class MultiTaskManager implements  ITaskResultCallBack{
     }
     @Override
     public void onCallBack(TaskStatusEnum statusEnum, String error) {
-        if(status.get() == 4 || status.get() == 3){
+        if(status.get() == 4 || status.get() == 3 || status.get() ==5){
             return;
         }
         switch (statusEnum){
@@ -148,13 +148,13 @@ public class MultiTaskManager implements  ITaskResultCallBack{
                 if(count.get() == errorNum +sucNum){
                     status.getAndSet(4);
                     if(errorNum>0){
-                        callBack.onError(error,null);
+                        callBack.onError(error,TaskManagerStatusEnum.COMPLETE);
                     }else{
                         callBack.onComplete();
                     }
                 }
             }else{
-                callBack.onError(error,TaskManagerStatusEnum.NULL);
+                callBack.onError(error,TaskManagerStatusEnum.NETError);
             }
         }
     }

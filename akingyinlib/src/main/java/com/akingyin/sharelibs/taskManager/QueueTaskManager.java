@@ -129,9 +129,10 @@ public class QueueTaskManager implements  ITaskResultCallBack{
     }
     @Override
     public void onCallBack(TaskStatusEnum statusEnum, String error) {
-        if(status.get() == 4 || status.get() == 3){
+        if(status.get() == 4 || status.get() == 3 || status.get() ==5){
             return;
         }
+        overTotal.getAndIncrement();
         switch (statusEnum){
             case NETERROR:
                 cancelTasks();
@@ -167,7 +168,8 @@ public class QueueTaskManager implements  ITaskResultCallBack{
                     }
                 }
             }else{
-                callBack.onError(error,TaskManagerStatusEnum.NULL);
+                status.getAndSet(5);
+                callBack.onError(error,TaskManagerStatusEnum.NETError);
             }
         }
 

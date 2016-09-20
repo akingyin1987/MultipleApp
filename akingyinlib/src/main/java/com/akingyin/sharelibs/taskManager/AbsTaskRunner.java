@@ -166,6 +166,8 @@ public  abstract class AbsTaskRunner implements Runnable{
             if(temp == TaskStatusEnum.SUCCESS ){
                 index++;
                 doBackground();
+            }else{
+                return  temp;
             }
         }
         return  TaskStatusEnum.SUCCESS;

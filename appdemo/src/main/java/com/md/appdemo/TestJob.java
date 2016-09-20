@@ -9,6 +9,17 @@ import com.md.appdemo.jobmanager.JobstatusEnum;
  */
 public class TestJob  extends AsyncJob<UserEntity> {
 
+    @Override public JobstatusEnum onNext() {
+        return null;
+    }
+
+    @Override public boolean onBefore() {
+        return false;
+    }
+
+    @Override public void onAfter() {
+
+    }
 
     public TestJob(UserEntity userEntity, OnJobListion jobListion) {
         super(userEntity, jobListion);

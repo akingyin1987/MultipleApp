@@ -317,6 +317,7 @@ public class JLog {
             case WARN:
             case ERROR:
             case WTF:
+                System.out.println("wtf");
                 if (isOutputToConsole) {
                     sDefaultPrinter.printConsole(level, tag, message, element);
                 }

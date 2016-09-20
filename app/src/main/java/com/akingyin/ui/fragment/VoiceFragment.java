@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.afollestad.materialcamera.MaterialCamera;
 import com.akingyin.sharelibs.utils.TLog;
 import com.akingyin.widget.NumberKeyboardView;
 import com.jakewharton.rxbinding.view.RxView;
@@ -117,12 +116,12 @@ public class VoiceFragment extends Fragment {
         if(!saveFolder.exists() || !saveFolder.isDirectory()){
             saveFolder.mkdirs();
         }
-        new MaterialCamera(getActivity()).allowRetry(true).autoSubmit(false)
-            .saveDir(saveFolder)
-            .showPortraitWarning(true)
-            .defaultToFrontFacing(false)
-            .retryExits(false)
-            .start(CAMERA_RQ);
+        //new MaterialCamera(getActivity()).allowRetry(true).autoSubmit(false)
+        //    .saveDir(saveFolder)
+        //    .showPortraitWarning(true)
+        //    .defaultToFrontFacing(false)
+        //    .retryExits(false)
+        //    .start(CAMERA_RQ);
 
     }
 
