@@ -1,5 +1,6 @@
 package com.akingyin.sharelibs.taskManager;
 
+import com.akingyin.sharelibs.jlog.JLog;
 import com.akingyin.sharelibs.taskManager.enums.TaskStatusEnum;
 
 import java.util.LinkedList;
@@ -60,6 +61,7 @@ public  abstract class AbsTaskRunner implements Runnable{
     }
 
     public void setErrorMsg(String errorMsg) {
+        JLog.d("errorMsg="+errorMsg);
         this.errorMsg = errorMsg;
     }
 
@@ -83,7 +85,10 @@ public  abstract class AbsTaskRunner implements Runnable{
     }
 
     public  void   TaskOnDoing(){
-        taskStatusEnum = TaskStatusEnum.DOING;
+        if(taskStatusEnum != TaskStatusEnum.CANCEL){
+            taskStatusEnum = TaskStatusEnum.DOING;
+        }
+
     }
 
     public  void  TaskOnSuccess(){
@@ -95,6 +100,7 @@ public  abstract class AbsTaskRunner implements Runnable{
 
     //取消任务
     public     void onCancel(){
+        JLog.d("Task-onCancel");
       for(AbsTaskRunner   taskRunner : queueTasks){
           taskRunner.onCancel();
       }
@@ -119,6 +125,7 @@ public  abstract class AbsTaskRunner implements Runnable{
 
 
     private      TaskStatusEnum  doBackground(){
+
         TaskOnDoing();
         TaskStatusEnum  temp = doSonTaskBackground();
         if(temp == TaskStatusEnum.SUCCESS){
@@ -160,12 +167,15 @@ public  abstract class AbsTaskRunner implements Runnable{
         if(queueTasks.size() == 0 || index >= queueTasks.size()){
             return  TaskStatusEnum.SUCCESS;
         }
+        if(taskStatusEnum == TaskStatusEnum.CANCEL){
+            return  TaskStatusEnum.CANCEL;
+        }
         AbsTaskRunner   absTaskRunner = queueTasks.get(index);
-        if(null != absTaskRunner){
+        if(null != absTaskRunner && absTaskRunner.taskStatusEnum != TaskStatusEnum.CANCEL){
             TaskStatusEnum  temp = absTaskRunner.doBackground();
             if(temp == TaskStatusEnum.SUCCESS ){
                 index++;
-                doBackground();
+                doSonTaskBackground();
             }else{
                 return  temp;
             }

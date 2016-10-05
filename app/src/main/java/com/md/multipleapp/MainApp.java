@@ -11,8 +11,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.advancedrecyclerview.RecyclerviewDemoActivity;
+import com.akingyin.sharelibs.taskManager.AbsTaskRunner;
+import com.akingyin.sharelibs.taskManager.MultiTaskManager;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 
@@ -32,6 +36,7 @@ public class MainApp  extends AppCompatActivity {
     public TextView    tv_data;
 
     public FloatingActionsMenu  menuMultipleActions;
+    MultiTaskManager  taskManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +93,17 @@ public class MainApp  extends AppCompatActivity {
 
             }
         });
+        findViewById(R.id.app_tasks).setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View v) {
+                if(null != taskManager){
+                    taskManager.cancelTasks();
 
+                }
+
+
+
+            }
+        });
         findViewById(R.id.app_inspectdata).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +121,8 @@ public class MainApp  extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     @Override

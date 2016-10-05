@@ -1,5 +1,6 @@
 package com.akingyin.sharelibs.taskManager;
 
+import com.akingyin.sharelibs.jlog.JLog;
 import com.akingyin.sharelibs.taskManager.enums.TaskManagerStatusEnum;
 import com.akingyin.sharelibs.taskManager.enums.TaskStatusEnum;
 
@@ -51,7 +52,7 @@ public class MultiTaskManager implements  ITaskResultCallBack{
         threadPool = Executors.newFixedThreadPool(nThreads);
     }
 
-    public void addTask(List<AbsTaskRunner> tasks) {
+    public void addTasks(List<AbsTaskRunner> tasks) {
         for (AbsTaskRunner taskRunner : tasks) {
             addTask(taskRunner);
         }
@@ -70,7 +71,7 @@ public class MultiTaskManager implements  ITaskResultCallBack{
 
 
 
-    public void startTask() {
+    public void executeTask() {
         for(AbsTaskRunner  taskRunner : queueTasks){
             threadPool.execute(taskRunner);
         }
@@ -104,6 +105,7 @@ public class MultiTaskManager implements  ITaskResultCallBack{
      * 取消正在下载的任务
      */
     public synchronized void cancelTasks() {
+        JLog.d("cancelTasks---");
         status.getAndSet(3);
         if (threadPool != null) {
             for(AbsTaskRunner  taskRunner : queueTasks){
@@ -119,11 +121,13 @@ public class MultiTaskManager implements  ITaskResultCallBack{
     }
     @Override
     public void onCallBack(TaskStatusEnum statusEnum, String error) {
+        JLog.d("onCallBack="+statusEnum.getName()+":"+error);
         if(status.get() == 4 || status.get() == 3 || status.get() ==5){
             return;
         }
         switch (statusEnum){
             case NETERROR:
+                JLog.d("new-error");
                 cancelTasks();
                 break;
             case SUCCESS:
@@ -154,6 +158,7 @@ public class MultiTaskManager implements  ITaskResultCallBack{
                     }
                 }
             }else{
+                JLog.d("网络错误");
                 callBack.onError(error,TaskManagerStatusEnum.NETError);
             }
         }

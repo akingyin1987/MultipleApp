@@ -18,13 +18,21 @@ import com.akingyin.jobmanagers.TestJobManager;
 import com.akingyin.jobmanagers.Testjob;
 import com.akingyin.receiver.ReceiverConstants;
 import com.akingyin.receiver.ReceiverUtil;
+import com.akingyin.sharelibs.jlog.JLog;
 import com.akingyin.sharelibs.jlog.util.FileUtils;
+import com.akingyin.sharelibs.taskManager.AbsTaskRunner;
+import com.akingyin.sharelibs.taskManager.ApiTaskCallBack;
+import com.akingyin.sharelibs.taskManager.MultiTaskManager;
+import com.akingyin.sharelibs.taskManager.enums.TaskManagerStatusEnum;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.md.multipleapp.AppInstallReceiver;
 import com.md.multipleapp.AutoInstall;
 import com.md.multipleapp.R;
+import com.md.multipleapp.TestTask;
 import com.md.multipleapp.UserEntity;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.math.RandomUtils;
@@ -215,29 +223,33 @@ public class ImplicitFragment extends Fragment{
         });
     }
 
-    private TestJobManager   testJobManager;
+    private MultiTaskManager testJobManager;
     public    void    testDbTransaction(){
         if(null != testJobManager){
-            testJobManager.cleanAllJobs();
+            testJobManager.cancelTasks();
         }
-        testJobManager = new TestJobManager();
-        testJobManager.setListion(new AsyncJobManager.OnJobManagerListion() {
-            @Override public void onProgress(int total, int press, int error) {
-                System.out.println("total="+total+":"+press+":"+error);
-            }
+        testJobManager = new MultiTaskManager();
+        List<AbsTaskRunner> testTasks = new ArrayList<>();
+        for(int i=0;i<40;i++){
 
-            @Override public void onError(String message) {
-                System.out.println("error="+message);
+            testTasks.add(new TestTask());
+
+        }
+        testJobManager.addTasks(testTasks);
+        testJobManager.setCallBack(new ApiTaskCallBack() {
+            @Override public void onCallBack(int total, int progress, int error) {
+                JLog.d("onCallBack"+total+":"+progress+":"+error);
             }
 
             @Override public void onComplete() {
-               System.out.println("onComplete");
+                JLog.d("onComplete");
+            }
+
+            @Override public void onError(String message, TaskManagerStatusEnum statusEnum) {
+                 JLog.d("onError"+message+":"+statusEnum.getName());
             }
         });
-        for(int i=0;i<100;i++){
-            testJobManager.onAddTask(new Testjob(i));
-        }
-        testJobManager.execute();
+        testJobManager.executeTask();
     }
 
     // 图片名
@@ -281,7 +293,7 @@ public class ImplicitFragment extends Fragment{
     @Override public void onDestroyView() {
         super.onDestroyView();
         if(null != testJobManager){
-            testJobManager.onDestory();
+            testJobManager.cancelTasks();
         }
     }
 }
