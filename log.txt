@@ -56,3 +56,12 @@ https://github.com/robinhood/ticker
 
 //一个多选适配器，还有非常好看的选中样式
 https://github.com/ManuelPeinado/MultiChoiceAdapter
+
+//很好看的选择条
+https://github.com/ceryle/RadioRealButton
+
+//很好看的ViewPager
+https://github.com/hackware1993/MagicIndicator
+
+//一个网络加载的图片VIEW（加载过程中会显示灰色）
+https://github.com/elye/loaderviewlibrary
