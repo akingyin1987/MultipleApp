@@ -19,30 +19,45 @@ public class TestTask  extends AbsTaskRunner {
 
 
   public TestTask() {
+
+  }
+
+  @Override public TaskStatusEnum onBefore() {
     for(int i=0;i<10;i++){
       TestSonTask   task = new TestSonTask();
       addTask(task);
     }
-  }
-
-  @Override public TaskStatusEnum onBefore() {
-    JLog.d("TestTask-onBefore"+getTag());
+    if(getTaskStatusEnum() == TaskStatusEnum.CANCEL){
+      return  TaskStatusEnum.CANCEL;
+    }
+  //  JLog.d("TestTask-onBefore"+getTag());
     return TaskStatusEnum.SUCCESS;
   }
 
   @Override public TaskStatusEnum onToDo() {
-    JLog.d("TestTask-onBefore"+getTag());
+   // JLog.d("TestTask-onBefore"+getTag());
     try {
       Thread.sleep(new Random().nextInt(1000));
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
     int  flag = new Random().nextInt(7);
-    JLog.d("flag="+flag);
-    if(flag==0){
+   // JLog.d("flag="+flag);
+    if(flag>=6){
+     return TaskStatusEnum.SUCCESS;
+    }
+    if(getTaskStatusEnum() == TaskStatusEnum.CANCEL){
+      return  TaskStatusEnum.CANCEL;
+    }
+    if(flag<=3){
       return TaskStatusEnum.SUCCESS;
     }
     return TaskStatusEnum.getName(flag);
+
+  }
+
+  @Override public void onCancel() {
+    super.onCancel();
 
   }
 }

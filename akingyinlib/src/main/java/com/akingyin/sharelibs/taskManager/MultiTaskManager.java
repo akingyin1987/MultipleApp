@@ -121,7 +121,7 @@ public class MultiTaskManager implements  ITaskResultCallBack{
     }
     @Override
     public void onCallBack(TaskStatusEnum statusEnum, String error) {
-        JLog.d("onCallBack="+statusEnum.getName()+":"+error);
+        JLog.d(status.get()+"onCallBack="+statusEnum.getName()+":"+error);
         if(status.get() == 4 || status.get() == 3 || status.get() ==5){
             return;
         }

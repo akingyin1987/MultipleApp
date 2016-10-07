@@ -25,6 +25,13 @@ public  abstract class AbsTaskRunner implements Runnable{
 
     private TaskStatusEnum    taskStatusEnum = TaskStatusEnum.NULL;
 
+    public TaskStatusEnum getTaskStatusEnum() {
+        return taskStatusEnum;
+    }
+
+    public void setTaskStatusEnum(TaskStatusEnum taskStatusEnum) {
+        this.taskStatusEnum = taskStatusEnum;
+    }
 
     //子任务只需要依次执行与当前任务在同一线程
     private List<AbsTaskRunner> queueTasks = new LinkedList<>();
@@ -77,7 +84,7 @@ public  abstract class AbsTaskRunner implements Runnable{
     }
 
     public   void    TaskOnNetError(){
-        taskStatusEnum = TaskStatusEnum.SUCCESS;
+        taskStatusEnum = TaskStatusEnum.NETERROR;
         errorMsg ="网络错误，请稍候再试";
         if(null != callBack){
             callBack.onCallBack(taskStatusEnum,errorMsg);
@@ -92,6 +99,7 @@ public  abstract class AbsTaskRunner implements Runnable{
     }
 
     public  void  TaskOnSuccess(){
+
         taskStatusEnum = TaskStatusEnum.SUCCESS;
         if(null != callBack){
             callBack.onCallBack(taskStatusEnum,errorMsg);
@@ -110,6 +118,7 @@ public  abstract class AbsTaskRunner implements Runnable{
             taskStatusEnum = TaskStatusEnum.CANCEL;
         }
 
+
     }
 
 
@@ -127,13 +136,12 @@ public  abstract class AbsTaskRunner implements Runnable{
     private      TaskStatusEnum  doBackground(){
 
         TaskOnDoing();
-        TaskStatusEnum  temp = doSonTaskBackground();
+        TaskStatusEnum  temp  = onBefore();
         if(temp == TaskStatusEnum.SUCCESS){
-            temp = onBefore();
-            if(temp == TaskStatusEnum.SUCCESS){
-                return  onToDo();
-            }
-
+            temp = doSonTaskBackground();
+        }
+        if(temp == TaskStatusEnum.SUCCESS){
+            return  onToDo();
         }
         if(temp == TaskStatusEnum.DOING || temp == TaskStatusEnum.WAITING){
             return  TaskStatusEnum.ERROR;
@@ -147,7 +155,13 @@ public  abstract class AbsTaskRunner implements Runnable{
     @Override
     public void run() {
 
+       if(taskStatusEnum == TaskStatusEnum.CANCEL){
+           System.out.println("取消");
+           return;
+       }
+
        taskStatusEnum =  doBackground();
+        System.out.println("run==="+getTag()+":"+taskStatusEnum.getName());
        switch (taskStatusEnum){
            case SUCCESS:
                TaskOnSuccess();
