@@ -29,10 +29,19 @@ public class TestSonTask  extends AbsTaskRunner {
       e.printStackTrace();
     }
     int  flag = new Random().nextInt(7);
-    JLog.d("flag="+flag);
-    if(flag == 0){
-      return  TaskStatusEnum.SUCCESS;
+
+    // JLog.d("flag="+flag);
+
+    if(getTaskStatusEnum() == TaskStatusEnum.CANCEL){
+      return  TaskStatusEnum.CANCEL;
+    }
+    if(flag>=6){
+      return TaskStatusEnum.SUCCESS;
+    }
+    if(flag<=3){
+      return TaskStatusEnum.SUCCESS;
     }
     return TaskStatusEnum.getName(flag);
+
   }
 }
