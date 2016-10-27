@@ -91,7 +91,7 @@ public class QueueTaskManager implements  ITaskResultCallBack{
     }
 
 
-    public boolean isOver() {
+    public  boolean isOver() {
         if (threadPool == null) {
             return true;
         }

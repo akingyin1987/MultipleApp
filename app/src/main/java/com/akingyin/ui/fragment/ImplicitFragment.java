@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.advancedrecyclerview.RecyclerviewDemoActivity;
 import com.akingyin.jobmanagers.AsyncJobManager;
+import com.akingyin.jobmanagers.DownloadFile2Task;
+import com.akingyin.jobmanagers.DownloadFileTask;
+import com.akingyin.jobmanagers.DownloadSingleFileTask;
 import com.akingyin.jobmanagers.TestJobManager;
 import com.akingyin.jobmanagers.Testjob;
 import com.akingyin.receiver.ReceiverConstants;
@@ -23,6 +26,8 @@ import com.akingyin.sharelibs.jlog.util.FileUtils;
 import com.akingyin.sharelibs.taskManager.AbsTaskRunner;
 import com.akingyin.sharelibs.taskManager.ApiTaskCallBack;
 import com.akingyin.sharelibs.taskManager.MultiTaskManager;
+import com.akingyin.sharelibs.taskManager.SingleTask;
+import com.akingyin.sharelibs.taskManager.TaskRunner;
 import com.akingyin.sharelibs.taskManager.enums.TaskManagerStatusEnum;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.md.multipleapp.AppInstallReceiver;
@@ -32,6 +37,7 @@ import com.md.multipleapp.TestTask;
 import com.md.multipleapp.UserEntity;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 import org.apache.commons.lang.RandomStringUtils;
@@ -149,7 +155,7 @@ public class ImplicitFragment extends Fragment{
             @Override
             public void onClick(View v) {
               // com.akingyin.ui.RecyclerviewActivity_.intent(getContext()).start();
-                com.akingyin.ui.ImageListActivity_.intent(getContext()).start();
+               // com.akingyin.ui.ImageListActivity_.intent(getContext()).start();
             }
         });
         view.findViewById(R.id.app_camera).setOnClickListener(new View.OnClickListener() {
@@ -228,17 +234,23 @@ public class ImplicitFragment extends Fragment{
         if(null != testJobManager){
             testJobManager.cancelTasks();
         }
-        testJobManager = new MultiTaskManager();
+        testJobManager = new MultiTaskManager(9);
         List<AbsTaskRunner> testTasks = new ArrayList<>();
-        for(int i=0;i<40;i++){
-
-            testTasks.add(new TestTask());
+        List<SingleTask>  singleTasks = new LinkedList<>();
+        String url="http://114.215.108.130/mrmseikfb/upload/image/2016-08-04/395363917c9e45869c8fe809b25aaecf.jpg";
+        String  sdpath = Environment.getExternalStorageDirectory().getPath()+File.separator+"temp";
+        for(int i=0;i<5000;i++){
+            // singleTasks.add(new DownloadSingleFileTask(i,url,sdpath));
+            testTasks.add(new DownloadFileTask(i,url,sdpath));
 
         }
+        TaskRunner  taskRunner = new TaskRunner();
+        taskRunner.addTask(singleTasks);
         testJobManager.addTasks(testTasks);
         testJobManager.setCallBack(new ApiTaskCallBack() {
             @Override public void onCallBack(int total, int progress, int error) {
-                JLog.d("onCallBack"+total+":"+progress+":"+error);
+                //JLog.d("onCallBack"+total+":"+progress+":"+error);
+                System.out.println("total="+total+":"+progress+":"+error);
             }
 
             @Override public void onComplete() {
@@ -246,7 +258,7 @@ public class ImplicitFragment extends Fragment{
             }
 
             @Override public void onError(String message, TaskManagerStatusEnum statusEnum) {
-                 JLog.d("onError"+message+":"+statusEnum.getName());
+               //  JLog.d("onError"+message+":"+statusEnum.getName());
             }
         });
         testJobManager.executeTask();
