@@ -44,6 +44,14 @@ import java.util.Set;
  */
 public class PreferencesUtil {
 
+  private   static   String    DefString="";
+  private   static   float    DefFloat = 0;
+  private   static   int      DefInt =0;
+  private   static   long     DefLong=0;
+  private   static   boolean  DefBoolean = false;
+
+
+
   private static  String   TAG = PreferencesUtil.class.getName();
 
   private static String defaultName = PreferencesUtil.class.getCanonicalName();
@@ -65,17 +73,29 @@ public class PreferencesUtil {
   public static boolean get(String key, boolean defValue) {
     return get(defaultName, key, defValue);
   }
-
+  public static boolean getBoolean(String key) {
+    return get(defaultName, key, DefBoolean);
+  }
   public static int get(String key, int defValue) {
     return get(defaultName, key, defValue);
+  }
+
+  public static int getInt(String key) {
+    return get(defaultName, key, DefInt);
   }
 
   public static float get(String key, float defValue) {
     return get(defaultName, key, defValue);
   }
-
+  public static float getFloat(String key) {
+    return get(defaultName, key, DefFloat);
+  }
   public static long get(String key, long defValue) {
     return get(defaultName, key, defValue);
+  }
+
+  public static String getString(String key) {
+    return get(defaultName, key, DefString);
   }
 
   public static String get(String key, String defValue) {
