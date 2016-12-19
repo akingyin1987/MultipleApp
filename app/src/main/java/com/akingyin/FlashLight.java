@@ -1,8 +1,10 @@
 package com.akingyin;
 
+import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Handler;
+import java.io.IOException;
 
 /**
  * <!-- 手电筒 -->
@@ -73,6 +75,12 @@ public class FlashLight {
     public boolean turnOnFlashLight() {
         openCamera();
         if (camera != null) {
+            try {
+                camera.setPreviewTexture(new SurfaceTexture(10));
+                //处理android 7.0无法打开
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             camera.startPreview();
             Camera.Parameters parameter = camera.getParameters();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ECLAIR) {
